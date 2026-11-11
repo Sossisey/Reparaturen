@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<!-- REPARATUREN – Index.html (dieselbe Datei läuft in Google und als index.html auf GitHub) -->
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" id="themeColor" content="#F9F9FB">
+<meta name="apple-mobile-web-app-title" content="Reparaturen">
+<base target="_top">
+<title>EDE Reparaturen</title>
+<script>
+/* ===== NUR FÜR DIE GITHUB-VERSION: hier die Adresse der Google-Web-App eintragen (endet auf /exec) ===== */
+var API_URL = "https://script.google.com/macros/s/AKfycbw1kzFV0V6hKoawdixybMZt-oMWf7znYn3DJLUSrxT9Y5LTRGBqz35f3qEUe0mdD82_/exec";
+/* Gewählte Darstellung (hell/dunkel) sofort setzen, damit nichts aufblitzt. */
+try{var th0=localStorage.getItem("r_theme");if(th0==="light"||th0==="dark")document.documentElement.setAttribute("data-theme",th0)}catch(e){}
+/* Fällt die erste Quelle für die QR-Bibliotheken aus, wird eine zweite versucht. */
+function altLib(p){var s=document.createElement("script");s.src="https://unpkg.com/"+p;document.head.appendChild(s)}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" onerror="altLib('jsqr@1.4.0/dist/jsQR.js')"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" onerror="altLib('qrcode-generator@1.4.4/qrcode.js')"></script>
+<style>
+/* ===== EDE Apple-Stil: Systemschrift, graue Fläche, weiße Gruppen, Gold nur für das Wichtigste ===== */
+:root{
+  color-scheme:light;
+  --bg:#F2F2F7; --card:#FFFFFF; --fill:#F2F2F7; --fill2:rgba(118,118,128,.12); --press:rgba(118,118,128,.24); --line:rgba(60,60,67,.14);
+  --bar:rgba(249,249,251,.88);
+  --fg:#1C1C1E; --muted:#636366; --faint:#8E8E93;
+  --accent:#7A5A12; --accent-fg:#FFFFFF; --accent-soft:#F4ECDB;
+  --green:#176F35; --green-soft:#E3F3E7; --on-green:#FFFFFF;
+  --red:#C4001A; --red-soft:#FBE7EA;
+  --orange:#8A5300; --orange-soft:#FCEFD9;
+  --blue:#0058C7; --blue-soft:#E4EEFB;
+  --purple:#6B3FA0; --purple-soft:#EFE7F8;
+  --teal:#0A6B72; --teal-soft:#DFF2F3;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --r:14px; --r-sm:10px; --r-lg:20px;
+}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#000000; --card:#1C1C1E; --fill:#2C2C2E; --fill2:rgba(118,118,128,.24); --press:rgba(118,118,128,.4); --line:rgba(84,84,88,.65);
+  --bar:rgba(22,22,24,.88);
+  --fg:#F2F2F7; --muted:#AEAEB2; --faint:#8E8E93;
+  --accent:#E3BC62; --accent-fg:#1C1300; --accent-soft:#362B10;
+  --green:#3DD06A; --green-soft:#12301C; --on-green:#04210E;
+  --red:#FF6B66; --red-soft:#3A1516;
+  --orange:#FFB54A; --orange-soft:#3A2A0E;
+  --blue:#6EB3FF; --blue-soft:#11243C;
+  --purple:#C7A4FF; --purple-soft:#291C3D;
+  --teal:#5FD3DB; --teal-soft:#0F2D30;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#000000; --card:#1C1C1E; --fill:#2C2C2E; --fill2:rgba(118,118,128,.24); --press:rgba(118,118,128,.4); --line:rgba(84,84,88,.65);
+  --bar:rgba(22,22,24,.88);
+  --fg:#F2F2F7; --muted:#AEAEB2; --faint:#8E8E93;
+  --accent:#E3BC62; --accent-fg:#1C1300; --accent-soft:#362B10;
+  --green:#3DD06A; --green-soft:#12301C; --on-green:#04210E;
+  --red:#FF6B66; --red-soft:#3A1516;
+  --orange:#FFB54A; --orange-soft:#3A2A0E;
+  --blue:#6EB3FF; --blue-soft:#11243C;
+  --purple:#C7A4FF; --purple-soft:#291C3D;
+  --teal:#5FD3DB; --teal-soft:#0F2D30;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.35 var(--font);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+[hidden]{display:none!important}
+h1,h2,h3,p{margin:0}
+a{color:var(--accent)}
+.vh{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* Kopfzeile */
+.top{position:sticky;top:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(8px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) 8px max(16px,env(safe-area-inset-left));background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand img{width:38px;height:38px;border-radius:50%;flex:none}
+.brand b{display:block;font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.15}
+.brand span{display:block;font-size:13px;color:var(--muted);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bt{min-width:0}
+.topr{display:flex;align-items:center;gap:8px;flex:none}
+.seg{display:inline-flex;background:var(--fill2);border-radius:9px;padding:2px}
+.seg button{border:0;background:none;color:var(--fg);font:600 13px/1 var(--font);min-width:40px;min-height:32px;padding:0 10px;border-radius:7px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.seg.wide{display:flex}
+.seg.wide button{flex:1;min-height:40px;font-size:15px;white-space:nowrap}
+.iconbtn{display:inline-grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:none;color:var(--accent);cursor:pointer;flex:none}
+.iconbtn.fill{background:var(--fill2);border-radius:12px}
+.iconbtn:active{background:var(--press)}
+
+/* Bereiche: am Handy Leiste unten, am Computer Umschalter oben */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-around;gap:4px;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:var(--bar);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:1px solid var(--line)}
+.tab{position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:50px;border:0;background:none;color:var(--muted);font:600 11px/1.1 var(--font);border-radius:10px;cursor:pointer}
+.tab .ic{width:26px;height:26px}
+.tab[aria-current="page"]{color:var(--accent)}
+.badge{position:absolute;top:2px;left:calc(50% + 8px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#D70015;color:#fff;font:700 12px/18px var(--font);font-style:normal;text-align:center}
+.wrap{max-width:820px;margin:0 auto;padding:14px max(16px,env(safe-area-inset-right)) 40px max(16px,env(safe-area-inset-left));display:grid;gap:14px}
+body.has-tabs .wrap{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+@media (min-width:820px){
+  body{font-size:16px}
+  .tabs{position:static;max-width:520px;margin:14px auto 0;padding:2px;border:0;border-radius:11px;background:var(--fill2);-webkit-backdrop-filter:none;backdrop-filter:none;gap:2px}
+  .tab{flex-direction:row;gap:8px;min-height:38px;font-size:15px;color:var(--fg);border-radius:9px}
+  .tab .ic{width:20px;height:20px}
+  .tab[aria-current="page"]{background:var(--card);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.14)}
+  .badge{position:static}
+  body.has-tabs .wrap{padding-bottom:40px}
+}
+section{display:grid;gap:14px;align-content:start}
+.stack{display:grid;gap:12px}
+.title{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.12}
+.sec{font-size:20px;font-weight:700;letter-spacing:-.01em;margin:10px 4px -4px}
+.cap{font-size:13px;font-weight:600;color:var(--muted);margin:8px 16px -6px}
+.hint{font-size:13px;color:var(--muted)}
+.muted{color:var(--muted)}
+.center{text-align:center;justify-items:center}
+
+/* Knöpfe */
+.btn{-webkit-appearance:none;appearance:none;border:0;border-radius:12px;min-height:44px;padding:10px 16px;font:600 17px/1.2 var(--font);background:var(--fill2);color:var(--accent);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none;transition:transform .12s ease,background-color .15s,opacity .15s;user-select:none;-webkit-user-select:none}
+.btn:active:not(:disabled){transform:scale(.97);background:var(--press)}
+.btn.primary{background:var(--accent);color:var(--accent-fg)}
+.btn.primary:active:not(:disabled){background:var(--accent);opacity:.82}
+.btn.tinted{background:var(--accent-soft)}
+.btn.plain{background:none;padding-left:8px;padding-right:8px}
+.btn.green{background:var(--green);color:var(--on-green)}
+.btn.green:active:not(:disabled){background:var(--green);opacity:.82}
+.btn.danger{color:var(--red)}
+.btn.danger.tinted{background:var(--red-soft)}
+.btn.big{min-height:54px;width:100%;border-radius:14px}
+.btn.small{min-height:36px;font-size:15px;padding:6px 12px;border-radius:10px}
+.btn:disabled{opacity:.38;cursor:default}
+.btn.loading{pointer-events:none;opacity:.6}
+.btn.loading::after{content:"";width:16px;height:16px;border-radius:50%;border:2px solid currentColor;border-top-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px}
+.btnrow .btn{flex:1 1 auto}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin:-6px -8px -8px}
+.back{font-weight:400}
+
+/* Felder */
+label.f{display:grid;gap:6px;font-size:13px;color:var(--muted);font-weight:500;min-width:0}
+input,select,textarea{font:400 17px/1.3 var(--font);color:var(--fg);background:var(--fill);border:1px solid transparent;border-radius:10px;min-height:44px;padding:10px 12px;width:100%;min-width:0;transition:border-color .15s,box-shadow .15s}
+select{-webkit-appearance:none;appearance:none;padding-right:34px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238E8E93' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 10l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:18px}
+textarea{min-height:76px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+input[type=checkbox],input[type=radio]{width:24px;height:24px;min-height:0;padding:0;accent-color:var(--accent);flex:none}
+input.bigin{font-size:24px;font-weight:700;letter-spacing:.01em}
+label.check{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.search{position:relative;flex:1;min-width:0}
+.search .ic{position:absolute;left:10px;top:50%;margin-top:-10px;width:20px;height:20px;color:var(--faint);pointer-events:none}
+.search input{background:var(--fill2);padding-left:38px}
+.searchrow{display:flex;gap:8px;align-items:center}
+
+/* Flächen und Listen */
+.card{background:var(--card);border-radius:var(--r);padding:16px}
+.group{background:var(--card);border-radius:var(--r);overflow:hidden}
+.item{position:relative;display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:12px 16px;border:0;background:none;text-align:left;color:inherit;font:inherit}
+.item+.item::before{content:"";position:absolute;left:16px;right:0;top:0;border-top:1px solid var(--line)}
+button.item{cursor:pointer}
+button.item:active{background:var(--fill2)}
+.item .main{flex:1;min-width:0;display:grid;gap:3px}
+.t1{font-weight:600;line-height:1.25}
+.t1 .nr{font-weight:700}
+.t2{font-size:15px;line-height:1.3}
+.t3{font-size:13px;color:var(--muted);line-height:1.3}
+.chev{color:var(--faint);width:18px;height:18px}
+.loc{font-weight:600;color:var(--c)}
+.loc::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:7px;vertical-align:.04em}
+.g-here{--c:var(--blue);--s:var(--blue-soft)} .g-away{--c:var(--teal);--s:var(--teal-soft)} .g-aalen{--c:var(--purple);--s:var(--purple-soft)} .g-abd{--c:var(--orange);--s:var(--orange-soft)}
+.g-call{--c:var(--green);--s:var(--green-soft)} .g-wait{--c:var(--accent);--s:var(--accent-soft)} .g-prob{--c:var(--red);--s:var(--red-soft)} .g-done{--c:var(--muted);--s:var(--fill2)}
+.chip{display:inline-block;font-size:13px;font-weight:600;line-height:1.2;padding:3px 9px;border-radius:999px;background:var(--s,var(--fill2));color:var(--c,var(--fg));white-space:nowrap}
+.late{color:var(--red);font-weight:600}
+.empty{padding:28px 16px;text-align:center;color:var(--muted);font-size:15px}
+.role>.ic{width:26px;height:26px;color:var(--muted)}
+.role[aria-checked="true"]>.ic{color:var(--accent)}
+.role[aria-checked="true"] .mark{border-color:var(--accent);background:var(--accent);color:var(--accent-fg)}
+
+/* Übersicht */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{display:grid;gap:4px;align-content:start;text-align:left;min-height:76px;padding:12px 14px;border:0;border-radius:var(--r);background:var(--card);color:var(--fg);font:inherit;cursor:pointer;transition:transform .12s ease}
+.stat:active{transform:scale(.97)}
+.stat b{font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1;color:var(--c,var(--fg))}
+.stat span{font-size:13px;font-weight:600;color:var(--muted);line-height:1.2}
+.stat[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent)}
+.stat.zero b{color:var(--faint)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:2px 16px}
+.chips::-webkit-scrollbar{display:none}
+.fchip{flex:none;border:0;border-radius:999px;min-height:36px;padding:6px 14px;background:var(--fill2);color:var(--fg);font:600 15px/1.2 var(--font);cursor:pointer;white-space:nowrap}
+.fchip[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.chips select{flex:none;width:auto;min-height:36px;border-radius:999px;padding:6px 34px 6px 14px;font-size:15px;font-weight:600;background-color:var(--fill2)}
+.banner+.banner{margin-top:10px}
+.banner>span{flex:1}
+.banner{display:flex;align-items:center;gap:10px;width:100%;border:0;border-radius:var(--r);padding:12px 16px;background:var(--s);color:var(--c);font:600 15px/1.3 var(--font);text-align:left;cursor:pointer}
+
+/* Detail */
+.hero{display:grid;gap:12px}
+.bignr{font-size:15px;font-weight:600;color:var(--muted)}
+.name{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.locbig{display:flex;gap:12px;align-items:center;padding:14px;border-radius:12px;background:var(--s)}
+.locbig .dot{width:14px;height:14px;border-radius:50%;background:var(--c);flex:none}
+.locbig .lt{font-size:20px;font-weight:700;letter-spacing:-.01em;color:var(--c);line-height:1.2}
+.locbig .ls{font-size:15px;color:var(--fg)}
+.track{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.track>*{display:grid;gap:6px;font-size:12px;font-weight:500;color:var(--faint);text-align:center;line-height:1.2;overflow-wrap:normal;hyphens:auto}
+.track>*::before{content:"";height:5px;border-radius:3px;background:var(--fill2)}
+.track .on{color:var(--muted)} .track .on::before{background:var(--accent)}
+.track .cur{color:var(--fg);font-weight:700}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px}
+.kv dt{color:var(--muted)} .kv dd{margin:0;text-align:right;font-weight:500}
+.sum{text-align:right;font-weight:700}
+.itemrow{display:grid;grid-template-columns:1fr 104px auto;gap:8px;align-items:center}
+.itemrow .x{width:44px;height:44px;border:0;border-radius:10px;background:none;color:var(--red);font-size:18px;cursor:pointer}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.photo{position:relative;border-radius:10px;overflow:hidden;background:var(--fill);aspect-ratio:1}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo img[data-pv]{cursor:zoom-in}
+.photo button{position:absolute;top:4px;right:4px;width:32px;height:32px;border:0;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;font-size:15px;cursor:pointer}
+.hist{display:grid;gap:8px;font-size:15px}
+.hist div{display:grid;gap:1px}
+.hist time{font-size:13px;color:var(--muted)}
+details>summary{cursor:pointer;font-weight:600;color:var(--accent);min-height:28px;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px}
+details>summary::-webkit-details-marker{display:none}
+details>summary::after{content:"";width:9px;height:9px;border-right:2px solid var(--faint);border-bottom:2px solid var(--faint);transform:rotate(45deg);margin:0 6px 4px;transition:transform .15s;flex:none}
+details[open]>summary::after{transform:rotate(-135deg);margin-bottom:-4px}
+.note{padding:12px 14px;border-radius:12px;background:var(--s,var(--fill2));color:var(--c,var(--fg));font-size:15px;font-weight:500}
+.note.warn{--s:var(--orange-soft);--c:var(--orange)} .note.bad{--s:var(--red-soft);--c:var(--red)} .note.ok{--s:var(--green-soft);--c:var(--green)} .note.info{--s:var(--blue-soft);--c:var(--blue)}
+.okmark{width:64px;height:64px;border-radius:50%;background:var(--green);color:var(--on-green);display:grid;place-items:center}
+.okmark .ic{width:36px;height:36px;stroke-width:2.6}
+ol.steps{margin:0;padding-left:22px;display:grid;gap:6px;text-align:left;font-size:15px}
+
+/* Box, Scan, Einteilen */
+.scanres{display:grid;gap:4px;font-size:15px;background:var(--fill);border-radius:12px;padding:12px 14px}
+.scanres .big{font-size:20px;font-weight:700}
+.scanres .okl{color:var(--green);font-weight:500} .scanres .bad{color:var(--red);font-weight:500}
+.mark{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none;border:2px solid var(--faint);color:transparent}
+.mark.ok{border-color:var(--green);background:var(--green);color:var(--on-green)}
+.mark .ic{width:16px;height:16px;stroke-width:3}
+.dec{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+@media (max-width:600px){.dec{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.dec .btn{font-size:15px;padding:8px 6px;min-height:44px}
+.sortrow{padding:14px 16px;position:relative}
+.sortrow+.sortrow::before{content:"";position:absolute;left:16px;right:0;top:0;border-top:1px solid var(--line)}
+.linklike{border:0;background:none;padding:0;font:inherit;font-weight:600;color:var(--fg);text-align:left;cursor:pointer}
+.camwrap{position:relative;background:#000;border-radius:12px;overflow:hidden}
+.camwrap video{display:block;width:100%;height:min(40vh,420px);object-fit:cover}
+.camframe{position:absolute;inset:12%;border:3px solid rgba(255,255,255,.85);border-radius:16px;box-shadow:0 0 0 999px rgba(0,0,0,.18);pointer-events:none}
+.camlist{display:flex;flex-direction:column;gap:4px;max-height:22vh;overflow:auto}
+
+/* Tabellen (nur Geschäftsführung) */
+.scroll{overflow-x:auto}
+table.t{border-collapse:collapse;width:100%;font-size:15px}
+.t th,.t td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:middle}
+.t th{font-size:13px;font-weight:600;color:var(--muted)}
+.kpis{display:flex;gap:28px;flex-wrap:wrap}
+.kpis div{display:grid}
+.kpis b{font-size:28px;font-weight:700;letter-spacing:-.02em}
+.setrow{display:grid;grid-template-columns:44px 1fr 84px 1fr auto;gap:8px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.setrow:first-child{border-top:0}
+@media (max-width:600px){.setrow{grid-template-columns:44px 1fr 84px}.setrow .sP{grid-column:1/3}}
+
+/* Dialoge als Blatt von unten (Handy) bzw. in der Mitte (Computer) */
+dialog{border:0;padding:0;background:var(--card);color:var(--fg);border-radius:var(--r-lg);width:min(520px,calc(100vw - 24px));max-height:90vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+dialog::backdrop{background:rgba(0,0,0,.42)}
+.sheet{padding:20px;display:grid;gap:14px}
+.sheet h2{font-size:22px;font-weight:700;letter-spacing:-.015em}
+.inset{background:var(--fill)}
+.inset input{background:var(--card)}
+@media (max-width:600px){
+  dialog{width:100%;max-width:100%;margin:auto 0 0;border-radius:var(--r-lg) var(--r-lg) 0 0;max-height:92vh}
+  .sheet{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+}
+
+/* Rückmeldung */
+.busy{position:fixed;top:0;left:0;right:0;height:3px;z-index:90;background:linear-gradient(90deg,transparent,var(--accent),transparent) no-repeat;background-size:40% 100%;animation:busy 1.1s linear infinite}
+@keyframes busy{from{background-position:-70% 0}to{background-position:170% 0}}
+#toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));z-index:95;transform:translate(-50%,12px);width:max-content;max-width:min(92vw,520px);background:#1C1C1E;color:#fff;border-radius:14px;padding:12px 16px;font-size:15px;font-weight:500;line-height:1.3;box-shadow:0 8px 30px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+#toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+#toast.err{background:#B00018}
+:root[data-theme="dark"] #toast{background:#3A3A3C}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #toast{background:#3A3A3C}}
+/* Fotos groß ansehen – in der Seite, ohne neuen Tab */
+dialog.lightbox{width:100vw;max-width:100vw;height:100vh;height:100dvh;max-height:none;margin:0;border-radius:0;background:#000;color:#fff;overflow:hidden;box-shadow:none}
+dialog.lightbox[open]{display:flex;flex-direction:column}
+.lbTop,.lbNav{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none;font:600 15px/1.2 var(--font)}
+.lbTop{padding:calc(8px + env(safe-area-inset-top)) 12px 8px 18px}
+.lbNav{padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+.lbNav span{color:rgba(255,255,255,.7);font-weight:500;font-size:13px;text-align:center;flex:1}
+.lbTop button,.lbNav button{width:48px;height:48px;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font:400 26px/1 var(--font);cursor:pointer;flex:none}
+.lbNav button[hidden]{display:block!important;visibility:hidden}
+.lbStage{flex:1;min-height:0;overflow:auto;display:flex;align-items:center;justify-content:center;-webkit-overflow-scrolling:touch;touch-action:pan-x pan-y}
+.lbStage img{width:100%;height:100%;object-fit:contain;display:block;cursor:zoom-in}
+.lbStage.zoom{display:block}
+.lbStage.zoom img{width:260%;height:auto;cursor:zoom-out}
+/* Fahrt einer Box – wie eine Sendungsverfolgung */
+.trips{display:grid;gap:10px}
+.trip{display:grid;gap:8px;width:100%;border:0;border-radius:var(--r);padding:14px 16px;background:var(--card);color:var(--fg);font:400 15px/1.3 var(--font);text-align:left}
+button.trip{cursor:pointer}
+button.trip:active{background:var(--fill)}
+.trip .th{display:flex;align-items:center;gap:8px;min-width:0}
+.trip .th b{font-size:17px;font-weight:700;letter-spacing:-.01em}
+.trip .th .cnt{margin-left:auto;color:var(--muted);font-size:13px;white-space:nowrap}
+.trip .rt{color:var(--muted);font-size:13px}
+.trip .tt{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:700;color:var(--c);line-height:1.2}
+.trip .tt .dot{width:11px;height:11px;border-radius:50%;background:var(--c);flex:none}
+.trip .tm{color:var(--muted);font-size:13px}
+.trip .track{margin-top:2px}
+.hero .trip{background:var(--fill)}
+/* Druck: nur der Aufkleber, sonst nichts */
+#printArea{display:none}
+@media print{
+  html,body{background:#fff!important;margin:0!important;padding:0!important}
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:.01s!important}.busy{background:var(--accent);opacity:.5}}
+@media (prefers-reduced-transparency:reduce){.top,.tabs{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--bg)}}
+</style>
+</head>
+<body>
+<div class="busy" id="busy" hidden></div>
+<header class="top">
+  <div class="brand">
+    <img src="data:image/webp;base64,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" alt="">
+    <div class="bt"><b>Reparaturen</b><span id="whoami" data-notr>EDE Juwelier</span></div>
+  </div>
+  <div class="topr">
+    <div class="seg" role="group" aria-label="Sprache / Dil" data-notr>
+      <button id="l-de" aria-pressed="true">DE</button><button id="l-tr" aria-pressed="false">TR</button>
+    </div>
+    <button class="iconbtn" id="acctBtn" aria-label="Konto und Abmelden" hidden><i data-ic="person"></i></button>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs" aria-label="Bereiche" hidden>
+  <button class="tab" id="t-home"><i data-ic="list"></i><span>Reparaturen</span></button>
+  <button class="tab" id="t-box"><i data-ic="box"></i><span>Boxen</span><em class="badge" id="b-box" hidden data-notr></em></button>
+  <button class="tab" id="t-sort"><i data-ic="split"></i><span>Einteilen</span><em class="badge" id="b-sort" hidden data-notr></em></button>
+</nav>
+
+<main class="wrap">
+
+  <!-- Start -->
+  <section id="v-load">
+    <div class="card center stack"><p class="muted" id="loadMsg" data-notr>…</p><button class="btn" id="loadRetry" hidden>Nochmal versuchen</button></div>
+  </section>
+
+  <!-- Anmeldung: drei Zugänge -->
+  <section id="v-login" hidden>
+    <h1 class="title">Anmelden</h1>
+    <p class="muted">Wer bist du?</p>
+    <div class="group" role="radiogroup" aria-label="Wer bist du?">
+      <button class="item role" id="r-ma" role="radio"><i data-ic="person"></i><span class="main"><span class="t1">Mitarbeiter</span><span class="t3">Reparatur annehmen, Kunden anrufen, Abholung</span></span><span class="mark" data-notr><i data-ic="check"></i></span></button>
+      <button class="item role" id="r-fl" role="radio"><i data-ic="star"></i><span class="main"><span class="t1">Filialleiter</span><span class="t3">zusätzlich Boxen packen, fahren und auspacken</span></span><span class="mark" data-notr><i data-ic="check"></i></span></button>
+      <button class="item role" id="r-gf" role="radio"><i data-ic="case"></i><span class="main"><span class="t1">Geschäftsführung</span><span class="t3">alles, Einteilen in Aalen, Einstellungen</span></span><span class="mark" data-notr><i data-ic="check"></i></span></button>
+    </div>
+    <form class="card stack" id="loginForm" autocomplete="off">
+      <label class="f" id="lgStoreW">Laden<select id="lgStore"></select></label>
+      <label class="f" id="lgNoW">Personalnummer<input id="lgNo" maxlength="12" inputmode="numeric" autocomplete="off" placeholder="z. B. 1042"></label>
+      <label class="f" id="lgNameW" hidden>Dein Name<input id="lgName" maxlength="40" placeholder="z. B. Enes"></label>
+      <label class="f"><span id="lgPinLbl" data-notr>PIN</span><input id="lgPin" type="password" autocomplete="off" required></label>
+      <button class="btn primary big" type="submit" id="lgBtn"><span>Anmelden</span></button>
+      <p class="hint" id="lgHint" data-notr></p>
+    </form>
+  </section>
+
+  <!-- Übersicht -->
+  <section id="v-home" hidden>
+    <button class="btn primary big" id="newBtn"><i data-ic="plus"></i><span>Neue Reparatur</span></button>
+    <div id="homeAlert" data-notr></div>
+    <div class="stats" id="stats" data-notr></div>
+    <div id="trips" data-notr></div>
+    <div class="searchrow">
+      <div class="search"><i data-ic="search"></i><input id="q" type="search" placeholder="Name, Nummer oder Telefon" aria-label="Reparatur suchen" autocomplete="off"></div>
+      <button class="iconbtn fill" id="qScan" aria-label="QR-Code scannen"><i data-ic="qr"></i></button>
+    </div>
+    <div class="chips" id="chips" data-notr></div>
+    <div class="stack" id="list" data-notr></div>
+  </section>
+
+  <!-- Annahme -->
+  <section id="v-form" hidden>
+    <div class="navrow"><button class="btn plain back" id="formCancel"><i data-ic="back"></i><span>Abbrechen</span></button></div>
+    <h1 class="title" id="formTitle" data-notr></h1>
+    <form id="repForm" class="stack" autocomplete="off" novalidate>
+      <div class="card stack">
+        <label class="f">Nummer vom Reparaturschein<input id="fNr" class="bigin" maxlength="20" inputmode="numeric"></label>
+        <label class="f" id="fStoreFWrap" hidden>Laden<select id="fStoreF"></select></label>
+        <label class="f">Kundenname<input id="fName" maxlength="80" autocapitalize="words"></label>
+        <label class="f">Telefon<input id="fPhone" type="tel" maxlength="40" inputmode="tel"></label>
+        <label class="f">E-Mail (wenn der Kunde eine hat)<input id="fEmail" type="email" maxlength="80" inputmode="email" autocapitalize="off"></label>
+        <p class="hint" id="mailHint" data-notr></p>
+        <label class="check" id="fOptinWrap" hidden><input type="checkbox" id="fOptin"><span>Kunde möchte Angebote per E-Mail. Nur ankreuzen, wenn er es ausdrücklich will – er bekommt einen Bestätigungslink.</span></label>
+      </div>
+      <h2 class="sec">Was wird gemacht?</h2>
+      <div class="card stack">
+        <div class="stack" id="items" data-notr></div>
+        <div><button type="button" class="btn small tinted" id="addItem">+ weiteres Stück</button></div>
+        <div class="sum" id="formSum" data-notr></div>
+        <p class="hint">Der Preis steht nur hier in der App – nicht auf dem Schein für den Schmied.</p>
+      </div>
+      <div id="photoBox" class="stack">
+        <h2 class="sec">Foto vom Schmuck</h2>
+        <div class="card stack">
+          <div class="row2">
+            <span><input type="file" id="imgCam" class="vh" accept="image/*" capture="environment"><label class="btn tinted big" for="imgCam"><i data-ic="camera"></i><span>Foto aufnehmen</span></label></span>
+            <span><input type="file" id="imgPick" class="vh" accept="image/*" multiple><label class="btn big" for="imgPick"><span>Aus Galerie</span></label></span>
+          </div>
+          <div class="photos" id="formPhotos" data-notr></div>
+          <p class="hint" id="photoHint" data-notr></p>
+        </div>
+      </div>
+      <details class="card" id="moreBox">
+        <summary>Weitere Angaben</summary>
+        <div class="stack" style="margin-top:14px">
+          <label class="f">Abholung in Filiale<select id="fPickup"></select></label>
+          <label class="f">Sprache der E-Mails an den Kunden<select id="fLang" data-notr><option value="de">Deutsch</option><option value="tr">Türkçe</option></select></label>
+          <label class="f">Notiz (intern)<textarea id="fNotes" maxlength="600"></textarea></label>
+        </div>
+      </details>
+      <div class="note warn">Karat, Gramm und Auftrag gehören auf den Reparaturschein – nicht in die App.</div>
+      <button type="submit" class="btn primary big" id="formSave"><span id="formSaveTxt" data-notr></span></button>
+    </form>
+  </section>
+
+  <!-- Gespeichert -->
+  <section id="v-done" hidden>
+    <div class="card stack center">
+      <div class="okmark"><i data-ic="check"></i></div>
+      <h1 class="title">Gespeichert</h1>
+      <p class="muted" id="doneWho" data-notr></p>
+      <ol class="steps">
+        <li>QR-Aufkleber auf die Tüte der Reparatur kleben.</li>
+        <li>Karat, Gramm und Auftrag auf den Reparaturschein schreiben.</li>
+        <li>Reparatur zur Box legen – die Filialleitung scannt sie hinein.</li>
+      </ol>
+    </div>
+    <button class="btn primary big" id="doneNext"><i data-ic="plus"></i><span>Nächste Reparatur</span></button>
+    <button class="btn big" id="donePrint"><i data-ic="printer"></i><span>Aufkleber noch einmal drucken</span></button>
+    <button class="btn plain big" id="doneHome">Zur Übersicht</button>
+  </section>
+
+  <!-- Detail -->
+  <section id="v-detail" hidden>
+    <div class="navrow"><button class="btn plain back" id="dBack"><i data-ic="back"></i><span>Zurück</span></button></div>
+    <div class="stack" id="dBody" data-notr></div>
+  </section>
+
+  <!-- Boxen -->
+  <section id="v-box" hidden>
+    <h1 class="title">Boxen</h1>
+    <button class="btn primary big" id="boxScan"><i data-ic="qr"></i><span>Box scannen</span></button>
+    <p class="hint">Immer zuerst die Box scannen – danach die Reparaturen. Die App sagt dir dann, was zu tun ist.</p>
+    <h2 class="sec">Oder Box auswählen</h2>
+    <div class="group" id="boxList" data-notr></div>
+  </section>
+  <section id="v-boxone" hidden>
+    <div class="navrow"><button class="btn plain back" id="bxBack"><i data-ic="back"></i><span>Alle Boxen</span></button></div>
+    <div class="stack" id="bxBody" data-notr></div>
+  </section>
+
+  <!-- Einteilen (Geschäftsführung in Aalen) -->
+  <section id="v-sort" hidden>
+    <h1 class="title">Einteilen</h1>
+    <p class="hint">Boxen aus den Läden packst du unter „Boxen“ aus. Hier legst du fest, wie es mit jeder Reparatur weitergeht.</p>
+    <div class="stack" id="sortBody" data-notr></div>
+    <button class="btn plain" id="looseBtn">Ohne Box annehmen (QR-Code scannen)</button>
+    <div id="looseRes" data-notr></div>
+  </section>
+
+  <!-- Einstellungen (Geschäftsführung) -->
+  <section id="v-settings" hidden>
+    <div class="navrow"><button class="btn plain back" id="setBack"><i data-ic="back"></i><span>Zurück</span></button></div>
+    <h1 class="title">Einstellungen</h1>
+    <h2 class="sec">Läden und Laden-PINs</h2>
+    <div class="card stack">
+      <div id="setStores" data-notr></div>
+      <form class="btnrow" id="addStoreForm">
+        <label class="f" style="width:84px">Nr.<input id="nsId" maxlength="2" inputmode="numeric" placeholder="06"></label>
+        <label class="f" style="flex:1;min-width:150px">Name<input id="nsName" maxlength="40"></label>
+        <button type="submit" class="btn small" style="align-self:end;min-height:44px;flex:none">Laden hinzufügen</button>
+      </form>
+    </div>
+    <h2 class="sec">Boxen</h2>
+    <div class="card stack">
+      <p class="hint">Jeder Laden hat automatisch eine Box. Den Aufkleber einmal drucken und auf die Box kleben. Zusatzboxen kannst du hier anlegen.</p>
+      <div class="group inset" id="setBoxes" data-notr></div>
+      <form class="btnrow" id="addBoxForm">
+        <label class="f" style="flex:1;min-width:150px">Name der Zusatzbox<input id="nbName" maxlength="30" placeholder="z. B. Box 6"></label>
+        <button type="submit" class="btn small" style="align-self:end;min-height:44px;flex:none">Box hinzufügen</button>
+      </form>
+    </div>
+    <h2 class="sec">PINs</h2>
+    <form class="card stack" id="flPinForm">
+      <b>Filialleiter-PIN (eine für alle Filialleiter)</b>
+      <p class="hint" id="flHint" data-notr></p>
+      <div class="btnrow"><label class="f" style="flex:1;min-width:150px">Neue Filialleiter-PIN<input id="newFlPin" type="password" autocomplete="new-password" minlength="4"></label><button type="submit" class="btn small" style="align-self:end;min-height:44px;flex:none">Speichern</button></div>
+    </form>
+    <form class="card stack" id="gfPinForm">
+      <b>PIN der Geschäftsführung ändern</b>
+      <div class="btnrow"><label class="f" style="flex:1;min-width:130px">Neue PIN<input id="newGfPin" type="password" autocomplete="new-password" minlength="6"></label><label class="f" style="flex:1;min-width:130px">Wiederholen<input id="newGfPin2" type="password" autocomplete="new-password"></label><button type="submit" class="btn small" style="align-self:end;min-height:44px;flex:none">Ändern</button></div>
+    </form>
+    <h2 class="sec">E-Mail</h2>
+    <div class="card"><p class="hint" id="mailState" data-notr></p></div>
+  </section>
+
+  <!-- Werbe-E-Mails (Geschäftsführung) -->
+  <section id="v-mkt" hidden>
+    <div class="navrow"><button class="btn plain back" id="mktBack"><i data-ic="back"></i><span>Zurück</span></button></div>
+    <h1 class="title">Werbe-E-Mails</h1>
+    <div class="card stack">
+      <div class="kpis" id="mktKpis" data-notr></div>
+      <p class="hint">Hier stehen nur Kunden, die den Bestätigungslink in der E-Mail selbst angeklickt haben. Unbestätigte Anfragen werden nach 30 Tagen gelöscht. Wer sich abmeldet, wird komplett gelöscht.</p>
+      <details><summary>Liste ansehen</summary>
+        <div class="stack" style="margin-top:12px"><div><button class="btn small" id="mktCsv">Liste als CSV herunterladen</button></div>
+        <div class="scroll"><table class="t" id="mktTbl" data-notr></table></div></div>
+      </details>
+    </div>
+    <h2 class="sec">Werbe-E-Mail an alle senden</h2>
+    <form class="card stack" id="campForm">
+      <div class="note info">So geht's: 1. Vorlage wählen · 2. Bilder hinzufügen · 3. Vorschau ansehen · 4. Test an mich · 5. An alle senden. {name} wird automatisch durch den Namen des Kunden ersetzt.</div>
+      <label class="f">Vorlage<select id="cTpl" data-notr></select></label>
+      <label class="f">Betreff<input id="cSubj" maxlength="150" required></label>
+      <label class="f">Text (Absätze mit Leerzeile trennen)<textarea id="cText" style="min-height:200px" maxlength="5000" required></textarea></label>
+      <details id="cTrBox">
+        <summary>Türkische Fassung (für Kunden, die E-Mails auf Türkisch bekommen)</summary>
+        <div class="stack" style="margin-top:12px">
+          <label class="f">Betreff (Türkisch)<input id="cSubjTr" maxlength="150" data-notr></label>
+          <label class="f">Text (Türkisch)<textarea id="cTextTr" style="min-height:160px" maxlength="5000" data-notr></textarea></label>
+          <p class="hint">Leer lassen = alle bekommen die deutsche Fassung.</p>
+        </div>
+      </details>
+      <b>Bilder (bis zu 3)</b>
+      <div><input type="file" id="cImgPick" class="vh" accept="image/*" multiple><label class="btn small" for="cImgPick">Bilder hinzufügen</label></div>
+      <div class="photos" id="cImgs" data-notr></div>
+      <p class="hint">Die Bilder erscheinen oben in der E-Mail, in der Reihenfolge, in der du sie hinzufügst.</p>
+      <p class="hint" id="quotaHint" data-notr></p>
+      <p class="hint">Der Abmeldelink und das Impressum werden automatisch an jede E-Mail angehängt. Ist das Tageslimit erreicht, morgen einfach noch einmal senden – wer die E-Mail schon hat, bekommt sie nicht doppelt.</p>
+      <div class="btnrow"><button type="button" class="btn" id="cPreview">Vorschau</button></div>
+      <div class="btnrow"><label class="f" style="flex:1;min-width:180px">Test an diese Adresse<input id="cTestTo" type="email" data-notr></label><button type="button" class="btn" id="cTest" style="align-self:end;flex:none">Test an mich</button></div>
+      <button class="btn primary big" type="submit" id="cSend">An alle senden</button>
+    </form>
+  </section>
+</main>
+
+<div id="toast" role="status" aria-live="polite" data-notr></div>
+<input type="file" id="qrPhoto" accept="image/*" capture="environment" class="vh" aria-hidden="true" tabindex="-1">
+<dialog id="picDlg" class="lightbox" aria-label="Foto">
+  <div class="lbTop"><span id="picCount" data-notr></span><button type="button" id="picClose" aria-label="Schließen">✕</button></div>
+  <div class="lbStage" id="picStage"><img id="picImg" alt=""></div>
+  <div class="lbNav"><button type="button" id="picPrev" aria-label="Vorheriges Foto">‹</button><span>Aufs Foto tippen: vergrößern</span><button type="button" id="picNext" aria-label="Nächstes Foto">›</button></div>
+</dialog>
+<div id="printArea" aria-hidden="true" data-notr></div>
+<style id="printPage"></style>
+
+<!-- Konto / Gerät -->
+<dialog id="acctDlg"><div class="sheet">
+  <h2 id="acctWho" data-notr></h2>
+  <div class="group inset" id="acctGf" hidden>
+    <button class="item" id="goSet"><span class="main"><span class="t1">Läden, PINs und Boxen</span></span><i data-ic="chev"></i></button>
+    <button class="item" id="goMkt"><span class="main"><span class="t1">Werbe-E-Mails</span></span><i data-ic="chev"></i></button>
+  </div>
+  <div class="card inset stack">
+    <b>Darstellung</b>
+    <div class="seg wide" id="themeSeg" role="group" aria-label="Darstellung">
+      <button type="button" data-th="auto">Auto</button><button type="button" data-th="light">Hell</button><button type="button" data-th="dark">Dunkel</button>
+    </div>
+    <p class="hint">„Auto“ richtet sich nach dem Gerät. Die Auswahl gilt nur für dieses Gerät.</p>
+  </div>
+  <details class="card inset">
+    <summary>QR-Aufkleber: Größe für diesen Drucker</summary>
+    <div class="stack" style="margin-top:12px">
+      <div class="row2"><label class="f">Breite (mm)<input id="lblW" type="number" min="15" max="110" inputmode="numeric"></label><label class="f">Höhe (mm)<input id="lblH" type="number" min="15" max="150" inputmode="numeric"></label></div>
+      <button class="btn small" id="lblTest">Test-Aufkleber drucken</button>
+      <p class="hint">Die Größe wird nur auf diesem Gerät gespeichert.</p>
+    </div>
+  </details>
+  <button class="btn danger tinted big" id="logoutBtn">Abmelden</button>
+  <button class="btn plain big" id="acctClose">Schließen</button>
+</div></dialog>
+
+<!-- Abholung bestätigen -->
+<dialog id="pickDlg"><form class="sheet" id="pickForm" method="dialog">
+  <h2 id="pkTitle" data-notr></h2>
+  <p class="muted" id="pkWho" data-notr></p>
+  <div class="note warn">Nach dem Bestätigen werden Telefon, E-Mail, Preise, Fotos und Verlauf gelöscht. Es bleiben nur Nummer, Name und Datum.</div>
+  <button type="submit" class="btn primary big" id="pkOk">Bestätigen</button>
+  <button type="button" class="btn plain big" id="pkCancel">Abbrechen</button>
+</form></dialog>
+
+<!-- Problem melden -->
+<dialog id="noteDlg"><form class="sheet" id="noteForm" method="dialog">
+  <h2 id="ntTitle" data-notr></h2>
+  <label class="f">Was ist los? (kurz)<textarea id="ntText" maxlength="200"></textarea></label>
+  <button type="submit" class="btn primary big" id="ntOk">Melden</button>
+  <button type="button" class="btn plain big" id="ntCancel">Abbrechen</button>
+</form></dialog>
+
+<!-- Kamera -->
+<dialog id="camDlg"><div class="sheet">
+  <h2 id="camTitle" data-notr></h2>
+  <div class="camwrap"><video id="camVid" playsinline muted autoplay></video><div class="camframe"></div></div>
+  <p class="hint" id="camMsg" data-notr></p>
+  <div class="scanres" id="camRes"><span class="big" id="camCount" data-notr></span><div id="camList" class="camlist" data-notr></div></div>
+  <button class="btn primary big" id="camDone">Fertig</button>
+  <div class="row2"><button class="btn" id="camPhoto">Foto stattdessen</button><button class="btn plain" id="camCancel">Abbrechen</button></div>
+</div></dialog>
+
+<!-- Vorschau Werbe-Mail -->
+<dialog id="prevDlg" style="width:min(680px,calc(100vw - 24px))"><div class="sheet">
+  <h2>Vorschau</h2>
+  <iframe id="prevFrame" title="Vorschau" style="width:100%;height:62vh;border:1px solid var(--line);border-radius:10px;background:#fff"></iframe>
+  <button type="button" class="btn big" id="prevClose">Schließen</button>
+</div></dialog>
+<script>
+/* ================= Sprache (Deutsch ist die Grundlage, Türkisch per Wörterbuch) ================= */
+var TR={
+"Reparaturen":"Tamirler",
+"Anmelden":"Giriş",
+"Mitarbeiter":"Çalışan",
+"Filialleiter":"Şube müdürü",
+"Geschäftsführung":"Yönetim",
+"Laden":"Mağaza",
+"Personalnummer":"Personel numarası",
+"Dein Name":"Adın",
+"Neue Reparatur":"Yeni tamir",
+"Abbrechen":"İptal",
+"Kundenname":"Müşteri adı",
+"Telefon":"Telefon",
+"Foto aufnehmen":"Fotoğraf çek",
+"Abholung in Filiale":"Teslim alınacak şube",
+"Notiz (intern)":"Not (dahili)",
+"Einstellungen":"Ayarlar",
+"Läden und Laden-PINs":"Mağazalar ve mağaza PIN'leri",
+"Nr.":"No.",
+"Name":"Ad",
+"Laden hinzufügen":"Mağaza ekle",
+"Speichern":"Kaydet",
+"PIN der Geschäftsführung ändern":"Yönetim PIN'ini değiştir",
+"Neue PIN":"Yeni PIN",
+"Wiederholen":"Tekrarla",
+"Ändern":"Değiştir",
+"E-Mail":"E-posta",
+"Hier stehen nur Kunden, die den Bestätigungslink in der E-Mail selbst angeklickt haben. Unbestätigte Anfragen werden nach 30 Tagen gelöscht. Wer sich abmeldet, wird komplett gelöscht.":"Burada sadece e-postadaki onay bağlantısına kendisi tıklayan müşteriler var. Onaylanmayan talepler 30 gün sonra silinir. Abonelikten çıkan tamamen silinir.",
+"Liste als CSV herunterladen":"Listeyi CSV olarak indir",
+"Werbe-E-Mail an alle senden":"Herkese reklam e-postası gönder",
+"Vorlage":"Şablon",
+"Betreff":"Konu",
+"Text (Absätze mit Leerzeile trennen)":"Metin (paragrafları boş satırla ayır)",
+"Türkische Fassung (für Kunden, die E-Mails auf Türkisch bekommen)":"Türkçe metin (e-postaları Türkçe alan müşteriler için)",
+"Betreff (Türkisch)":"Konu (Türkçe)",
+"Text (Türkisch)":"Metin (Türkçe)",
+"Leer lassen = alle bekommen die deutsche Fassung.":"Boş bırakılırsa herkes Almanca metni alır.",
+"Bilder (bis zu 3)":"Resimler (en fazla 3)",
+"Bilder hinzufügen":"Resim ekle",
+"Die Bilder erscheinen oben in der E-Mail, in der Reihenfolge, in der du sie hinzufügst.":"Resimler e-postanın üstünde, eklediğin sırayla görünür.",
+"Der Abmeldelink und das Impressum werden automatisch an jede E-Mail angehängt. Ist das Tageslimit erreicht, morgen einfach noch einmal senden – wer die E-Mail schon hat, bekommt sie nicht doppelt.":"Abonelikten çıkma bağlantısı ve künye her e-postaya otomatik eklenir. Günlük limit dolarsa yarın tekrar gönder – alan kişi ikinci kez almaz.",
+"Vorschau":"Önizleme",
+"Test an diese Adresse":"Test adresi",
+"Test an mich":"Bana test gönder",
+"An alle senden":"Herkese gönder",
+"QR-Aufkleber: Größe für diesen Drucker":"QR etiketi: bu yazıcı için boyut",
+"Breite (mm)":"Genişlik (mm)",
+"Höhe (mm)":"Yükseklik (mm)",
+"Abmelden":"Çıkış",
+"Schließen":"Kapat",
+"Nach dem Bestätigen werden Telefon, E-Mail, Preise, Fotos und Verlauf gelöscht. Es bleiben nur Nummer, Name und Datum.":"Onaydan sonra telefon, e-posta, fiyatlar, fotoğraflar ve geçmiş silinir. Sadece numara, ad ve tarih kalır.",
+"Bestätigen":"Onayla",
+"Fertig":"Bitti",
+"Foto stattdessen":"Bunun yerine fotoğraf",
+"z. B. 1042":"örn. 1042",
+"z. B. Enes":"örn. Enes",
+"06":"06",
+"In index.html ist die Server-Adresse (API_URL) noch nicht eingetragen.":"index.html içinde sunucu adresi (API_URL) henüz girilmemiş.",
+"Keine Verbindung zum Server – Internet prüfen.":"Sunucuya bağlantı yok – interneti kontrol et.",
+"Der Server antwortet nicht richtig. In Google prüfen: Bereitstellung „Zugriff: Jeder“ und neue Version.":"Sunucu doğru yanıt vermiyor. Google'da kontrol et: dağıtım „Erişim: Herkes“ ve yeni sürüm.",
+"PIN falsch. Nach 10 Fehlversuchen ist die Anmeldung 10 Minuten gesperrt.":"PIN yanlış. 10 hatalı denemeden sonra giriş 10 dakika kilitlenir.",
+"Leitung":"Müdür",
+"PIN der Geschäftsführung":"Yönetim PIN'i",
+"Filialleiter-PIN":"Şube müdürü PIN'i",
+"Laden-PIN":"Mağaza PIN'i",
+"Noch keine PIN festgelegt: In Code.gs bei ADMIN_PIN eintragen, „setup“ ausführen und neu bereitstellen.":"Henüz PIN yok: Code.gs içinde ADMIN_PIN'e yaz, „setup“ çalıştır ve yeniden yayınla.",
+"Bitte deine Personalnummer eingeben.":"Lütfen personel numaranı gir.",
+"In der Türkei":"Türkiye'de",
+"Bei Abdullah":"Abdullah'ta",
+"nicht repariert":"tamir edilmedi",
+"Problem":"Sorun",
+"Vermisst":"Kayıp",
+"Abgeholt":"Teslim alındı",
+"Ohne Reparatur zurückgegeben":"Tamirsiz geri verildi",
+"{n}× angerufen":"{n}× arandı",
+"{n}× nicht erreicht":"{n}× ulaşılamadı",
+"seit {n} Tagen bei uns":"{n} gündür bizde",
+"Abholung in {s}":"Teslim: {s}",
+"über 4 Wochen":"4 haftayı geçti",
+"Alle offenen":"Tüm açıklar",
+"Über 4 Wochen":"4 haftadan fazla",
+"Abgeschlossen":"Kapananlar",
+"Alle Läden":"Tüm mağazalar",
+"Keine Reparaturen.":"Tamir yok.",
+"In allen Läden suchen":"Tüm mağazalarda ara",
+"Reparatur bearbeiten":"Tamiri düzenle",
+"Änderungen speichern":"Değişiklikleri kaydet",
+"Bitte die E-Mail-Adresse prüfen.":"Lütfen e-posta adresini kontrol et.",
+"z. B. Kette – Verschluss neu":"örn. Zincir – yeni kilit",
+"Stück entfernen":"Parçayı kaldır",
+"Summe":"Toplam",
+"Foto entfernen":"Fotoğrafı kaldır",
+"Foto konnte nicht gelesen werden.":"Fotoğraf okunamadı.",
+"Höchstens {n} Fotos pro Reparatur.":"Tamir başına en fazla {n} fotoğraf.",
+"Abholbereit":"Hazır",
+"Frist {d}":"Süre {d}",
+"Abgeschlossen am {d}. Die Daten wurden gelöscht.":"{d} tarihinde kapandı. Veriler silindi.",
+"Angerufen":"Arandı",
+"Nicht erreicht":"Ulaşılamadı",
+"zuletzt {d}":"son {d}",
+"Notiz":"Not",
+"Abholung in":"Teslim şubesi",
+"Bestätigung gesendet {d}":"Onay gönderildi {d}",
+"Abholbereit-Mail {d}":"Hazır e-postası {d}",
+"QR-Aufkleber drucken":"QR etiketi yazdır",
+"Status korrigieren (nur Geschäftsführung)":"Durumu düzelt (sadece yönetim)",
+"Setzen":"Ayarla",
+"Verlauf":"Geçmiş",
+"Gespeichert.":"Kaydedildi.",
+"E-Mail gesendet.":"E-posta gönderildi.",
+"Wirklich ändern?":"Gerçekten değiştirilsin mi?",
+"angerufen":"arandı",
+"Fotos":"Fotoğraflar",
+"Noch keine Fotos.":"Henüz fotoğraf yok.",
+"Fotos werden geladen …":"Fotoğraflar yükleniyor …",
+"QR-Bibliothek nicht geladen – Internet prüfen.":"QR kütüphanesi yüklenmedi – interneti kontrol et.",
+"Drucken nicht möglich: {e}":"Yazdırılamıyor: {e}",
+"Foto konnte nicht geöffnet werden.":"Fotoğraf açılamadı.",
+"{n} QR-Codes erkannt":"{n} QR kod tanındı",
+"Kamera wird gestartet …":"Kamera başlatılıyor …",
+"Türkei":"Türkiye",
+"{n} Reparaturen":"{n} tamir",
+"Herausnehmen":"Çıkar",
+"Hinzufügen":"Ekle",
+"{a} von {b} gescannt":"{b} içinden {a} tarandı",
+"fertig":"bitti",
+"bestätigt":"onaylı",
+"warten auf Bestätigung":"onay bekliyor",
+"Bestätigt":"Onaylandı",
+"Entfernen":"Kaldır",
+"Wirklich?":"Emin misin?",
+"Heute noch etwa {n} E-Mails möglich (Google-Tageslimit).":"Bugün yaklaşık {n} e-posta daha gönderilebilir (Google günlük limiti).",
+"Höchstens 3 Bilder pro E-Mail.":"E-posta başına en fazla 3 resim.",
+"Impressum und Abmeldelink werden hier automatisch angehängt.":"Künye ve abonelikten çıkma bağlantısı buraya otomatik eklenir.",
+"Bitte zuerst eine Vorlage wählen oder Betreff und Text eintragen.":"Lütfen önce bir şablon seç veya konu ve metin gir.",
+"Bitte eine gültige E-Mail-Adresse für den Test eingeben.":"Lütfen test için geçerli bir e-posta adresi gir.",
+"Test gesendet an {e}. Bitte im Postfach prüfen.":"Test {e} adresine gönderildi. Lütfen posta kutunu kontrol et.",
+"An {n} Adressen senden?":"{n} adrese gönderilsin mi?",
+"{s} gesendet, {l} offen (morgen erneut senden).":"{s} gönderildi, {l} kaldı (yarın tekrar gönder).",
+"Kürzel":"Kısaltma",
+"Laden-PIN: 4–8 Ziffern.":"Mağaza PIN'i: 4–8 rakam.",
+"Kunden-E-Mails sind eingeschaltet.":"Müşteri e-postaları açık.",
+"Kunden-E-Mails sind ausgeschaltet (MAIL_ON in Code.gs).":"Müşteri e-postaları kapalı (Code.gs içinde MAIL_ON).",
+"Ladennummer: zwei Ziffern, z. B. 06.":"Mağaza numarası: iki rakam, örn. 06.",
+"Die beiden PINs stimmen nicht überein.":"İki PIN aynı değil.",
+"PIN geändert.":"PIN değiştirildi.",
+"Aus Sicherheitsgründen abgemeldet (20 Minuten keine Bedienung).":"Güvenlik nedeniyle çıkış yapıldı (20 dakika işlem yok).",
+"In Aalen angekommen":"Aalen'e geldi",
+"In Aalen fertig":"Aalen'de bitti",
+"In Code.gs ist noch keine PIN der Geschäftsführung eingetragen (ADMIN_PIN). Eintragen, „pinZuruecksetzen“ ausführen und neu bereitstellen.":"Code.gs içinde henüz yönetim PIN'i yok (ADMIN_PIN). Yaz, „pinZuruecksetzen“ çalıştır ve yeniden yayınla.",
+"Zu viele Fehlversuche – die Anmeldung ist 10 Minuten gesperrt.":"Çok fazla hatalı deneme – giriş 10 dakika kilitli.",
+"Unterwegs":"Yolda",
+"– Vorlage wählen –":"– Şablon seç –",
+"Neue Kollektion":"Yeni koleksiyon",
+"Aktion / Rabatt":"Kampanya / indirim",
+"Weihnachten":"Yılbaşı",
+"Valentinstag":"Sevgililer Günü",
+"Muttertag":"Anneler Günü",
+"Altgold-Ankauf":"Eski altın alımı",
+"Reinigung & Service":"Temizlik & servis",
+"Nicht reparierbar":"Tamir edilemez",
+"Bitte die Nummer vom Reparaturschein eintragen.":"Lütfen tamir fişindeki numarayı gir.",
+"Bitte den Kundennamen eintragen.":"Lütfen müşteri adını gir.",
+"Bitte Telefon oder E-Mail eintragen, sonst können wir den Kunden nicht erreichen.":"Lütfen telefon veya e-posta gir, yoksa müşteriye ulaşamayız.",
+"Bitte mindestens ein Foto vom Schmuck machen.":"Lütfen takıdan en az bir fotoğraf çek.",
+"Die Leitungs-PIN steht fest in Code.gs (LEITER_PIN).":"Müdür PIN'i Code.gs içinde sabit (LEITER_PIN).",
+"In Google läuft noch die alte Version. Bitte Code.gs ersetzen und unter „Bereitstellungen verwalten“ eine neue Version bereitstellen.":"Google'da hâlâ eski sürüm çalışıyor. Lütfen Code.gs dosyasını değiştir ve „Dağıtımları yönet“ altında yeni bir sürüm dağıt.",
+"Es gibt eine neuere Version dieser Seite. Bitte die Seite neu laden.":"Bu sayfanın daha yeni bir sürümü var. Lütfen sayfayı yenile.",
+"seit heute abholbereit":"bugünden beri teslime hazır",
+"seit gestern abholbereit":"dünden beri teslime hazır",
+"heute angenommen":"bugün kabul edildi",
+"seit gestern bei uns":"dünden beri bizde",
+"1 Foto":"1 fotoğraf",
+"1 Foto ansehen":"1 fotoğrafı gör",
+"Den oberen Knopf tippt der Fahrer, wenn er die Box mitnimmt.":"Üstteki düğmeye, kutuyu yanına alan sürücü dokunur.",
+"Bitte den Preis als Zahl eintragen, z. B. 25 oder 25,50.":"Lütfen fiyatı sayı olarak gir, örn. 25 veya 25,50.",
+"wird dort abgeholt":"orada teslim alınacak",
+"heute {t}":"bugün {t}",
+"gestern {t}":"dün {t}",
+"Box":"Kutu",
+"In {s} angekommen":"{s} şubesine ulaştı",
+"{b} wird gerade ausgepackt":"{b} şu an boşaltılıyor",
+"geht nach {s} – wartet auf den Fahrer":"{s} mağazasına gidecek – sürücüyü bekliyor",
+"geht zu Abdullah – wartet auf den Fahrer":"Abdullah'a gidecek – sürücüyü bekliyor",
+"wird gerade in die {b} gepackt":"şu an {b} içine yerleştiriliyor",
+"wartet auf den Fahrer":"sürücüyü bekliyor",
+"{b} · abgeholt {t}":"{b} · {t} alındı",
+"{b} · seit {t}":"{b} · {t} itibarıyla",
+"Wird in {s} gepackt":"{s} şubesinde dolduruluyor",
+"Fertig gepackt in {s} – wartet auf den Fahrer":"{s} şubesinde hazır – sürücüyü bekliyor",
+"In {s} angekommen – wird ausgepackt":"{s} şubesine ulaştı – boşaltılıyor",
+"Packen":"Doldurma",
+"Abholung":"Teslim alma",
+"Fahrt":"Yol",
+"Ankunft":"Varış",
+"Boxen unterwegs":"Yoldaki kutular",
+"Alle {n} Boxen anzeigen":"{n} kutunun hepsini göster",
+"In der {b}":"{b} içinde",
+"In dieser Box":"Bu kutuda",
+"Foto vergrößern":"Fotoğrafı büyüt",
+"Foto {i} von {n}":"Fotoğraf {i} / {n}",
+"Weg der Box":"Kutunun yolu",
+"Darstellung":"Görünüm",
+"Automatisch":"Otomatik",
+"Hell":"Açık",
+"Dunkel":"Koyu",
+"Automatisch richtet sich nach dem Gerät. Die Auswahl gilt nur für dieses Gerät.":"Otomatik, cihazın ayarına uyar. Seçim yalnızca bu cihaz için geçerlidir.",
+"Aufs Foto tippen: vergrößern":"Büyütmek için fotoğrafa dokun",
+"Foto":"Fotoğraf",
+"Vorheriges Foto":"Önceki fotoğraf",
+"Nächstes Foto":"Sonraki fotoğraf",
+"✕":"✕",
+"‹":"‹",
+"›":"›",
+"Auto":"Otomatik",
+"„Auto“ richtet sich nach dem Gerät. Die Auswahl gilt nur für dieses Gerät.":"„Otomatik“, cihazın ayarına uyar. Seçim yalnızca bu cihaz için geçerlidir.",
+"Boxen":"Kutular",
+"Einteilen":"Yönlendirme",
+"Nochmal versuchen":"Tekrar dene",
+"Wer bist du?":"Sen kimsin?",
+"Reparatur annehmen, Kunden anrufen, Abholung":"Tamir kabulü, müşteriyi arama, teslim",
+"zusätzlich Boxen packen, fahren und auspacken":"ayrıca kutuları doldurma, taşıma ve boşaltma",
+"alles, Einteilen in Aalen, Einstellungen":"her şey, Aalen'de yönlendirme, ayarlar",
+"Nummer vom Reparaturschein":"Tamir fişindeki numara",
+"E-Mail (wenn der Kunde eine hat)":"E-posta (müşterinin varsa)",
+"Kunde möchte Angebote per E-Mail. Nur ankreuzen, wenn er es ausdrücklich will – er bekommt einen Bestätigungslink.":"Müşteri e-posta ile kampanya almak istiyor. Yalnızca açıkça isterse işaretle – kendisine bir onay bağlantısı gider.",
+"Was wird gemacht?":"Ne yapılacak?",
+"+ weiteres Stück":"+ parça ekle",
+"Der Preis steht nur hier in der App – nicht auf dem Schein für den Schmied.":"Fiyat yalnızca burada, uygulamada durur – usta için olan fişte yazmaz.",
+"Foto vom Schmuck":"Takının fotoğrafı",
+"Aus Galerie":"Galeriden",
+"Weitere Angaben":"Diğer bilgiler",
+"Sprache der E-Mails an den Kunden":"Müşteriye giden e-postaların dili",
+"Karat, Gramm und Auftrag gehören auf den Reparaturschein – nicht in die App.":"Ayar, gram ve yapılacak iş tamir fişine yazılır – uygulamaya değil.",
+"Gespeichert":"Kaydedildi",
+"QR-Aufkleber auf die Tüte der Reparatur kleben.":"QR etiketini tamirin poşetine yapıştır.",
+"Karat, Gramm und Auftrag auf den Reparaturschein schreiben.":"Ayar, gram ve yapılacak işi tamir fişine yaz.",
+"Reparatur zur Box legen – die Filialleitung scannt sie hinein.":"Tamiri kutunun yanına koy – şube müdürü onu kutuya tarar.",
+"Nächste Reparatur":"Sonraki tamir",
+"Aufkleber noch einmal drucken":"Etiketi tekrar yazdır",
+"Zur Übersicht":"Listeye dön",
+"Zurück":"Geri",
+"Box scannen":"Kutuyu tara",
+"Immer zuerst die Box scannen – danach die Reparaturen. Die App sagt dir dann, was zu tun ist.":"Her zaman önce kutuyu tara – sonra tamirleri. Uygulama sana ne yapacağını söyler.",
+"Oder Box auswählen":"Veya kutuyu seç",
+"Alle Boxen":"Tüm kutular",
+"Boxen aus den Läden packst du unter „Boxen“ aus. Hier legst du fest, wie es mit jeder Reparatur weitergeht.":"Mağazalardan gelen kutuları „Kutular“ bölümünde boşaltırsın. Burada her tamirin nereye gideceğini belirlersin.",
+"Ohne Box annehmen (QR-Code scannen)":"Kutusuz teslim al (QR kodu tara)",
+"Jeder Laden hat automatisch eine Box. Den Aufkleber einmal drucken und auf die Box kleben. Zusatzboxen kannst du hier anlegen.":"Her mağazanın otomatik olarak bir kutusu vardır. Etiketi bir kez yazdırıp kutuya yapıştır. Ek kutuları buradan ekleyebilirsin.",
+"Name der Zusatzbox":"Ek kutunun adı",
+"Box hinzufügen":"Kutu ekle",
+"PINs":"PIN'ler",
+"Filialleiter-PIN (eine für alle Filialleiter)":"Şube müdürü PIN'i (tüm şube müdürleri için tek)",
+"Neue Filialleiter-PIN":"Yeni şube müdürü PIN'i",
+"Werbe-E-Mails":"Reklam e-postaları",
+"Liste ansehen":"Listeyi gör",
+"So geht's: 1. Vorlage wählen · 2. Bilder hinzufügen · 3. Vorschau ansehen · 4. Test an mich · 5. An alle senden. {name} wird automatisch durch den Namen des Kunden ersetzt.":"Nasıl yapılır: 1. Şablon seç · 2. Resim ekle · 3. Önizlemeye bak · 4. Bana test gönder · 5. Herkese gönder. {name} otomatik olarak müşterinin adıyla değiştirilir.",
+"Läden, PINs und Boxen":"Mağazalar, PIN'ler ve kutular",
+"Test-Aufkleber drucken":"Deneme etiketi yazdır",
+"Die Größe wird nur auf diesem Gerät gespeichert.":"Boyut yalnızca bu cihazda kaydedilir.",
+"Was ist los? (kurz)":"Ne oldu? (kısaca)",
+"Melden":"Bildir",
+"Konto und Abmelden":"Hesap ve çıkış",
+"Bereiche":"Bölümler",
+"Name, Nummer oder Telefon":"Ad, numara veya telefon",
+"Reparatur suchen":"Tamir ara",
+"QR-Code scannen":"QR kodu tara",
+"z. B. Box 6":"örn. Kutu 6",
+"Der Server antwortet nicht. Bitte Internet prüfen und noch einmal versuchen.":"Sunucu yanıt vermiyor. Lütfen interneti kontrol et ve tekrar dene.",
+"Kein Internet. Bitte Verbindung prüfen und noch einmal versuchen.":"İnternet yok. Lütfen bağlantıyı kontrol et ve tekrar dene.",
+"Bitte neu anmelden.":"Lütfen tekrar giriş yap.",
+"Es gibt noch keine Filialleiter-PIN. Die Geschäftsführung legt sie in den Einstellungen fest.":"Henüz şube müdürü PIN'i yok. Yönetim bunu ayarlardan belirler.",
+"Bitte die PIN eingeben.":"Lütfen PIN'i gir.",
+"seit {d}":"{d} tarihinden beri",
+"Im Laden {s}":"{s} mağazasında",
+"wartet auf die Box":"kutuyu bekliyor",
+"In der Box in {s}":"{s} mağazasında kutuda",
+"wartet auf Abholung":"alınmayı bekliyor",
+"Unterwegs nach {s}":"{s} yolunda",
+"In {s}":"{s} şubesinde",
+"nicht reparierbar – kommt zurück":"tamir edilemez – geri geliyor",
+"wird dort repariert":"orada tamir ediliyor",
+"geht zu Abdullah":"Abdullah'a gidecek",
+"wird eingeteilt":"yönlendirilecek",
+"Fertig in {s}":"{s} şubesinde hazır",
+"kommt zurück in den Laden":"mağazaya geri geliyor",
+"Unterwegs zu Abdullah":"Abdullah'a gidiyor",
+"fertig repariert":"tamir edildi",
+"Kunde anrufen":"Müşteriyi ara",
+"Zurück in {s}":"{s} mağazasına geri geldi",
+"nicht repariert – Kunde anrufen":"tamir edilmedi – müşteriyi ara",
+"Abholbereit in {s}":"{s} mağazasında teslime hazır",
+"Kunde nicht erreicht – noch einmal anrufen":"Müşteriye ulaşılamadı – tekrar ara",
+"Kunde weiß Bescheid":"Müşterinin haberi var",
+"bitte klären":"lütfen çöz",
+"bitte suchen und melden":"lütfen ara ve bildir",
+"anderer Laden":"başka mağaza",
+"seit {n} Tagen abholbereit":"{n} gündür teslime hazır",
+"1 Box wartet auf dich – jetzt auspacken":"1 kutu seni bekliyor – şimdi boşalt",
+"{n} Boxen warten auf dich – jetzt auspacken":"{n} kutu seni bekliyor – şimdi boşalt",
+"1 Reparatur wartet auf deine Einteilung":"1 tamir yönlendirmeni bekliyor",
+"{n} Reparaturen warten auf deine Einteilung":"{n} tamir yönlendirmeni bekliyor",
+"1 Reparatur mit Problem oder vermisst – bitte ansehen":"1 tamirde sorun var veya kayıp – lütfen bak",
+"{n} Reparaturen mit Problem oder vermisst – bitte ansehen":"{n} tamirde sorun var veya kayıp – lütfen bak",
+"Suche in allen Läden":"Tüm mağazalarda arama",
+"Nichts gefunden.":"Hiçbir şey bulunamadı.",
+"Bei Reparaturen anderer Läden siehst du nur Nummer, Name und Ort.":"Başka mağazaların tamirlerinde yalnızca numara, ad ve yeri görürsün.",
+"Noch keine offenen Reparaturen. Oben auf „Neue Reparatur“ tippen.":"Henüz açık tamir yok. Yukarıda „Yeni tamir“e dokun.",
+"Suche":"Arama",
+"Hier nichts gefunden.":"Burada bir şey bulunamadı.",
+"Abgeschlossene der letzten {n} Tage. Ältere findest du über die Suche in allen Läden.":"Son {n} günde kapananlar. Daha eskileri tüm mağazalarda arama ile bulursun.",
+"Alle {n} anzeigen":"{n} kaydın hepsini göster",
+"Das ist der Aufkleber einer Box. Boxen bearbeitet die Filialleitung.":"Bu bir kutunun etiketi. Kutularla şube müdürü ilgilenir.",
+"Speichern und Aufkleber drucken":"Kaydet ve etiketi yazdır",
+"Ohne E-Mail bekommt der Kunde keine Nachricht – dann anrufen.":"E-posta olmadan müşteriye mesaj gitmez – o zaman ara.",
+"Der Kunde bekommt eine E-Mail, sobald die Reparatur abholbereit ist.":"Tamir teslime hazır olunca müşteriye e-posta gider.",
+"Preis €":"Fiyat €",
+"{n} Fotos":"{n} fotoğraf",
+"Mindestens ein Foto, damit man das Stück später erkennt.":"En az bir fotoğraf, parça sonra tanınabilsin diye.",
+"Änderungen gespeichert.":"Değişiklikler kaydedildi.",
+"Nr. {n}":"No. {n}",
+"Annahme":"Kabul",
+"Reparatur":"Tamir",
+"Angenommen am {d}":"Kabul tarihi {d}",
+"Problem ist geklärt":"Sorun çözüldü",
+"Danach geht es dort weiter, wo die Reparatur vorher war.":"Bundan sonra tamir, daha önce olduğu yerden devam eder.",
+"Wieder gefunden":"Tekrar bulundu",
+"Nur tippen, wenn das Stück wirklich wieder da ist.":"Yalnızca parça gerçekten geri geldiyse dokun.",
+"Bitte suchen. Ist das Stück wieder da, bestätigt das die Filialleitung.":"Lütfen ara. Parça bulunursa bunu şube müdürü onaylar.",
+"Keine Telefonnummer gespeichert.":"Kayıtlı telefon numarası yok.",
+"Der Kunde bekommt eine E-Mail.":"Müşteriye e-posta gider.",
+"Kunde hat abgeholt":"Müşteri teslim aldı",
+"Sobald die Reparatur wieder im Laden ist, kannst du hier den Kunden anrufen und die Abholung bestätigen.":"Tamir tekrar mağazaya gelince buradan müşteriyi arayıp teslimi onaylayabilirsin.",
+"Problem melden":"Sorun bildir",
+"Angenommen von":"Kabul eden",
+"Bestätigung wird gerade gesendet":"Onay e-postası şu an gönderiliyor",
+"Bestätigung nicht gesendet":"Onay e-postası gönderilmedi",
+"Abholbereit-Mail wird gerade gesendet":"„Hazır“ e-postası şu an gönderiliyor",
+"Mehr":"Daha fazla",
+"Daten bearbeiten":"Bilgileri düzenle",
+"Abholbereit-Mail noch einmal senden":"„Hazır“ e-postasını tekrar gönder",
+"Als vermisst melden":"Kayıp olarak bildir",
+"Reparatur löschen (nur für Tests)":"Tamiri sil (yalnızca testler için)",
+"Gespeichert: Problem geklärt.":"Kaydedildi: sorun çözüldü.",
+"Gespeichert: wieder gefunden.":"Kaydedildi: tekrar bulundu.",
+"Korrektur":"Düzeltme",
+"Wirklich löschen?":"Gerçekten silinsin mi?",
+"Gespeichert: Kunde weiß Bescheid.":"Kaydedildi: müşterinin haberi var.",
+"Gespeichert: nicht erreicht.":"Kaydedildi: ulaşılamadı.",
+"Kunde hat abgeholt?":"Müşteri teslim aldı mı?",
+"Ohne Reparatur zurückgegeben?":"Tamir edilmeden geri verildi mi?",
+"Abgeschlossen – die Daten wurden gelöscht.":"Kapatıldı – veriler silindi.",
+"Bitte kurz beschreiben, was los ist.":"Lütfen ne olduğunu kısaca yaz.",
+"{n} Fotos ansehen":"{n} fotoğrafı gör",
+"Foto hinzufügen":"Fotoğraf ekle",
+"Kein Box-Aufkleber erkannt. Bitte näher herangehen oder die Box aus der Liste wählen.":"Kutu etiketi tanınmadı. Lütfen yaklaş veya kutuyu listeden seç.",
+"Kein QR-Code erkannt. Bitte näher herangehen.":"QR kodu tanınmadı. Lütfen yaklaş.",
+"{n} fremde ignoriert":"{n} yabancı kod yok sayıldı",
+"Reparaturen scannen":"Tamirleri tara",
+"Fertig – {n} übernehmen":"Bitti – {n} tanesini al",
+"Das ist der Aufkleber einer Reparatur. Bitte den Aufkleber der Box scannen.":"Bu bir tamirin etiketi. Lütfen kutunun etiketini tara.",
+"Kamera langsam über die Aufkleber führen. Jeder erkannte Code piept einmal.":"Kamerayı etiketlerin üzerinde yavaşça gezdir. Tanınan her kod bir kez bip sesi verir.",
+"Kamera auf den Aufkleber halten.":"Kamerayı etikete tut.",
+"Kamera nicht verfügbar ({e}). Kamera im Browser erlauben oder „Foto stattdessen“ nutzen.":"Kamera kullanılamıyor ({e}). Tarayıcıda kameraya izin ver veya „Bunun yerine fotoğraf“ kullan.",
+"Leer":"Boş",
+"Wird gepackt":"Dolduruluyor",
+"Fertig gepackt – wartet auf den Fahrer":"Hazır – sürücüyü bekliyor",
+"Wird ausgepackt":"Boşaltılıyor",
+"Kein QR-Code erkannt. Bitte näher herangehen und noch einmal scannen.":"QR kodu tanınmadı. Lütfen yaklaş ve tekrar tara.",
+"1 Reparatur gescannt":"1 tamir tarandı",
+"{n} Reparaturen gescannt":"{n} tamir tarandı",
+"war schon gescannt":"zaten taranmıştı",
+"1 Reparatur":"1 tamir",
+"du bist dran":"sıra sende",
+"Noch keine Boxen.":"Henüz kutu yok.",
+"Diese Box kenne ich nicht. Bitte den Aufkleber der Box scannen.":"Bu kutuyu tanımıyorum. Lütfen kutunun etiketini tara.",
+"Im Laden {s} → {h}":"{s} mağazasında → {h}",
+"In {h} → Abdullah":"{h} → Abdullah",
+"In {h} → zurück nach {s}":"{h} → {s} mağazasına geri",
+"Bei Abdullah → {s}":"Abdullah'ta → {s}",
+"Karte":"Harita",
+"Achtung: Das ist die {a}, der Inhalt geht aber nach {s}. Wenn das so gewollt ist, einfach weitermachen.":"Dikkat: Bu {a}, ama içindekiler {s} mağazasına gidiyor. Böyle isteniyorsa devam et.",
+"Reparaturen hineinscannen":"Tamirleri kutuya tara",
+"Jede Reparatur scannen, die in diese Box kommt. Wohin die Box geht, erkennt die App an den Reparaturen.":"Bu kutuya giren her tamiri tara. Kutunun nereye gideceğini uygulama tamirlerden anlar.",
+"Das wartet auf eine Box":"Kutu bekleyenler",
+"Weitere hineinscannen":"Başka tamir tara",
+"Box ist fertig gepackt":"Kutu hazır",
+"In der Box":"Kutuda",
+"Fehlt noch":"Eksik olanlar",
+"Diese Reparaturen gehören auch in diese Box. Aufkleber unlesbar? Dann hier von Hand hinzufügen.":"Bu tamirler de bu kutuya ait. Etiket okunmuyor mu? O zaman buradan elle ekle.",
+"Ich hole die Box ab":"Kutuyu teslim alıyorum",
+"Ich nehme die Box mit":"Kutuyu yanıma alıyorum",
+"Schon bei Abdullah abgegeben":"Abdullah'a zaten bırakıldı",
+"Box ist schon in {s} – auspacken":"Kutu zaten {s} şubesinde – boşalt",
+"Bei Abdullah abgegeben":"Abdullah'a bırakıldı",
+"In {s} angekommen – auspacken":"{s} şubesine ulaştı – boşalt",
+"In {s} packt die Geschäftsführung die Box aus.":"{s} şubesinde kutuyu yönetim boşaltır.",
+"Etwas vergessen? Box wieder öffnen":"Bir şey mi unuttun? Kutuyu tekrar aç",
+"Auspacken fertig":"Boşaltma tamam",
+"Auspacken beenden (1 fehlt)":"Boşaltmayı bitir (1 eksik)",
+"Auspacken beenden ({n} fehlen)":"Boşaltmayı bitir ({n} eksik)",
+"Ohne Scan":"Taramadan",
+"Verlauf der Box":"Kutunun geçmişi",
+"Ohne Scan?":"Taramadan mı?",
+"Ist es wirklich 1 Stück? Dann bestätigen.":"Gerçekten 1 parça mı? O zaman onayla.",
+"Sind es wirklich {n} Stück? Dann bestätigen.":"Gerçekten {n} parça mı? O zaman onayla.",
+"Fertig gepackt.":"Kutu hazır.",
+"Gespeichert: Box ist unterwegs nach {s}.":"Kaydedildi: kutu {s} yolunda.",
+"Wirklich bei Abdullah abgegeben?":"Gerçekten Abdullah'a bırakıldı mı?",
+"Abgegeben. Die Box ist wieder frei.":"Bırakıldı. Kutu tekrar boş.",
+"Liegt es wirklich da?":"Gerçekten orada mı?",
+"1 fehlt – als vermisst melden?":"1 eksik – kayıp olarak bildirilsin mi?",
+"{n} fehlen – als vermisst melden?":"{n} eksik – kayıp olarak bildirilsin mi?",
+"Ausgepackt – {n} als vermisst gemeldet!":"Boşaltıldı – {n} tanesi kayıp olarak bildirildi!",
+"Alles ausgepackt. Die Box ist wieder frei.":"Hepsi boşaltıldı. Kutu tekrar boş.",
+"Neu in {s} – wohin?":"{s} şubesine yeni geldi – nereye?",
+"Alles eingeteilt. Neue Reparaturen erscheinen hier, sobald du eine Box ausgepackt hast.":"Hepsi yönlendirildi. Bir kutuyu boşalttığında yeni tamirler burada görünür.",
+"Wird in {s} repariert":"{s} şubesinde tamir ediliyor",
+"Wartet auf die Box zu Abdullah":"Abdullah kutusunu bekliyor",
+"Unter „Boxen“ eine Box scannen und diese Reparaturen hineinscannen.":"„Kutular“ bölümünde bir kutu tara ve bu tamirleri içine tara.",
+"Wartet auf die Box zurück in den Laden":"Mağazaya dönüş kutusunu bekliyor",
+"Pro Laden eine Box. Die App prüft, dass nichts in die falsche Box kommt.":"Her mağaza için bir kutu. Uygulama yanlış kutuya bir şey girmemesini kontrol eder.",
+"Laden-PIN gesetzt – neu eingeben":"Mağaza PIN'i ayarlı – yenisini gir",
+"noch keine Laden-PIN":"henüz mağaza PIN'i yok",
+"Aufkleber drucken":"Etiketi yazdır",
+"Die Filialleiter-PIN steht fest in Code.gs (LEITER_PIN).":"Şube müdürü PIN'i Code.gs içinde sabit (LEITER_PIN).",
+"Filialleiter-PIN ist gesetzt.":"Şube müdürü PIN'i ayarlı.",
+"Noch keine Filialleiter-PIN – Filialleiter können sich erst danach anmelden.":"Henüz şube müdürü PIN'i yok – şube müdürleri ancak ondan sonra giriş yapabilir.",
+"Bitte einen Namen angeben.":"Lütfen bir ad gir.",
+"Laden angelegt. Er hat automatisch eine Box.":"Mağaza eklendi. Otomatik olarak bir kutusu var.",
+"Bitte einen Namen für die Box eingeben.":"Lütfen kutu için bir ad gir.",
+"Box angelegt. Jetzt den Aufkleber drucken.":"Kutu eklendi. Şimdi etiketi yazdır.",
+"Filialleiter-PIN gespeichert.":"Şube müdürü PIN'i kaydedildi.",
+"Die neue PIN braucht mindestens 6 Zeichen.":"Yeni PIN en az 6 karakter olmalı.",
+"Lädt …":"Yükleniyor …",
+"Problem oder vermisst":"Sorunlu veya kayıp",
+"Wartet auf Abholung":"Teslim alınmayı bekliyor",
+"Im Laden":"Mağazada",
+"Unterwegs oder in Reparatur":"Yolda veya tamirde",
+"Im Laden angenommen":"Mağazada kabul edildi",
+"In der Box – wartet auf Abholung":"Kutuda – alınmayı bekliyor",
+"Unterwegs nach Aalen":"Aalen yolunda",
+"In der Box für Abdullah":"Abdullah kutusunda",
+"Bei Abdullah abgeholt – unterwegs in den Laden":"Abdullah'tan alındı – mağaza yolunda",
+"In der Box zurück in den Laden":"Mağazaya dönüş kutusunda",
+"Fertig im Laden angekommen":"Hazır, mağazaya ulaştı",
+"Zurück im Laden – konnte nicht repariert werden":"Mağazaya geri geldi – tamir edilemedi",
+"unbekannter QR-Code":"bilinmeyen QR kodu",
+"ist schon abgeschlossen":"zaten kapatılmış",
+"liegt schon in {s}":"zaten şurada: {s}",
+"ist schon in {s}":"zaten {s} şubesinde",
+"bleibt in {s} (Abholung dort)":"{s} şubesinde kalıyor (teslim orada)",
+"ist für die Türkei eingeteilt":"Türkiye'ye yönlendirildi",
+"wird in {s} repariert – erst „Fertig“ drücken":"{s} şubesinde tamir ediliyor – önce „Bitti“ye bas",
+"ist noch nicht eingeteilt (Geschäftsführung)":"henüz yönlendirilmedi (yönetim)",
+"kann gerade nicht eingepackt werden ({s})":"şu an kutuya konamaz ({s})",
+"gehört nicht in diese Box – sie geht nach {s}":"bu kutuya ait değil – {s} tarafına gidiyor",
+"gehört NICHT in diese Box":"bu kutuya ait DEĞİL",
+"Anrufen":"Aranacak",
+"Hier reparieren":"Burada tamir et",
+"Abdullah":"Abdullah",
+"Zurück (nicht reparierbar)":"Geri (tamir edilemez)",
+"Zurück und fertig":"Geri geldi ve bitti",
+"Bitte eintragen, was gemacht werden soll.":"Lütfen ne yapılacağını yaz.",
+"Unbekannte Funktion.":"Bilinmeyen işlem.",
+"Eintrag zu groß.":"Kayıt çok büyük.",
+"Gerade speichert jemand anderes. Bitte in ein paar Sekunden noch einmal versuchen.":"Şu an başka biri kaydediyor. Lütfen birkaç saniye sonra tekrar dene.",
+"Bild konnte nicht gelesen werden.":"Resim okunamadı.",
+"Bitte mit deiner Personalnummer anmelden.":"Lütfen personel numaranla giriş yap.",
+"Nur für die Geschäftsführung.":"Yalnızca yönetim için.",
+"Reparaturnummer vom Schein fehlt.":"Fişteki tamir numarası eksik.",
+"Kundenname fehlt.":"Müşteri adı eksik.",
+"E-Mail-Adresse ist ungültig.":"E-posta adresi geçersiz.",
+"Mindestens ein Stück mit Beschreibung eintragen.":"En az bir parçayı açıklamasıyla gir.",
+"Laden fehlt.":"Mağaza eksik.",
+"Nicht gefunden.":"Bulunamadı.",
+"Abgeschlossene Reparaturen können nicht mehr bearbeitet werden.":"Kapanmış tamirler artık düzenlenemez.",
+"Bitte über „Abholung“ abschließen.":"Lütfen „Teslim“ üzerinden kapat.",
+"Unbekannter Status.":"Bilinmeyen durum.",
+"Diese Reparatur ist abgeschlossen.":"Bu tamir kapatılmış.",
+"Diesen Status setzt die Geschäftsführung bzw. er ergibt sich aus den Box-Scans.":"Bu durumu yönetim belirler veya kutu taramalarından oluşur.",
+"Anrufen erst, wenn die Reparatur in der Filiale angekommen ist.":"Arama ancak tamir mağazaya ulaşınca yapılır.",
+"Das entscheidet die Geschäftsführung.":"Buna yönetim karar verir.",
+"Nur für Reparaturen, die in Aalen sind.":"Yalnızca Aalen'deki tamirler için.",
+"Unbekannte Auswahl.":"Bilinmeyen seçim.",
+"Das macht die Geschäftsführung in Aalen.":"Bunu Aalen'de yönetim yapar.",
+"Laden nicht gefunden.":"Mağaza bulunamadı.",
+"Hier gibt es nichts zu klären.":"Burada çözülecek bir şey yok.",
+"„Wieder gefunden“ bestätigt die Filialleitung oder die Geschäftsführung.":"„Tekrar bulundu“yu şube müdürü veya yönetim onaylar.",
+"Die Abholung bestätigt die Filialleitung.":"Teslimi şube müdürü onaylar.",
+"Bereits abgeschlossen.":"Zaten kapatılmış.",
+"Keine E-Mail-Adresse.":"E-posta adresi yok.",
+"Boxen bearbeiten Filialleitung und Geschäftsführung.":"Kutularla şube müdürü ve yönetim ilgilenir.",
+"Diese Box ist schon fertig gepackt.":"Bu kutu zaten hazır.",
+"Die Box ist leer.":"Kutu boş.",
+"Diese Box kann nicht mehr geöffnet werden.":"Bu kutu artık açılamaz.",
+"Diese Box wartet nicht auf Abholung.":"Bu kutu alınmayı beklemiyor.",
+"Diese Box geht nicht zu Abdullah.":"Bu kutu Abdullah'a gitmiyor.",
+"Diese Box kann gerade nicht ausgepackt werden.":"Bu kutu şu an boşaltılamaz.",
+"Erst die Box als angekommen bestätigen.":"Önce kutunun ulaştığını onayla.",
+"Diese Reparatur gehört nicht in diese Box.":"Bu tamir bu kutuya ait değil.",
+"Diese Box wird gerade nicht ausgepackt.":"Bu kutu şu an boşaltılmıyor.",
+"Die Box eines Ladens kann nicht entfernt werden.":"Bir mağazanın kutusu kaldırılamaz.",
+"In dieser Box sind noch Reparaturen.":"Bu kutuda hâlâ tamir var.",
+"Foto nicht gefunden.":"Fotoğraf bulunamadı.",
+"Betreff und Text eintragen.":"Konu ve metni gir.",
+"Die Laden-PIN darf nicht gleich der Leitungs-PIN sein.":"Mağaza PIN'i şube müdürü PIN'i ile aynı olamaz.",
+"Die Leitungs-PIN braucht mindestens 4 Zeichen.":"Şube müdürü PIN'i en az 4 karakter olmalı.",
+"Diese PIN ist schon eine Laden-PIN.":"Bu PIN zaten bir mağaza PIN'i.",
+"Die PIN steht fest in Code.gs (ADMIN_PIN). Dort ändern und neu bereitstellen.":"PIN Code.gs içinde sabit (ADMIN_PIN). Orada değiştir ve yeniden dağıt.",
+};
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{if(v==null||v==="")localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){}}
+var lang=lsGet("r_lang")==="tr"?"tr":"de";
+function T(s,o){var r=(lang==="tr"&&TR[s])||s;if(o)r=r.replace(/\{(\w+)\}/g,function(_,k){return o[k]==null?"":o[k]});return r}
+var staticText=[],staticAttr=[];
+function collectStatic(){
+  var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+    if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+    for(var p=n.parentNode;p;p=p.parentNode){if(p.nodeName==="SCRIPT"||p.nodeName==="STYLE"||(p.hasAttribute&&p.hasAttribute("data-notr")))return NodeFilter.FILTER_REJECT}
+    return NodeFilter.FILTER_ACCEPT}});
+  var n;while((n=w.nextNode()))staticText.push({n:n,de:n.nodeValue.trim(),raw:n.nodeValue});
+  document.querySelectorAll("[placeholder],[aria-label]").forEach(function(el){if(el.closest("[data-notr]"))return;["placeholder","aria-label"].forEach(function(a){if(el.hasAttribute(a))staticAttr.push({el:el,a:a,de:el.getAttribute(a)})})});
+}
+function applyStatic(){
+  staticText.forEach(function(x){x.n.nodeValue=x.raw.replace(x.de,T(x.de))});
+  staticAttr.forEach(function(x){x.el.setAttribute(x.a,T(x.de))});
+  document.documentElement.lang=lang;
+  $("l-de").setAttribute("aria-pressed",lang==="de");$("l-tr").setAttribute("aria-pressed",lang==="tr");
+}
+function setLang(l){lang=l;lsSet("r_lang",l);applyStatic();if(V.view==="form"&&form)fillFormTexts();render()}
+
+/* ================= Grundlagen ================= */
+var READY=["fertig_filiale","nicht_rep","angerufen","nicht_erreicht"],OPENB=["packen","verschlossen","unterwegs","angekommen"];
+function $(id){return document.getElementById(id)}
+function noop(){}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function pad(n){return String(n).padStart(2,"0")}
+function iso(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+function parse(s){var p=String(s).slice(0,10).split("-").map(Number);return new Date(p[0],p[1]-1,p[2])}
+function addDaysIso(s,n){var d=parse(s);d.setDate(d.getDate()+n);return iso(d)}
+function dayDiff(a,b){return Math.round((parse(b)-parse(a))/864e5)}
+function de(s){if(!s)return "";s=String(s);return s.slice(8,10)+"."+s.slice(5,7)+"."+s.slice(0,4)+(s.length>10?" "+s.slice(11,16):"")}
+function deShort(s){if(!s)return "";s=String(s);return s.slice(8,10)+"."+s.slice(5,7)+"."+(s.length>10?" "+s.slice(11,16):"")}
+function nowStamp(){var d=new Date();return iso(d)+" "+pad(d.getHours())+":"+pad(d.getMinutes())}
+function num(v){var n=Number(String(v==null?"":v).replace(",","."));return isFinite(n)?n:0}
+function eur(n){return (Number(n)||0).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"}
+function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(e||"").trim())}
+function arm(b,txt){if(b.dataset.armed==="1")return true;b.dataset.armed="1";b.dataset.txt=b.textContent;b.textContent=txt;setTimeout(function(){if(b.isConnected&&b.dataset.armed==="1"){b.dataset.armed="";b.textContent=b.dataset.txt}},5000);return false}
+
+/* Symbole (einheitlich, Strichstärke wie die Schrift) */
+var IC={
+  plus:'<path d="M12 5v14M5 12h14"/>',chev:'<path d="M9 6l6 6-6 6"/>',back:'<path d="M15 5l-7 7 7 7"/>',check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  list:'<path d="M8.5 7h11M8.5 12h11M8.5 17h11M4.5 7h.01M4.5 12h.01M4.5 17h.01"/>',
+  box:'<path d="M3.5 8.2 12 4l8.5 4.2v7.6L12 20l-8.5-4.2zM3.5 8.2 12 12.4l8.5-4.2M12 12.4V20"/>',
+  split:'<path d="M5 20V4M5 12h5a5 5 0 0 0 5-5V5M12.5 7.5 15 5l2.5 2.5M10 12a5 5 0 0 1 5 5v2M12.5 16.5 15 19l2.5-2.5"/>',
+  person:'<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4.5 20a7.5 7.5 0 0 1 15 0"/>',
+  star:'<path d="M10 12a3.6 3.6 0 1 0 0-7.2A3.6 3.6 0 0 0 10 12zM3.5 20a6.5 6.5 0 0 1 13 0M18.8 3.2l.8 1.7 1.9.3-1.4 1.3.4 1.9-1.7-.9-1.7.9.4-1.9-1.4-1.3 1.9-.3z"/>',
+  "case":'<path d="M4 8h16v11H4zM9 8V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M4 13h16"/>',
+  gear:'<path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
+  qr:'<path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2.5v2.5H14zM20 14v.01M17.5 17.5H20V20h-2.5zM14 20v.01"/>',
+  phone:'<path d="M6.6 3.5h3l1.5 4-2 1.5a12 12 0 0 0 5.9 5.9l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7 2 2 0 0 1 6.6 3.5z"/>',
+  camera:'<path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><path d="M12 16.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>',
+  printer:'<path d="M7 8V4h10v4M7 17H5a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2M7 14h10v6H7z"/>',
+  warn:'<path d="M12 4 2.8 19.5h18.4zM12 10v4.5M12 17.2h.01"/>',search:'<path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4"/>'
+};
+function ic(n,cls){return '<svg class="ic'+(cls?" "+cls:"")+'" viewBox="0 0 24 24" aria-hidden="true">'+IC[n]+"</svg>"}
+document.querySelectorAll("[data-ic]").forEach(function(e){e.outerHTML=ic(e.getAttribute("data-ic"))});
+
+/* ================= Zustand ================= */
+var auth={pin:lsGet("r_pin")||"",store:lsGet("r_store")||"",spin:lsGet("r_spin")||"",name:lsGet("r_name")||"",as:lsGet("r_as")||""};
+var D={stores:[],reps:[],bags:[],boxes:[],hub:"01",role:"",gf:false,fl:false,store:"",today:iso(new Date()),weeks:4,recentDays:30,maxImages:8,pinSet:true,flSet:true,mailOn:true,quota:-1,marketing:null};
+var V={view:"load",tab:"home",filt:"offen",store:"",q:"",sr:null,cap:120,rep:null,back:"home",box:null,saved:null,role:lsGet("r_role")||"ma",loaded:false,showPics:false};
+var extra={},form=null,newPhotos=[],detailImgs={id:"",list:null},lastScan=null,pending=0,seq=0,tried=false;
+
+/* ================= Rückmeldung ================= */
+var toastT=0;
+function toast(msg,err){var t=$("toast");if(!msg){t.classList.remove("show");return}t.textContent=msg;t.classList.toggle("err",!!err);t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("show")},err?8000:3500)}
+$("toast").onclick=function(){toast("")};
+function busy(n){pending=Math.max(0,pending+n);$("busy").hidden=!pending}
+
+/* ================= Server ================= */
+var API=4;   // muss zu „api“ in Code.gs passen
+var OLD_SERVER="In Google läuft noch die alte Version. Bitte Code.gs ersetzen und unter „Bereitstellungen verwalten“ eine neue Version bereitstellen.";
+function inGas(){return !!(window.google&&google.script&&google.script.run)}
+function cleanErr(e){return String((e&&e.message)||e||"").replace(/^(Error|Exception|ScriptError):\s*/,"")}
+function rawApi(fn,args){return new Promise(function(res,rej){
+  var done=false,to=setTimeout(function(){no(new Error(T("Der Server antwortet nicht. Bitte Internet prüfen und noch einmal versuchen.")))},70000);
+  function ok(v){if(done)return;done=true;clearTimeout(to);res(v)}
+  function no(e){if(done)return;done=true;clearTimeout(to);rej(new Error(cleanErr(e)))}
+  if(navigator.onLine===false){no(new Error(T("Kein Internet. Bitte Verbindung prüfen und noch einmal versuchen.")));return}
+  if(inGas()){var r=google.script.run.withSuccessHandler(ok).withFailureHandler(no);
+    if(typeof r[fn]!=="function"){no(new Error(T(OLD_SERVER)));return}r[fn].apply(r,args);return}
+  if(!/^https:\/\/script\.google(usercontent)?\.com\//.test(API_URL||"")){no(new Error(T("In index.html ist die Server-Adresse (API_URL) noch nicht eingetragen.")));return}
+  fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({fn:fn,args:args})})
+    .then(function(r){return r.text()},function(){throw new Error(T("Keine Verbindung zum Server – Internet prüfen."))})
+    .then(function(t){var j;try{j=JSON.parse(t)}catch(e){throw new Error(T("Der Server antwortet nicht richtig. In Google prüfen: Bereitstellung „Zugriff: Jeder“ und neue Version."))}
+      if(j&&j.ok)ok(j.data);else no(new Error(j&&j.error==="Unbekannte Funktion."?T(OLD_SERVER):((j&&j.error)||"Serverfehler")))}).catch(no)})}
+/* Schreibende Aufrufe laufen nacheinander. Die Oberfläche zeigt die Änderung sofort; kommt ein Fehler zurück, wird der echte Stand neu geladen. */
+var chain=Promise.resolve();
+function call(fn){
+  var args=[].slice.call(arguments,1).concat([auth]);busy(1);seq++;
+  var p=chain.then(function(){return rawApi(fn,args)});chain=p.then(noop,noop);
+  return p.then(function(d){busy(-1);seq++;if(d&&d.stores&&!pending)setData(d);return d},
+    function(e){busy(-1);seq++;toast(T(e.message),true);refresh();throw e});
+}
+function refresh(){if(pending)return;var s=seq;rawApi("getData",[auth]).then(function(d){if(s===seq&&!pending)setData(d)}).catch(noop)}
+var LOGIN_ERR={nopin:"In Code.gs ist noch keine PIN der Geschäftsführung eingetragen (ADMIN_PIN). Eintragen, „pinZuruecksetzen“ ausführen und neu bereitstellen.",locked:"Zu viele Fehlversuche – die Anmeldung ist 10 Minuten gesperrt."};
+function setData(d){
+  if(!d||!d.stores){toast(T("Der Server antwortet nicht richtig. In Google prüfen: Bereitstellung „Zugriff: Jeder“ und neue Version."),true);return}
+  if((d.api||0)<API&&!setData.warned){setData.warned=true;setTimeout(function(){toast(T(OLD_SERVER),true)},600)}
+  else if((d.api||0)>API&&!setData.warned){setData.warned=true;setTimeout(function(){toast(T("Es gibt eine neuere Version dieser Seite. Bitte die Seite neu laden."),true)},600)}
+  var was=!!D.role;D=d;V.loaded=true;
+  if(!d.role){
+    if(auth.pin||auth.spin){toast(T(tried?(LOGIN_ERR[d.loginError]||"PIN falsch. Nach 10 Fehlversuchen ist die Anmeldung 10 Minuten gesperrt."):"Bitte neu anmelden."),true);auth.pin="";auth.spin="";lsSet("r_pin",null);lsSet("r_spin",null)}
+    tried=false;extra={};closeDialogs();if(V.view!=="login")go("login");else render();return}
+  lsSet("r_pin",auth.pin);lsSet("r_store",auth.store);lsSet("r_spin",auth.spin);lsSet("r_name",auth.name);lsSet("r_as",auth.as||"");
+  if(auth.pin)lsSet("r_gname",auth.name);else lsSet("r_pnr",auth.name);
+  tried=false;
+  D.reps.forEach(function(o){delete extra[o.id]});
+  if(!was||V.view==="login"||V.view==="load"){var first=V.view==="load";toast("");V.store=D.gf?"":D.store;V.filt="offen";V.q="";$("q").value="";
+    var keep=first?ssGet():null;   // das Handy lädt die Seite nach einem Foto manchmal neu – dann dort weitermachen
+    if(keep&&(D.fl||D.gf)&&keep.view==="boxone"&&(D.boxes||[]).some(function(x){return x.id===keep.box})){V.box=keep.box;go("boxone")}
+    else if(keep&&(D.fl||D.gf)&&keep.view==="box")go("box");
+    else if(keep&&D.gf&&keep.view==="sort")go("sort");
+    else go("home")}else render();
+}
+function allReps(){return D.reps.concat(Object.keys(extra).map(function(k){return extra[k]}))}
+function findRep(id){return D.reps.find(function(o){return o.id===id})||extra[id]||null}
+function storeName(id){var s=D.stores.find(function(x){return x.id===id});return s?s.name:id}
+function cityOf(id){var s=D.stores.find(function(x){return x.id===id});return s&&s.city?s.city:id}
+function storeOpts(sel){return D.stores.map(function(s){return '<option value="'+s.id+'"'+(s.id===sel?" selected":"")+">"+esc(s.name)+"</option>"}).join("")}
+
+/* ================= Ansichten ================= */
+var VIEWS=["load","login","home","form","done","detail","box","boxone","sort","settings","mkt"];
+var TABOF={home:"home",form:"home",done:"home",box:"box",boxone:"box",sort:"sort"};
+function ssGet(){try{return JSON.parse(sessionStorage.getItem("r_view")||"null")}catch(e){return null}}
+function go(v,keep){V.view=v;VIEWS.forEach(function(x){$("v-"+x).hidden=x!==v});if(TABOF[v])V.tab=TABOF[v];
+  try{if(v!=="load"&&v!=="login")sessionStorage.setItem("r_view",JSON.stringify({view:v,box:V.box||""}));else if(v==="login")sessionStorage.removeItem("r_view")}catch(e){}
+  render();if(!keep)window.scrollTo(0,0)}
+function closeDialogs(){document.querySelectorAll("dialog[open]").forEach(function(d){d.close()})}
+function render(){
+  var logged=!!D.role,tabs=logged&&(D.fl||D.gf);
+  $("tabs").hidden=!tabs;document.body.classList.toggle("has-tabs",!!tabs);
+  $("t-sort").hidden=!D.gf;$("acctBtn").hidden=!logged;
+  if(logged&&$("acctBtn").dataset.k!==(D.gf?"gear":"person")){$("acctBtn").dataset.k=D.gf?"gear":"person";$("acctBtn").innerHTML=ic(D.gf?"gear":"person")}
+  var noTab=["load","login","settings","mkt"].indexOf(V.view)>=0;
+  ["home","box","sort"].forEach(function(t){if(V.tab===t&&!noTab)$("t-"+t).setAttribute("aria-current","page");else $("t-"+t).removeAttribute("aria-current")});
+  $("whoami").textContent=logged?(D.gf?T("Geschäftsführung")+" · "+(auth.name||""):storeName(D.store)+" · "+(D.fl?T("Leitung")+" ":"")+(auth.name||"")):"EDE Juwelier";
+  if(tabs){
+    var nb=(D.boxes||[]).filter(function(x){return myTurn(tripOf(x.id))}).length;$("b-box").hidden=!nb;$("b-box").textContent=nb;
+    var ns=D.gf?D.reps.filter(function(o){return o.status==="aalen"&&!o.route&&!o.result}).length:0;$("b-sort").hidden=!ns;$("b-sort").textContent=ns;
+  }
+  var f={login:renderLogin,home:renderHome,done:renderDone,detail:renderDetail,box:renderBoxes,boxone:renderBox,sort:renderSort,settings:renderSettings,mkt:renderMkt}[V.view];
+  if(f)f();
+}
+$("t-home").onclick=function(){V.rep=null;go("home")};
+$("t-box").onclick=function(){go("box")};
+$("t-sort").onclick=function(){go("sort")};
+$("l-de").onclick=function(){setLang("de")};$("l-tr").onclick=function(){setLang("tr")};
+
+/* ================= Anmeldung ================= */
+var loginPrefilled=false;
+function renderLogin(){
+  ["ma","fl","gf"].forEach(function(r){$("r-"+r).setAttribute("aria-checked",V.role===r)});
+  var gf=V.role==="gf";
+  $("lgStoreW").hidden=gf;$("lgNoW").hidden=gf;$("lgNameW").hidden=!gf;
+  $("lgPinLbl").textContent=T(gf?"PIN der Geschäftsführung":V.role==="fl"?"Filialleiter-PIN":"Laden-PIN");
+  $("lgPin").setAttribute("inputmode",V.role==="ma"?"numeric":"text");
+  var cur=$("lgStore").value||auth.store;$("lgStore").innerHTML=storeOpts(cur);
+  if(!loginPrefilled){loginPrefilled=true;
+    var pn=lsGet("r_pnr")||"";if(/^[0-9A-Za-z\-]{1,12}$/.test(pn))$("lgNo").value=pn;
+    var gn=lsGet("r_gname")||"";if(gn)$("lgName").value=gn}
+  $("lgHint").textContent=gf&&!D.pinSet?T("Noch keine PIN festgelegt: In Code.gs bei ADMIN_PIN eintragen, „setup“ ausführen und neu bereitstellen."):(V.role==="fl"&&!D.flSet?T("Es gibt noch keine Filialleiter-PIN. Die Geschäftsführung legt sie in den Einstellungen fest."):"");
+}
+["ma","fl","gf"].forEach(function(r){$("r-"+r).onclick=function(){V.role=r;lsSet("r_role",r);$("lgPin").value="";renderLogin()}});
+$("loginForm").onsubmit=function(e){e.preventDefault();var pin=$("lgPin").value.trim();
+  if(V.role==="gf")auth={pin:pin,store:"",spin:"",name:$("lgName").value.trim()||"Geschäftsführung",as:""};
+  else{var pn=$("lgNo").value.trim();
+    if(!/^[0-9A-Za-z\-]{1,12}$/.test(pn)){toast(T("Bitte deine Personalnummer eingeben."),true);$("lgNo").focus();return}
+    auth={pin:"",store:$("lgStore").value,spin:pin,name:pn,as:V.role}}
+  if(!pin){toast(T("Bitte die PIN eingeben."),true);$("lgPin").focus();return}
+  tried=true;$("lgPin").value="";var b=$("lgBtn");b.classList.add("loading");
+  rawApi("getData",[auth]).then(function(d){b.classList.remove("loading");setData(d)}).catch(function(e){b.classList.remove("loading");tried=false;toast(T(e.message),true)})};
+function logout(msg){
+  auth={pin:"",store:auth.store,spin:"",name:auth.name,as:auth.as};lsSet("r_pin",null);lsSet("r_spin",null);
+  D.role="";D.gf=false;D.fl=false;D.store="";D.reps=[];D.bags=[];D.boxes=[];D.marketing=null;extra={};
+  V.rep=null;V.box=null;V.sr=null;V.q="";$("q").value="";form=null;newPhotos=[];closeDialogs();stopCam();go("login");toast(msg||"")}
+
+/* ================= Wo ist die Reparatur? ================= */
+function closed(o){return o.status==="abgeholt"||o.status==="zurueckgegeben"}
+function homeOf(o){return o.pickupStore||o.storeId}
+function due(o){return addDaysIso(String(o.created).slice(0,10),7*(D.weeks||4))}
+function isLate(o){return !closed(o)&&READY.indexOf(o.status)<0&&D.today>due(o)}
+function daysWithUs(o){return Math.max(0,dayDiff(String(o.created).slice(0,10),D.today))}
+function readyDays(o){return o.readyAt&&READY.indexOf(o.status)>=0?Math.max(0,dayDiff(String(o.readyAt).slice(0,10),D.today)):-1}
+/* „heute 14:05“, „gestern 09:30“, sonst Datum */
+function whenTxt(s){if(!s)return "";s=String(s);var d=s.slice(0,10),t=s.slice(11,16),td=D.today||"",y="";
+  try{var x=new Date(td+"T12:00:00");x.setDate(x.getDate()-1);y=x.getFullYear()+"-"+pad(x.getMonth()+1)+"-"+pad(x.getDate())}catch(e){}
+  return d===td?T("heute {t}",{t:t}):d===y?T("gestern {t}",{t:t}):deShort(s)}
+function pad(n){return (n<10?"0":"")+n}
+/* Die offene Fahrt (Box), in der eine Reparatur gerade liegt */
+function tripOfRep(o){if(!o||!o.bagId)return null;var b=(D.bags||[]).find(function(x){return x.id===o.bagId});return b&&["packen","verschlossen","unterwegs","angekommen"].indexOf(b.status)>=0?b:null}
+function tripBox(b){var x=(D.boxes||[]).find(function(y){return y.id===b.bagNo});return x?x.name:T("Box")}
+function tripFrom(b){return b.origin==="aalen"?storeName(D.hub):b.origin==="abdullah"?"Abdullah":storeName(String(b.origin).slice(6))}
+function tripTo(b){return b.dest==="aalen"?storeName(D.hub):b.dest==="abdullah"?"Abdullah":storeName(b.destStore)}
+function tripLast(b){var e=(b.events||[]).slice(-1)[0];return e?e.t:b.updated}
+function loc(o){
+  var s=o.status,hub=storeName(D.hub),home=storeName(homeOf(o)),since=function(x){return x?T("seit {d}",{d:deShort(String(x).slice(0,10))}):""};
+  var b=tripOfRep(o),bn=b?tripBox(b):"";
+  if(b&&b.status==="angekommen"&&(s==="abgeholt_filiale"||s==="zu_filiale"||s==="abdullah_ab"))return {g:"away",t:T("In {s} angekommen",{s:tripTo(b)}),sub:T("{b} wird gerade ausgepackt",{b:bn}),step:b.dest==="aalen"?1:3};
+  if(b&&b.status==="verschlossen"&&(s==="zu_abdullah"||s==="zu_filiale"))return {g:"aalen",t:T("In der Box in {s}",{s:tripFrom(b)}),sub:b.dest==="abdullah"?T("geht zu Abdullah – wartet auf den Fahrer"):T("geht nach {s} – wartet auf den Fahrer",{s:tripTo(b)}),step:2};
+  if(s==="neu")return {g:"here",t:T("Im Laden {s}",{s:storeName(o.storeId)}),sub:b?T("wird gerade in die {b} gepackt",{b:bn}):T("wartet auf die Box"),step:0};
+  if(s==="im_bag")return {g:"here",t:T("In der Box in {s}",{s:storeName(o.storeId)}),sub:T("wartet auf den Fahrer"),step:0};
+  if(s==="abgeholt_filiale")return {g:"away",t:T("Unterwegs nach {s}",{s:hub}),sub:b?T("{b} · abgeholt {t}",{b:bn,t:whenTxt(tripLast(b))}):"",step:0};
+  if(s==="aalen"){
+    if(o.route==="tuerkei")return {g:"abd",t:T("In der Türkei"),sub:since(o.smithAt),step:2};
+    if(o.result==="nicht")return {g:"aalen",t:T("In {s}",{s:hub}),sub:T("nicht reparierbar – kommt zurück"),step:2};
+    if(o.route==="aalen")return {g:"aalen",t:T("In {s}",{s:hub}),sub:T("wird dort repariert"),step:2};
+    if(o.route==="abdullah")return {g:"aalen",t:T("In {s}",{s:hub}),sub:T("geht zu Abdullah"),step:1};
+    return {g:"aalen",t:T("In {s}",{s:hub}),sub:T("wird eingeteilt"),step:1}}
+  if(s==="aalen_fertig")return {g:"aalen",t:T("Fertig in {s}",{s:hub}),sub:T("kommt zurück in den Laden"),step:2};
+  if(s==="zu_abdullah")return {g:"away",t:T("Unterwegs zu Abdullah"),sub:b?T("{b} · seit {t}",{b:bn,t:whenTxt(tripLast(b))}):"",step:2};
+  if(s==="abdullah")return {g:"abd",t:T("Bei Abdullah"),sub:since(o.smithAt||o.lastMove),step:2};
+  if(s==="abdullah_ab"||s==="zu_filiale")return {g:"away",t:T("Unterwegs nach {s}",{s:home}),sub:(o.result==="nicht"?T("nicht repariert"):T("fertig repariert"))+(b?" · "+T("{b} · seit {t}",{b:bn,t:whenTxt(tripLast(b))}):""),step:2};
+  if(s==="fertig_filiale")return {g:"call",t:T("Fertig in {s}",{s:home}),sub:T("Kunde anrufen"),step:3};
+  if(s==="nicht_rep")return {g:"call",t:T("Zurück in {s}",{s:home}),sub:T("nicht repariert – Kunde anrufen"),step:3};
+  if(s==="nicht_erreicht")return {g:"call",t:T("Abholbereit in {s}",{s:home}),sub:T("Kunde nicht erreicht – noch einmal anrufen"),step:3};
+  if(s==="angerufen")return {g:"wait",t:T("Abholbereit in {s}",{s:home}),sub:T("Kunde weiß Bescheid"),step:3};
+  if(s==="problem")return {g:"prob",t:T("Problem"),sub:T("bitte klären"),step:-1};
+  if(s==="vermisst")return {g:"prob",t:T("Vermisst"),sub:T("bitte suchen und melden"),step:-1};
+  if(s==="abgeholt")return {g:"done",t:T("Abgeholt"),sub:"",step:4};
+  if(s==="zurueckgegeben")return {g:"done",t:T("Ohne Reparatur zurückgegeben"),sub:"",step:4};
+  return {g:"done",t:s,sub:"",step:-1};
+}
+function sinceTxt(n,ready){return ready?(n===0?T("seit heute abholbereit"):n===1?T("seit gestern abholbereit"):T("seit {n} Tagen abholbereit",{n:n})):(n===0?T("heute angenommen"):n===1?T("seit gestern bei uns"):T("seit {n} Tagen bei uns",{n:n}))}
+function callsText(o){var c=o.calls||[];if(!c.length)return "";var ok=c.filter(function(x){return x.ok}).length,no=c.length-ok,p=[];
+  if(ok)p.push(T("{n}× angerufen",{n:ok}));if(no)p.push(T("{n}× nicht erreicht",{n:no}));return p.join(", ")}
+function sum(o){return (o.items||[]).reduce(function(s,it){return s+num(it.price)},0)}
+
+/* ================= Fahrten der Boxen (für alle sichtbar) ================= */
+function tripStep(b){return b.status==="packen"?0:b.status==="verschlossen"?1:b.status==="unterwegs"?2:3}
+function tripState(b){
+  if(b.status==="packen")return {g:"here",t:T("Wird in {s} gepackt",{s:tripFrom(b)})};
+  if(b.status==="verschlossen")return {g:"wait",t:T("Fertig gepackt in {s} – wartet auf den Fahrer",{s:tripFrom(b)})};
+  if(b.status==="unterwegs")return {g:"away",t:b.dest==="abdullah"?T("Unterwegs zu Abdullah"):T("Unterwegs nach {s}",{s:tripTo(b)})};
+  return {g:"call",t:T("In {s} angekommen – wird ausgepackt",{s:tripTo(b)})}}
+function tripCard(b,tag){
+  var st=tripState(b),n=(b.repIds||[]).length,step=tripStep(b),e=(b.events||[]).slice(-1)[0];
+  var steps=[T("Packen"),T("Abholung"),T("Fahrt"),T("Ankunft")];
+  return "<"+tag+' class="trip" data-trip="'+esc(b.id)+'">'+
+    '<span class="th">'+ic("box")+"<b>"+esc(tripBox(b))+'</b><span class="cnt">'+T(n===1?"1 Reparatur":"{n} Reparaturen",{n:n})+"</span></span>"+
+    '<span class="rt">'+esc(tripFrom(b))+" → "+esc(tripTo(b))+"</span>"+
+    '<span class="tt g-'+st.g+'"><span class="dot"></span><span>'+esc(st.t)+"</span></span>"+
+    (e?'<span class="tm">'+esc(whenTxt(e.t))+" · "+esc(e.by)+"</span>":"")+
+    '<span class="track" aria-hidden="true">'+steps.map(function(s,i){return '<span class="'+(i<=step?"on":"")+(i===step?" cur":"")+'">'+esc(s)+"</span>"}).join("")+"</span></"+tag+">"}
+/* Welche Fahrten betreffen den Laden, den man gerade ansieht? */
+function tripsFor(c){
+  return (D.bags||[]).filter(function(b){
+    if(["packen","verschlossen","unterwegs","angekommen"].indexOf(b.status)<0||!(b.repIds||[]).length)return false;
+    if(!c)return true;
+    if(b.origin==="store:"+c||(b.dest==="filiale"&&b.destStore===c))return true;
+    if(c===D.hub&&(b.dest==="aalen"||b.origin==="aalen"))return true;
+    return D.reps.some(function(o){return o.bagId===b.id&&(o.storeId===c||o.pickupStore===c)})
+  }).sort(function(a,b){return tripStep(b)-tripStep(a)||String(tripLast(b)).localeCompare(String(tripLast(a)))})}
+function renderTrips(){
+  var l=tripsFor(ctxStore()),all=D.fl||D.gf,max=4,h="";
+  if(l.length){h='<h2 class="sec">'+T("Boxen unterwegs")+" · "+l.length+'</h2><div class="trips">'+l.slice(0,V.allTrips?99:max).map(function(b){return tripCard(b,"button")}).join("")+"</div>";
+    if(l.length>max&&!V.allTrips)h+='<button class="btn" id="tripsMore">'+T("Alle {n} Boxen anzeigen",{n:l.length})+"</button>"}
+  $("trips").innerHTML=h;
+  $("trips").querySelectorAll("[data-trip]").forEach(function(el){el.onclick=function(){var b=(D.bags||[]).find(function(x){return x.id===el.dataset.trip});if(!b)return;
+    if(all&&(D.boxes||[]).some(function(x){return x.id===b.bagNo})){V.box=b.bagNo;go("boxone")}        // Leitung: direkt zur Box
+    else{V.filt=V.filt==="bag:"+b.id?"offen":"bag:"+b.id;V.sr=null;V.cap=120;renderHome();var li=$("list");if(li&&li.scrollIntoView&&V.filt!=="offen")li.scrollIntoView({behavior:"smooth",block:"start"})}}});   // Mitarbeiter: was ist drin?
+  if($("tripsMore"))$("tripsMore").onclick=function(){V.allTrips=true;renderTrips()};
+}
+
+/* ================= Übersicht ================= */
+function ctxStore(){return (D.fl||D.gf)?V.store:D.store}
+function inCtx(o){var c=ctxStore();return !c||o.storeId===c||o.pickupStore===c}
+function grp(o){var s=o.status,c=ctxStore();
+  if(closed(o))return "done";if(s==="problem"||s==="vermisst")return "prob";
+  if(READY.indexOf(s)>=0)return c&&homeOf(o)!==c?"away":(s==="angerufen"?"wait":"call");
+  if(s==="neu"||s==="im_bag")return c&&o.storeId!==c?"away":"here";
+  return "away"}
+var GRP={prob:"Problem oder vermisst",call:"Kunde anrufen",wait:"Wartet auf Abholung",here:"Im Laden",away:"Unterwegs oder in Reparatur",late:"Über 4 Wochen",done:"Abgeschlossen",offen:"Alle offenen"};
+var TILE=[["call","Anrufen"],["wait","Abholbereit"],["away","Unterwegs"],["here","Im Laden"]];
+function row(o,showStore){
+  var L=loc(o);
+  if(o.foreign)return '<div class="item"><span class="main"><span class="t1"><span class="nr">'+esc(o.nr)+"</span> · "+esc(o.name)+'</span><span class="t2"><span class="loc g-'+L.g+'">'+esc(L.t)+'</span></span><span class="t3">'+esc(storeName(o.storeId))+" · "+T("anderer Laden")+"</span></span></div>";
+  var sub=L.sub,cs=ctxStore();if(READY.indexOf(o.status)>=0&&cs&&homeOf(o)!==cs)sub=T("wird dort abgeholt");   // anrufen muss der Laden, in dem abgeholt wird
+  var meta=[];if(showStore)meta.push(esc(cityOf(o.storeId)));
+  if(closed(o))meta.push(esc(de(o.pickupAt||o.updated)));
+  else{var rd=readyDays(o);meta.push(rd>=0?sinceTxt(rd,true):sinceTxt(daysWithUs(o),false));
+    var ct=callsText(o);if(ct)meta.push(esc(ct));
+    if(o.pickupStore&&o.pickupStore!==o.storeId)meta.push(T("Abholung in {s}",{s:esc(storeName(o.pickupStore))}))}
+  return '<button class="item" data-oid="'+o.id+'"><span class="main"><span class="t1"><span class="nr">'+esc(o.nr)+"</span> · "+esc(o.name)+'</span>'+
+    '<span class="t2"><span class="loc g-'+L.g+'">'+esc(L.t)+"</span>"+(sub?" · "+esc(sub):"")+'</span>'+
+    '<span class="t3">'+meta.join(" · ")+(isLate(o)?' · <span class="late">'+T("über 4 Wochen")+"</span>":"")+"</span></span>"+ic("chev","chev")+"</button>";
+}
+function matchQ(o,q){return String(o.name).toLowerCase().indexOf(q)>=0||String(o.nr).toLowerCase().indexOf(q)>=0||String(o.phone||"").replace(/\s/g,"").indexOf(q.replace(/\s/g,""))>=0}
+function renderHome(){
+  if(!D.role)return;
+  var all=D.fl||D.gf,base=allReps().filter(inCtx),open=base.filter(function(o){return !closed(o)}),cnt={call:0,wait:0,away:0,here:0,prob:0,late:0};
+  open.forEach(function(o){cnt[grp(o)]++;if(isLate(o))cnt.late++});
+  $("stats").innerHTML=TILE.map(function(t){return '<button class="stat g-'+t[0]+(cnt[t[0]]?"":" zero")+'" data-f="'+t[0]+'" aria-pressed="'+(V.filt===t[0])+'"><b>'+cnt[t[0]]+"</b><span>"+esc(T(t[1]))+"</span></button>"}).join("");
+  var al="",nb=all?(D.boxes||[]).filter(function(x){return myTurn(tripOf(x.id))}).length:0,ns=D.gf?D.reps.filter(function(o){return o.status==="aalen"&&!o.route&&!o.result}).length:0;
+  if(nb)al+='<button class="banner g-call" id="alBox">'+ic("box")+"<span>"+esc(T(nb===1?"1 Box wartet auf dich – jetzt auspacken":"{n} Boxen warten auf dich – jetzt auspacken",{n:nb}))+"</span>"+ic("chev","chev")+"</button>";
+  if(ns)al+='<button class="banner g-aalen" id="alSort">'+ic("split")+"<span>"+esc(T(ns===1?"1 Reparatur wartet auf deine Einteilung":"{n} Reparaturen warten auf deine Einteilung",{n:ns}))+"</span>"+ic("chev","chev")+"</button>";
+  if(cnt.prob)al+='<button class="banner g-prob" data-f="prob">'+ic("warn")+"<span>"+esc(T(cnt.prob===1?"1 Reparatur mit Problem oder vermisst – bitte ansehen":"{n} Reparaturen mit Problem oder vermisst – bitte ansehen",{n:cnt.prob}))+"</span></button>";
+  $("homeAlert").innerHTML=al;
+  if($("alBox"))$("alBox").onclick=function(){go("box")};if($("alSort"))$("alSort").onclick=function(){go("sort")};
+  renderTrips();
+  var ch=[["offen",T("Alle offenen")]];if(cnt.late)ch.push(["late",T("Über 4 Wochen")+" ("+cnt.late+")"]);ch.push(["done",T("Abgeschlossen")]);
+  if(V.filt.indexOf("bag:")===0){var fb=(D.bags||[]).find(function(x){return x.id===V.filt.slice(4)});if(fb&&tripOfRep({bagId:fb.id}))ch.push([V.filt,T("In der {b}",{b:tripBox(fb)})+" ✕"]);else V.filt="offen"}
+  $("chips").innerHTML=ch.map(function(c){return '<button class="fchip" data-f="'+c[0]+'" aria-pressed="'+(V.filt===c[0])+'">'+esc(c[1])+"</button>"}).join("")+
+    (all?'<select id="fStore" aria-label="'+esc(T("Laden"))+'"><option value="">'+esc(T("Alle Läden"))+"</option>"+storeOpts(V.store)+"</select>":"");
+  document.querySelectorAll("#stats [data-f],#chips [data-f],#homeAlert [data-f]").forEach(function(b){b.onclick=function(){V.filt=V.filt===b.dataset.f&&b.dataset.f!=="offen"?"offen":b.dataset.f;V.sr=null;V.cap=120;renderHome()}});
+  if($("fStore"))$("fStore").onchange=function(){V.store=this.value;V.sr=null;renderHome()};
+  renderList(base,all&&!V.store);
+}
+function renderList(base,showStore){
+  var q=V.q.trim().toLowerCase(),h="",f=V.filt,l;
+  if(V.sr&&V.sr.q===q){
+    h='<h2 class="sec">'+T("Suche in allen Läden")+'</h2><div class="group">'+(V.sr.list.map(function(o){return row(o,true)}).join("")||'<div class="empty">'+T("Nichts gefunden.")+"</div>")+'</div><p class="hint">'+T("Bei Reparaturen anderer Läden siehst du nur Nummer, Name und Ort.")+"</p>";
+  }else{
+    l=base.filter(function(o){return f==="done"?closed(o):!closed(o)&&(f==="offen"||(f.indexOf("bag:")===0?o.bagId===f.slice(4):f==="late"?isLate(o):grp(o)===f))});
+    if(q)l=l.filter(function(o){return matchQ(o,q)});
+    l.sort(function(a,b){return String(a.created).localeCompare(String(b.created))});if(f==="done")l.reverse();
+    var n=l.length,cut=l.slice(0,V.cap);
+    if(f==="offen"&&!q){
+      ["prob","call","wait","here","away"].forEach(function(g){var part=cut.filter(function(o){return grp(o)===g});if(!part.length)return;
+        h+='<h2 class="sec">'+esc(T(GRP[g]))+" · "+l.filter(function(o){return grp(o)===g}).length+'</h2><div class="group">'+part.map(function(o){return row(o,showStore)}).join("")+"</div>"});
+      if(!n)h='<div class="group"><div class="empty">'+T("Noch keine offenen Reparaturen. Oben auf „Neue Reparatur“ tippen.")+"</div></div>";
+    }else{
+      h='<h2 class="sec">'+esc(q?T("Suche"):f.indexOf("bag:")===0?T("In dieser Box"):T(GRP[f]))+" · "+n+'</h2><div class="group">'+(cut.map(function(o){return row(o,showStore)}).join("")||'<div class="empty">'+T(q?"Hier nichts gefunden.":"Keine Reparaturen.")+"</div>")+"</div>";
+      if(f==="done")h+='<p class="hint">'+T("Abgeschlossene der letzten {n} Tage. Ältere findest du über die Suche in allen Läden.",{n:D.recentDays||30})+"</p>";
+    }
+    if(n>cut.length)h+='<button class="btn" id="moreRows">'+T("Alle {n} anzeigen",{n:n})+"</button>";
+    if(q.length>=2)h+='<button class="btn tinted" id="searchAll">'+ic("search")+"<span>"+T("In allen Läden suchen")+"</span></button>";
+  }
+  $("list").innerHTML=h;
+  $("list").querySelectorAll("[data-oid]").forEach(function(b){b.onclick=function(){openDetail(b.dataset.oid,"home")}});
+  if($("moreRows"))$("moreRows").onclick=function(){V.cap=5000;renderHome()};
+  if($("searchAll"))$("searchAll").onclick=function(){searchAll(q)};
+}
+function searchAll(query){var b=$("searchAll");if(b)b.classList.add("loading");busy(1);
+  rawApi("searchRepairs",[query,auth]).then(function(list){busy(-1);var mine={};D.reps.forEach(function(o){mine[o.id]=1});list.forEach(function(o){if(!mine[o.id])extra[o.id]=o});
+    V.sr={q:V.q.trim().toLowerCase(),list:list.slice().reverse()};if(V.view==="home")renderHome()}).catch(function(e){busy(-1);if(b)b.classList.remove("loading");toast(T(e.message),true)})}
+var qT=0;
+$("q").oninput=function(){var v=this.value;clearTimeout(qT);qT=setTimeout(function(){V.q=v;V.sr=null;V.cap=120;if(V.view==="home")renderHome()},120)};
+$("q").onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();V.q=this.value;var q=V.q.trim();if(q.length>=2)searchAll(q)}};
+$("qScan").onclick=function(){scanQr("any",function(raw){
+  var bid=boxIdOf(raw);if(bid){if(D.fl||D.gf)openBox(bid);else toast(T("Das ist der Aufkleber einer Box. Boxen bearbeitet die Filialleitung."),true);return}
+  var c=codeOf(raw),o=D.reps.find(function(x){return x.code===c});if(o){openDetail(o.id,"home");return}
+  searchAll("ede:"+c)})};
+$("newBtn").onclick=function(){newForm();go("form")};
+
+/* ================= Annahme ================= */
+function blankItem(){return {desc:"",price:""}}
+function newForm(){form={id:"",nr:"",storeId:D.gf?(V.store||D.hub):D.store,name:"",phone:"",email:"",lang:"de",pickupStore:"",items:[blankItem()],notes:"",imageIds:[]};newPhotos=[];fillForm()}
+function editForm(o){form=JSON.parse(JSON.stringify(o));if(!form.items||!form.items.length)form.items=[blankItem()];newPhotos=[];fillForm()}
+function fillFormTexts(){
+  $("formTitle").textContent=T(form.id?"Reparatur bearbeiten":"Neue Reparatur");
+  $("formSaveTxt").textContent=T(form.id?"Änderungen speichern":"Speichern und Aufkleber drucken");
+  renderItems();renderPhotos();updMail();
+}
+function fillForm(){
+  $("fNr").value=form.nr;$("fName").value=form.name;$("fPhone").value=form.phone||"";$("fEmail").value=form.email||"";$("fLang").value=form.lang||"de";$("fNotes").value=form.notes||"";
+  $("fStoreFWrap").hidden=!(D.gf&&!form.id);$("fStoreF").innerHTML=storeOpts(form.storeId);
+  $("fPickup").innerHTML=storeOpts(form.pickupStore||form.storeId);
+  $("fOptin").checked=false;$("photoBox").hidden=!!form.id;
+  $("moreBox").open=!!(form.notes||(form.pickupStore&&form.pickupStore!==form.storeId)||form.lang==="tr");
+  $("formSave").classList.remove("loading");
+  fillFormTexts();
+}
+$("fStoreF").onchange=function(){form.storeId=this.value;$("fPickup").innerHTML=storeOpts(this.value)};
+function updMail(){var e=$("fEmail").value.trim(),ok=validEmail(e);
+  $("fOptinWrap").hidden=!(ok&&!form.id);
+  $("mailHint").textContent=!e?T("Ohne E-Mail bekommt der Kunde keine Nachricht – dann anrufen."):(ok?T("Der Kunde bekommt eine E-Mail, sobald die Reparatur abholbereit ist."):T("Bitte die E-Mail-Adresse prüfen."));
+  $("mailHint").style.color=e&&!ok?"var(--red)":""}
+$("fEmail").oninput=updMail;
+function renderItems(){
+  $("items").innerHTML=form.items.map(function(it,i){return '<div class="itemrow" data-i="'+i+'"><input id="it-desc-'+i+'" data-f="desc" maxlength="200" value="'+esc(it.desc)+'" placeholder="'+esc(T("z. B. Kette – Verschluss neu"))+'" aria-label="'+esc(T("Was wird gemacht?"))+'">'+
+    '<input id="it-price-'+i+'" data-f="price" type="text" inputmode="decimal" maxlength="9" autocomplete="off" value="'+esc(String(it.price==null?"":it.price).replace(".",","))+'" placeholder="'+esc(T("Preis €"))+'" aria-label="'+esc(T("Preis €"))+'">'+
+    (form.items.length>1?'<button type="button" class="x" data-del="'+i+'" aria-label="'+esc(T("Stück entfernen"))+'">✕</button>':"<span></span>")+"</div>"}).join("");
+  $("items").querySelectorAll("[data-f]").forEach(function(inp){inp.oninput=function(){form.items[Number(inp.closest("[data-i]").dataset.i)][inp.dataset.f]=inp.value;renderSum()}});
+  $("items").querySelectorAll("[data-del]").forEach(function(b){b.onclick=function(){form.items.splice(Number(b.dataset.del),1);renderItems()}});
+  renderSum();
+}
+function renderSum(){var s=form.items.reduce(function(a,it){return a+num(it.price)},0);$("formSum").textContent=s&&form.items.length>1?T("Summe")+": "+eur(s):""}
+$("addItem").onclick=function(){form.items.push(blankItem());renderItems();var l=$("items").querySelectorAll('[data-f="desc"]');l[l.length-1].focus()};
+function photoRoom(){return (D.maxImages||8)-newPhotos.length}
+function renderPhotos(){
+  $("formPhotos").innerHTML=newPhotos.map(function(u,i){return '<div class="photo"><img src="'+u+'" data-pv="'+i+'" tabindex="0" role="button" alt="'+esc(T("Foto vergrößern"))+'"><button type="button" data-ph="'+i+'" aria-label="'+esc(T("Foto entfernen"))+'">✕</button></div>'}).join("");
+  bindPics($("formPhotos"),newPhotos);
+  $("formPhotos").querySelectorAll("[data-ph]").forEach(function(b){b.onclick=function(){newPhotos.splice(Number(b.dataset.ph),1);renderPhotos()}});
+  $("photoHint").textContent=newPhotos.length?T(newPhotos.length===1?"1 Foto":"{n} Fotos",{n:newPhotos.length}):T("Mindestens ein Foto, damit man das Stück später erkennt.");
+}
+function shrink(file,max,cb,q){var r=new FileReader();r.onload=function(){var img=new Image();img.onload=function(){var s=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*s);c.height=Math.round(img.height*s);var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",q||.8))};img.onerror=function(){toast(T("Foto konnte nicht gelesen werden."),true);cb(null)};img.src=r.result};r.onerror=function(){cb(null)};r.readAsDataURL(file)}
+function readPhotos(files,room,cb){files=[].slice.call(files||[]);var out=[];
+  if(files.length>room){toast(T("Höchstens {n} Fotos pro Reparatur.",{n:D.maxImages||8}),true);files=files.slice(0,Math.max(0,room))}
+  (function next(i){if(i>=files.length){cb(out);return}shrink(files[i],1280,function(u){if(u)out.push(u);next(i+1)},.78)})(0)}
+$("imgPick").onchange=$("imgCam").onchange=function(){var el=this;readPhotos(el.files,photoRoom(),function(list){newPhotos=newPhotos.concat(list);el.value="";renderPhotos()})};
+$("repForm").addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.tagName==="INPUT")e.preventDefault()});
+$("formCancel").onclick=function(){var id=form&&form.id;form=null;newPhotos=[];go(id?"detail":"home")};
+$("repForm").onsubmit=function(e){
+  e.preventDefault();var b=$("formSave");if(!form||b.classList.contains("loading"))return;
+  var data={id:form.id,storeId:form.storeId,nr:$("fNr").value.trim(),name:$("fName").value.trim(),phone:$("fPhone").value.trim(),email:$("fEmail").value.trim(),lang:$("fLang").value,
+    pickupStore:$("fPickup").value,notes:$("fNotes").value,optin:$("fOptin").checked&&!$("fOptinWrap").hidden,
+    items:form.items.map(function(it){return {desc:String(it.desc||"").trim(),price:it.price}}).filter(function(it){return it.desc})};
+  var stop=function(msg,el){toast(T(msg),true);if(el){el.focus();el.scrollIntoView({block:"center"})}};
+  if(!data.nr)return stop("Bitte die Nummer vom Reparaturschein eintragen.",$("fNr"));
+  if(!data.name)return stop("Bitte den Kundennamen eintragen.",$("fName"));
+  if(data.email&&!validEmail(data.email))return stop("Bitte die E-Mail-Adresse prüfen.",$("fEmail"));
+  if(!data.phone&&!data.email)return stop("Bitte Telefon oder E-Mail eintragen, sonst können wir den Kunden nicht erreichen.",$("fPhone"));
+  if(!data.items.length)return stop("Bitte eintragen, was gemacht werden soll.",$("it-desc-0"));
+  for(var pi=0;pi<form.items.length;pi++){var pv=String(form.items[pi].price==null?"":form.items[pi].price).trim();   // Komma und Punkt sind beide erlaubt
+    if(pv&&!/^\d{1,6}([.,]\d{1,2})?$/.test(pv))return stop("Bitte den Preis als Zahl eintragen, z. B. 25 oder 25,50.",$("it-price-"+pi))}
+  if(!form.id&&!newPhotos.length)return stop("Bitte mindestens ein Foto vom Schmuck machen.",null);
+  if(!form.id)data.photos=newPhotos.slice();
+  b.classList.add("loading");
+  call("saveRepair",data).then(function(d){b.classList.remove("loading");var saved=d.saved;newPhotos=[];form=null;
+    if(data.id){toast(T("Änderungen gespeichert."));go("detail")}
+    else{V.saved=saved;go("done");printLabel(saved)}
+  }).catch(function(){b.classList.remove("loading")});
+};
+function renderDone(){var o=V.saved;if(!o){go("home");return}$("doneWho").textContent=T("Nr. {n}",{n:o.nr})+" · "+o.name}
+$("doneNext").onclick=function(){newForm();go("form")};
+$("donePrint").onclick=function(){if(V.saved)printLabel(V.saved)};
+$("doneHome").onclick=function(){go("home")};
+
+/* ================= Detail ================= */
+function openDetail(id,back){var o=findRep(id);if(!o||o.foreign)return;V.rep={id:id};if(back)V.back=back;V.showPics=false;V.more=false;V.histOpen=false;detailImgs={id:id,list:null};go("detail")}
+function renderDetail(){
+  var o=V.rep&&findRep(V.rep.id);if(!o||o.foreign){go(V.back||"home");return}
+  var cl=closed(o),L=loc(o),ready=READY.indexOf(o.status)>=0,stuck=o.status==="problem"||o.status==="vermisst",c=o.calls||[];
+  var steps=[T("Annahme"),storeName(D.hub),T("Reparatur"),T("Abholbereit")];
+  var h='<div class="card hero"><div><div class="bignr">'+T("Nr. {n}",{n:esc(o.nr)})+" · "+esc(storeName(o.storeId))+'</div><h1 class="name">'+esc(o.name)+"</h1></div>"+
+    '<div class="locbig g-'+L.g+'"><span class="dot"></span><div><div class="lt">'+esc(L.t)+"</div>"+(L.sub?'<div class="ls">'+esc(L.sub)+"</div>":"")+"</div></div>";
+  if(!cl&&L.step>=0)h+='<div class="track" aria-hidden="true">'+steps.map(function(s,i){return '<div class="'+(i<=L.step?"on":"")+(i===L.step?" cur":"")+'">'+esc(s)+"</div>"}).join("")+"</div>";
+  var trip=!cl&&tripOfRep(o);
+  if(trip)h+=tripCard(trip,(D.fl||D.gf)?"button":"div")+
+    '<details id="dTrip"'+(V.tripOpen?" open":"")+"><summary>"+T("Weg der Box")+'</summary><div class="hist" style="margin-top:10px">'+tripEvents(trip)+"</div></details>";
+  if(!cl)h+='<p class="hint">'+T("Angenommen am {d}",{d:de(String(o.created).slice(0,10))})+" · "+sinceTxt(daysWithUs(o),false)+" · "+(isLate(o)?'<span class="late">'+T("über 4 Wochen")+"</span>":T("Frist {d}",{d:de(due(o))}))+"</p>";
+  h+="</div>";
+  if(cl)h+='<div class="note info">'+T("Abgeschlossen am {d}. Die Daten wurden gelöscht.",{d:de(o.pickupAt||o.updated)})+"</div>";
+  else{
+    h+='<div class="card stack">';
+    if(stuck){var last=(o.history||[]).slice(-1)[0],prob=o.status==="problem";h+='<div class="note bad">'+esc(last?last.txt:T(prob?"Problem":"Vermisst"))+"</div>";
+      if(prob)h+='<button class="btn green big" id="solveBtn">'+ic("check")+"<span>"+T("Problem ist geklärt")+'</span></button><p class="hint">'+T("Danach geht es dort weiter, wo die Reparatur vorher war.")+"</p>";
+      else if(D.fl)h+='<button class="btn green big" id="solveBtn">'+ic("check")+"<span>"+T("Wieder gefunden")+'</span></button><p class="hint">'+T("Nur tippen, wenn das Stück wirklich wieder da ist.")+"</p>";
+      else h+='<p class="hint">'+T("Bitte suchen. Ist das Stück wieder da, bestätigt das die Filialleitung.")+"</p>"}
+    if(ready){
+      if(o.phone)h+='<a class="btn tinted big" id="telBtn" href="tel:'+esc(String(o.phone).replace(/[^\d+]/g,""))+'">'+ic("phone")+"<span>"+esc(o.phone)+"</span></a>";
+      else h+='<p class="hint">'+T("Keine Telefonnummer gespeichert.")+(o.email?" "+T("Der Kunde bekommt eine E-Mail."):"")+"</p>";
+      h+='<div class="row2"><button class="btn" data-st="angerufen">'+ic("check")+"<span>"+T("Angerufen")+'</span></button><button class="btn" data-st="nicht_erreicht"><span>'+T("Nicht erreicht")+"</span></button></div>";
+      if(c.length)h+='<p class="hint">'+esc(callsText(o))+" · "+T("zuletzt {d}",{d:deShort(c[c.length-1].t)})+"</p>";
+      h+='<button class="btn primary big" id="pickBtn">'+T("Kunde hat abgeholt")+"</button>";
+    }else if(!stuck){
+      h+='<p class="muted">'+T("Sobald die Reparatur wieder im Laden ist, kannst du hier den Kunden anrufen und die Abholung bestätigen.")+"</p>";
+      if(o.phone)h+='<a class="btn" id="telBtn" href="tel:'+esc(String(o.phone).replace(/[^\d+]/g,""))+'">'+ic("phone")+"<span>"+esc(o.phone)+"</span></a>";
+    }
+    if(!stuck)h+='<button class="btn plain danger" id="probBtn">'+T("Problem melden")+"</button>";
+    h+="</div>";
+    h+='<div class="card stack"><b>'+T("Was wird gemacht?")+'</b><dl class="kv">'+(o.items||[]).map(function(it){return "<dt>"+esc(it.desc)+"</dt><dd>"+(it.price!==""&&it.price!=null?eur(it.price):"–")+"</dd>"}).join("")+
+      ((o.items||[]).length>1&&sum(o)?"<dt><b>"+T("Summe")+"</b></dt><dd><b>"+eur(sum(o))+"</b></dd>":"")+"</dl>"+
+      (o.notes?'<p class="hint">'+T("Notiz")+": "+esc(o.notes)+"</p>":"")+
+      '<dl class="kv">'+(o.email?"<dt>"+T("E-Mail")+"</dt><dd>"+esc(o.email)+"</dd>":"")+
+      (o.pickupStore&&o.pickupStore!==o.storeId?"<dt>"+T("Abholung in")+"</dt><dd>"+esc(storeName(o.pickupStore))+"</dd>":"")+
+      (o.createdBy?"<dt>"+T("Angenommen von")+"</dt><dd>"+esc(o.createdBy)+"</dd>":"")+"</dl>"+
+      (o.email?'<p class="hint">'+(o.mailOk==="wartet"?T("Bestätigung wird gerade gesendet"):o.mailOk?T("Bestätigung gesendet {d}",{d:deShort(o.mailOk)}):T("Bestätigung nicht gesendet"))+(o.mailReady==="wartet"?" · "+T("Abholbereit-Mail wird gerade gesendet"):o.mailReady?" · "+T("Abholbereit-Mail {d}",{d:deShort(o.mailReady)}):"")+"</p>":"")+"</div>";
+    h+='<div class="card stack" id="picsCard"></div>';
+    h+='<details class="card" id="dMore"'+(V.more?" open":"")+"><summary>"+T("Mehr")+'</summary><div class="stack" style="margin-top:14px">'+
+      (o.code?'<button class="btn" id="lblBtn">'+ic("printer")+"<span>"+T("QR-Aufkleber drucken")+"</span></button>":"")+
+      '<button class="btn" id="editBtn">'+T("Daten bearbeiten")+"</button>"+
+      '<div class="btnrow"><label class="f" style="flex:1;min-width:150px">'+T("Abholung in Filiale")+'<select id="dPickup">'+storeOpts(homeOf(o))+'</select></label><button class="btn" id="dPickupSave" style="align-self:end;flex:none">'+T("Ändern")+"</button></div>"+
+      (o.email&&ready?'<button class="btn" id="dResend">'+T("Abholbereit-Mail noch einmal senden")+"</button>":"")+
+      (canGiveBack(o)?'<button class="btn" id="backBtn2">'+T("Ohne Reparatur zurückgegeben")+"</button>":"")+
+      (D.fl&&o.status!=="vermisst"?'<button class="btn danger" id="lostBtn">'+T("Als vermisst melden")+"</button>":"")+
+      (D.gf?'<div class="btnrow"><label class="f" style="flex:1;min-width:150px">'+T("Status korrigieren (nur Geschäftsführung)")+'<select id="stFix">'+STFIX.map(function(k){return '<option value="'+k+'"'+(k===o.status?" selected":"")+">"+esc(T(STNAME[k]))+"</option>"}).join("")+'</select></label><button class="btn" id="stFixBtn" style="align-self:end;flex:none">'+T("Setzen")+"</button></div>"+
+        '<button class="btn danger plain" id="delBtn">'+T("Reparatur löschen (nur für Tests)")+"</button>":"")+"</div></details>";
+  }
+  h+='<details class="card" id="dHist"'+(V.histOpen?" open":"")+"><summary>"+T("Verlauf")+'</summary><div class="hist" style="margin-top:14px">'+(o.history||[]).slice().reverse().map(function(x){return "<div><span>"+esc(x.txt)+"</span><time>"+esc(de(x.t))+" · "+esc(x.by)+"</time></div>"}).join("")+"</div></details>";
+  $("dBody").innerHTML=h;
+  if($("dMore"))$("dMore").ontoggle=function(){V.more=this.open};
+  if($("dTrip"))$("dTrip").ontoggle=function(){V.tripOpen=this.open};
+  $("dBody").querySelectorAll("button[data-trip]").forEach(function(el){el.onclick=function(){var tb=(D.bags||[]).find(function(x){return x.id===el.dataset.trip});if(tb&&(D.boxes||[]).some(function(x){return x.id===tb.bagNo})){V.box=tb.bagNo;go("boxone")}}});
+  $("dHist").ontoggle=function(){V.histOpen=this.open};
+  $("dBody").querySelectorAll("[data-st]").forEach(function(b){b.onclick=function(){doStatus(o,b.dataset.st,"")}});
+  if($("pickBtn"))$("pickBtn").onclick=function(){askPickup(o,"abgeholt")};
+  if($("backBtn2"))$("backBtn2").onclick=function(){askPickup(o,"zurueckgegeben")};
+  if($("probBtn"))$("probBtn").onclick=function(){askNote(o,"problem")};
+  if($("solveBtn"))$("solveBtn").onclick=function(){var was=o.status;this.classList.add("loading");o.status=backTo(o);o.prev="";render();
+    call("resolve",o.id).then(function(){toast(T(was==="problem"?"Gespeichert: Problem geklärt.":"Gespeichert: wieder gefunden."))}).catch(noop)};
+  if($("lostBtn"))$("lostBtn").onclick=function(){askNote(o,"vermisst")};
+  if($("lblBtn"))$("lblBtn").onclick=function(){printLabel(o)};
+  if($("editBtn"))$("editBtn").onclick=function(){editForm(o);go("form")};
+  if($("dPickupSave"))$("dPickupSave").onclick=function(){var v=$("dPickup").value;o.pickupStore=v;render();call("setPickupStore",o.id,v).then(function(){toast(T("Gespeichert."))}).catch(noop)};
+  if($("dResend"))$("dResend").onclick=function(){var b=this;b.classList.add("loading");call("resendReady",o.id).then(function(){toast(T("E-Mail gesendet."))}).catch(function(){b.classList.remove("loading")})};
+  if($("stFixBtn"))$("stFixBtn").onclick=function(){var b=this;if(!arm(b,T("Wirklich ändern?")))return;doStatus(o,$("stFix").value,T("Korrektur"))};
+  if($("delBtn"))$("delBtn").onclick=function(){var b=this;if(!arm(b,T("Wirklich löschen?")))return;var id=o.id;V.rep=null;D.reps=D.reps.filter(function(x){return x.id!==id});go(V.back||"home");call("deleteRepair",id).catch(noop)};
+  renderPics();
+}
+var STNAME={neu:"Im Laden angenommen",im_bag:"In der Box – wartet auf Abholung",abgeholt_filiale:"Unterwegs nach Aalen",aalen:"In Aalen angekommen",aalen_fertig:"In Aalen fertig",zu_abdullah:"In der Box für Abdullah",abdullah:"Bei Abdullah",abdullah_ab:"Bei Abdullah abgeholt – unterwegs in den Laden",zu_filiale:"In der Box zurück in den Laden",fertig_filiale:"Fertig im Laden angekommen",nicht_rep:"Zurück im Laden – konnte nicht repariert werden",angerufen:"Angerufen",nicht_erreicht:"Nicht erreicht",problem:"Problem",vermisst:"Vermisst"};
+var STFIX=Object.keys(STNAME);
+/* Stand, der bei „Problem“ zählt, und wohin „geklärt“ zurückführt (der Server entscheidet endgültig) */
+function effStatus(o){return o.status==="problem"?(o.prev||""):o.status}
+function canGiveBack(o){var e=effStatus(o);return D.gf||READY.indexOf(e)>=0||e==="neu"||(e==="aalen"&&o.storeId===D.hub&&homeOf(o)===D.hub)}
+function backTo(o){var p=o.prev;return p&&STNAME[p]&&p!=="problem"&&p!=="vermisst"?p:(o.storeId===D.hub?"aalen":"neu")}
+function doStatus(o,s,note){
+  if(s==="angerufen"||s==="nicht_erreicht")o.calls=(o.calls||[]).concat([{t:nowStamp(),by:"",ok:s==="angerufen"?1:0,note:note||""}]);
+  if((s==="problem"||s==="vermisst")&&o.status!=="problem"&&o.status!=="vermisst"){o.prev=o.status;o.history=(o.history||[]).concat([{t:nowStamp(),by:"",txt:T(s==="problem"?"Problem":"Vermisst")+(note?" – "+note:"")}])}
+  o.status=s;render();
+  call("setStatus",o.id,s,note||"").then(function(){toast(T(s==="angerufen"?"Gespeichert: Kunde weiß Bescheid.":s==="nicht_erreicht"?"Gespeichert: nicht erreicht.":"Gespeichert."))}).catch(noop);
+}
+function askPickup(o,mode){var d=$("pickDlg");d.dataset.mode=mode;d.dataset.id=o.id;$("pkTitle").textContent=T(mode==="abgeholt"?"Kunde hat abgeholt?":"Ohne Reparatur zurückgegeben?");$("pkWho").textContent=T("Nr. {n}",{n:o.nr})+" · "+o.name;d.showModal()}
+$("pkCancel").onclick=function(){$("pickDlg").close()};
+$("pickForm").onsubmit=function(e){e.preventDefault();var d=$("pickDlg"),o=findRep(d.dataset.id),m=d.dataset.mode==="zurueckgegeben"?"zurueckgegeben":"abgeholt";d.close();if(!o)return;
+  o.status=m;o.pickupAt=nowStamp();o.phone="";o.email="";o.items=[];o.imageIds=[];o.calls=[];V.rep=null;go(V.back||"home");
+  call("pickup",o.id,{mode:m}).then(function(){toast(T("Abgeschlossen – die Daten wurden gelöscht."))}).catch(noop)};
+function askNote(o,st){var d=$("noteDlg");d.dataset.st=st;d.dataset.id=o.id;$("ntTitle").textContent=T(st==="vermisst"?"Als vermisst melden":"Problem melden");$("ntText").value="";d.showModal()}
+$("ntCancel").onclick=function(){$("noteDlg").close()};
+$("noteForm").onsubmit=function(e){e.preventDefault();var d=$("noteDlg"),o=findRep(d.dataset.id),t=$("ntText").value.trim();
+  if(!t){toast(T("Bitte kurz beschreiben, was los ist."),true);$("ntText").focus();return}d.close();if(o)doStatus(o,d.dataset.st,t)};
+function renderPics(){
+  var o=V.rep&&findRep(V.rep.id),box=$("picsCard");if(!o||!box)return;
+  var n=(o.imageIds||[]).length,room=(D.maxImages||8)-n,own=detailImgs.id===o.id?detailImgs.list:null;
+  var h="<b>"+T("Fotos")+"</b>",pvI=0;
+  if(!n)h+='<p class="hint">'+T("Noch keine Fotos.")+"</p>";
+  else if(!V.showPics)h+='<button class="btn" id="picsShow">'+T(n===1?"1 Foto ansehen":"{n} Fotos ansehen",{n:n})+"</button>";
+  else if(own===null)h+='<p class="hint">'+T("Fotos werden geladen …")+"</p>";
+  else h+='<div class="photos">'+own.map(function(x){return '<div class="photo"><img src="'+x.data+'" data-pv="'+(pvI++)+'" tabindex="0" role="button" alt="'+esc(T("Foto vergrößern"))+'"><button type="button" data-di="'+x.id+'" aria-label="'+esc(T("Foto entfernen"))+'">✕</button></div>'}).join("")+"</div>";
+  if(room>0)h+='<div><input type="file" id="dImgCam" class="vh" accept="image/*" capture="environment"><label class="btn small" for="dImgCam">'+ic("camera")+"<span>"+T("Foto hinzufügen")+"</span></label></div>";
+  box.innerHTML=h;
+  if(own&&own.length)bindPics(box,own.map(function(x){return x.data}));
+  if($("picsShow"))$("picsShow").onclick=function(){V.showPics=true;loadPics()};
+  box.querySelectorAll("[data-di]").forEach(function(b){b.onclick=function(){if(!arm(b,"?"))return;call("deleteImage",o.id,b.dataset.di).then(loadPics).catch(noop)}});
+  var el=$("dImgCam");if(el)el.onchange=function(){readPhotos(el.files,room,function(list){el.value="";if(!list.length)return;busy(1);
+    (function next(i){if(i>=list.length){busy(-1);V.showPics=true;refresh();loadPics();return}rawApi("addImage",[o.id,list[i],auth]).then(function(r){o.imageIds=(o.imageIds||[]).concat([r.fileId]);next(i+1)}).catch(function(e){toast(T(e.message),true);next(i+1)})})(0)})};
+}
+function tripEvents(b){return (b.events||[]).slice().reverse().map(function(e){var pl=String(e.place||"").replace(/ · GPS .*$/,"");
+  return "<div><span>"+esc(e.what)+"</span><time>"+esc(whenTxt(e.t))+" · "+esc(e.by)+(pl?" · "+esc(pl):"")+"</time></div>"}).join("")}
+/* ---------- Foto-Betrachter ---------- */
+var PV={list:[],i:0,x:0,y:0};
+function openPics(list,i){if(!list||!list.length)return;PV.list=list;PV.i=Math.max(0,Math.min(list.length-1,i||0));showPic();if(!$("picDlg").open)$("picDlg").showModal()}
+function showPic(){var n=PV.list.length,st=$("picStage");st.classList.remove("zoom");$("picImg").src=PV.list[PV.i];st.scrollTop=0;st.scrollLeft=0;
+  $("picCount").textContent=T("Foto {i} von {n}",{i:PV.i+1,n:n});$("picPrev").hidden=PV.i<=0;$("picNext").hidden=PV.i>=n-1}
+function stepPic(d){var j=PV.i+d;if(j<0||j>=PV.list.length)return;PV.i=j;showPic()}
+function bindPics(root,list){root.querySelectorAll("[data-pv]").forEach(function(im){var go=function(){openPics(list,+im.dataset.pv)};im.onclick=go;im.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}})}
+$("picClose").onclick=function(){$("picDlg").close()};
+$("picPrev").onclick=function(){stepPic(-1)};$("picNext").onclick=function(){stepPic(1)};
+$("picImg").onclick=function(e){e.stopPropagation();var st=$("picStage"),z=st.classList.toggle("zoom");
+  if(z){st.scrollLeft=Math.max(0,(st.scrollWidth-st.clientWidth)/2);st.scrollTop=Math.max(0,(st.scrollHeight-st.clientHeight)/2)}};
+$("picStage").onclick=function(){if(!this.classList.contains("zoom"))$("picDlg").close()};
+$("picStage").addEventListener("touchstart",function(e){var t=e.touches[0];PV.x=t.clientX;PV.y=t.clientY},{passive:true});
+$("picStage").addEventListener("touchend",function(e){if(this.classList.contains("zoom"))return;var t=e.changedTouches[0],dx=t.clientX-PV.x,dy=t.clientY-PV.y;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)stepPic(dx<0?1:-1)},{passive:true});
+$("picDlg").addEventListener("keydown",function(e){if(e.key==="ArrowLeft")stepPic(-1);else if(e.key==="ArrowRight")stepPic(1)});
+$("picDlg").addEventListener("close",function(){$("picImg").removeAttribute("src")});
+function loadPics(){var o=V.rep&&findRep(V.rep.id);if(!o)return;detailImgs={id:o.id,list:null};renderPics();
+  rawApi("getImages",[o.id,auth]).then(function(l){if(V.rep&&V.rep.id===o.id){detailImgs={id:o.id,list:l};renderPics()}}).catch(function(){detailImgs={id:o.id,list:[]};renderPics()})}
+$("dBack").onclick=function(){V.rep=null;go(V.back||"home")};
+
+/* ================= QR-Aufkleber ================= */
+function lblSize(){var w=+lsGet("r_lblw")||40,h=+lsGet("r_lblh")||50;return {w:Math.max(15,Math.min(110,w)),h:Math.max(15,Math.min(150,h))}}
+function qrSvg(text){var q=qrcode(0,"M");q.addData(text);q.make();return q.createSvgTag({cellSize:4,margin:16,scalable:true})}
+function printHtml(top,qr,bottom){
+  if(typeof qrcode!=="function"){toast(T("QR-Bibliothek nicht geladen – Internet prüfen."),true);return}
+  var z=lblSize(),side=Math.min(z.w-4,z.h-14);
+  /* Der Aufkleber wird in die Seite selbst gelegt und nur er wird gedruckt – das klappt auch am iPhone/iPad zuverlässig. */
+  var svg;try{svg=qrSvg(qr)}catch(e){toast(T("Drucken nicht möglich: {e}",{e:e.message}),true);return}
+  $("printPage").textContent="@page{size:"+z.w+"mm "+z.h+"mm;margin:0}";
+  $("printArea").innerHTML='<div style="width:'+z.w+'mm;height:'+z.h+'mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1mm;font-family:Arial,Helvetica,sans-serif;box-sizing:border-box;padding:2mm;color:#000;background:#fff;overflow:hidden">'+
+    '<div style="font-size:'+Math.max(3.2,Math.min(6,z.w/8)).toFixed(1)+'mm;font-weight:bold;letter-spacing:.3mm;white-space:nowrap">'+esc(top)+"</div>"+
+    '<div class="pq" style="width:'+side+'mm;height:'+side+'mm">'+svg+"</div>"+
+    '<div style="font-size:'+Math.max(2.3,Math.min(3.6,z.w/13)).toFixed(1)+'mm;white-space:nowrap">'+esc(bottom)+"</div></div>";
+  var g=$("printArea").querySelector("svg");if(g){g.style.width="100%";g.style.height="100%";g.style.display="block"}
+  setTimeout(function(){try{window.print()}catch(e){toast(T("Drucken nicht möglich: {e}",{e:e.message}),true)}},80);
+}
+function printLabel(o){if(!o||!o.code)return;printHtml(cityOf(o.storeId)+" · "+(o.creatorNo||""),"EDE:"+o.code,"Nr. "+o.nr+" · "+o.code)}
+function printBoxLabel(b){printHtml("BOX","EDEBOX:"+b.id,b.name)}
+
+/* ================= Scannen ================= */
+function isEde(x){return /^EDE:[A-Z2-9]{7}$/i.test(String(x||"").trim())}
+function codeOf(raw){return String(raw||"").trim().toUpperCase().replace(/^EDE:/,"")}
+function boxIdOf(raw){var m=/^EDEBOX:(.+)$/i.exec(String(raw||"").trim());return m?m[1].toUpperCase():""}
+var SC={mode:"reps",cb:null};
+function fits(raw){return SC.mode==="reps"?isEde(raw):SC.mode==="box"?!!boxIdOf(raw):(isEde(raw)||!!boxIdOf(raw))}
+/* mode: "reps" = viele Reparaturen (Liste), "box" = eine Box, "any" = eine Box oder eine Reparatur */
+function scanQr(mode,cb){SC={mode:mode,cb:cb};if(inGas()||!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia))scanPhoto();else openCam()}
+function nativeDet(){if(nativeDet.p)return nativeDet.p;
+  nativeDet.p=("BarcodeDetector" in window)?BarcodeDetector.getSupportedFormats().then(function(f){return f.indexOf("qr_code")>=0?new BarcodeDetector({formats:["qr_code"]}):null}).catch(function(){return null}):Promise.resolve(null);return nativeDet.p}
+function findAll(canvas,ctx,found,maxN){
+  for(var k=0;k<maxN;k++){var d=ctx.getImageData(0,0,canvas.width,canvas.height);
+    var code=jsQR(d.data,canvas.width,canvas.height,{inversionAttempts:"attemptBoth"});if(!code||!code.data)return;
+    found[code.data]=1;var L=code.location,pts=[L.topLeftCorner,L.topRightCorner,L.bottomRightCorner,L.bottomLeftCorner];
+    var cx=pts.reduce(function(a,p){return a+p.x},0)/4,cy=pts.reduce(function(a,p){return a+p.y},0)/4;
+    ctx.fillStyle="#fff";ctx.beginPath();pts.forEach(function(p,i){var x=cx+(p.x-cx)*1.25,y=cy+(p.y-cy)*1.25;if(i)ctx.lineTo(x,y);else ctx.moveTo(x,y)});ctx.closePath();ctx.fill()}}
+function decodeMulti(img){
+  var W=img.naturalWidth,H=img.naturalHeight,s=Math.min(1,2600/Math.max(W,H)),cw=Math.round(W*s),ch=Math.round(H*s),found={};
+  var full=document.createElement("canvas");full.width=cw;full.height=ch;var fx=full.getContext("2d",{willReadFrequently:true});fx.drawImage(img,0,0,cw,ch);
+  findAll(full,fx,found,40);
+  var T2=900,step=Math.round(T2*0.7),c=document.createElement("canvas"),x=c.getContext("2d",{willReadFrequently:true});
+  for(var ty=0;ty<ch;ty+=step)for(var tx=0;tx<cw;tx+=step){var w=Math.min(T2,cw-tx),h=Math.min(T2,ch-ty);if(w<120||h<120)continue;
+    c.width=w;c.height=h;x.drawImage(full,tx,ty,w,h,0,0,w,h);findAll(c,x,found,12)}
+  return Object.keys(found)}
+function scanPhoto(){if(typeof jsQR!=="function"&&!("BarcodeDetector" in window)){toast(T("QR-Bibliothek nicht geladen – Internet prüfen."),true);return}$("qrPhoto").click()}
+function scanDone(list){
+  var cb=SC.cb;if(!cb)return;
+  if(SC.mode==="reps"){cb(list);return}
+  if(list.length)cb(list[0]);else toast(T(SC.mode==="box"?"Kein Box-Aufkleber erkannt. Bitte näher herangehen oder die Box aus der Liste wählen.":"Kein QR-Code erkannt. Bitte näher herangehen."),true);
+}
+$("qrPhoto").onchange=function(){var f=this.files&&this.files[0];this.value="";if(!f||!SC.cb)return;busy(1);
+  var url=URL.createObjectURL(f),img=new Image();img.onload=function(){
+    nativeDet().then(function(d){return d?d.detect(img).then(function(l){return l.map(function(b){return b.rawValue})}).catch(function(){return []}):[]}).then(function(nat){
+      setTimeout(function(){var all={};nat.forEach(function(x){all[String(x).trim()]=1});
+        try{if(typeof jsQR==="function")decodeMulti(img).forEach(function(x){all[String(x).trim()]=1})}catch(e){}
+        URL.revokeObjectURL(url);busy(-1);
+        var keys=Object.keys(all),l=keys.filter(fits),fr=keys.length-l.length;
+        if(SC.mode==="reps"&&fr&&l.length)toast(T("{n} fremde ignoriert",{n:fr}));
+        scanDone(l)},30)})};
+  img.onerror=function(){busy(-1);toast(T("Foto konnte nicht geöffnet werden."),true)};img.src=url};
+
+/* Live-Kamera (GitHub-Version; in der Google-Version sperrt Google die Kamera, dort per Foto) */
+var CAM={s:null,list:[],seen:{},foreign:0,run:false,t:0,det:null,cv:null,cx:null,ac:null};
+function repByRaw(raw){var c=codeOf(raw);return (D.reps||[]).find(function(o){return o.code===c})}
+function renderCam(){var multi=SC.mode==="reps",n=CAM.list.length;
+  $("camTitle").textContent=T(SC.mode==="box"?"Box scannen":multi?"Reparaturen scannen":"QR-Code scannen");
+  $("camRes").hidden=!multi;$("camDone").hidden=!multi;
+  $("camDone").textContent=T(n?"Fertig – {n} übernehmen":"Fertig",{n:n});
+  $("camCount").textContent=T("{n} QR-Codes erkannt",{n:n});
+  $("camList").innerHTML=CAM.list.slice().reverse().map(function(r){var o=repByRaw(r);return '<span class="okl">✓ '+(o?esc(o.nr)+" · "+esc(o.name):esc(codeOf(r)))+"</span>"}).join("")+
+    (CAM.foreign?'<span class="hint">'+T("{n} fremde ignoriert",{n:CAM.foreign})+"</span>":"")}
+function beep(){try{if(navigator.vibrate)navigator.vibrate(40);var a=CAM.ac;if(!a)return;var o=a.createOscillator(),g=a.createGain();o.frequency.value=1250;g.gain.value=.08;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.09)}catch(e){}}
+function camAdd(raw){raw=String(raw||"").trim();if(!raw||CAM.seen[raw]||!CAM.run)return;CAM.seen[raw]=1;
+  if(!fits(raw)){
+    if(SC.mode==="box"&&isEde(raw))$("camMsg").textContent=T("Das ist der Aufkleber einer Reparatur. Bitte den Aufkleber der Box scannen.");
+    else if(!(SC.mode==="reps"&&boxIdOf(raw))){CAM.foreign++;renderCam()}
+    return}
+  beep();
+  if(SC.mode!=="reps"){closeCam();scanDone([raw]);return}
+  CAM.list.push(raw);renderCam()}
+function jsQRFrame(v){if(typeof jsQR!=="function")return;var s=Math.min(1,1280/Math.max(v.videoWidth,v.videoHeight)),w=Math.round(v.videoWidth*s),h=Math.round(v.videoHeight*s);
+  if(!CAM.cv){CAM.cv=document.createElement("canvas");CAM.cx=CAM.cv.getContext("2d",{willReadFrequently:true})}
+  CAM.cv.width=w;CAM.cv.height=h;CAM.cx.drawImage(v,0,0,w,h);var f={};findAll(CAM.cv,CAM.cx,f,6);Object.keys(f).forEach(camAdd)}
+function camLoop(){if(!CAM.run)return;var v=$("camVid");
+  if(v.readyState<2||!v.videoWidth){CAM.t=setTimeout(camLoop,150);return}
+  var p=CAM.det?CAM.det.detect(v).then(function(l){l.forEach(function(b){camAdd(b.rawValue)})}).catch(function(){CAM.det=null}):Promise.resolve().then(function(){jsQRFrame(v)});
+  p.then(function(){if(CAM.run)CAM.t=setTimeout(camLoop,CAM.det?100:40)},function(){if(CAM.run)CAM.t=setTimeout(camLoop,200)})}
+function stopCam(){CAM.run=false;clearTimeout(CAM.t);if(CAM.s){CAM.s.getTracks().forEach(function(t){t.stop()});CAM.s=null}var v=$("camVid");if(v)v.srcObject=null}
+function closeCam(){stopCam();if($("camDlg").open)$("camDlg").close()}
+function openCam(){CAM.list=[];CAM.seen={};CAM.foreign=0;renderCam();
+  try{if(!CAM.ac){var AC=window.AudioContext||window.webkitAudioContext;if(AC)CAM.ac=new AC()}if(CAM.ac&&CAM.ac.resume)CAM.ac.resume()}catch(e){}
+  $("camMsg").textContent=T("Kamera wird gestartet …");$("camDlg").showModal();
+  navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:"environment"},width:{ideal:1920},height:{ideal:1080}}}).then(function(st){
+    if(!$("camDlg").open){st.getTracks().forEach(function(t){t.stop()});return}
+    CAM.s=st;var v=$("camVid");v.srcObject=st;var pl=v.play();if(pl&&pl.catch)pl.catch(noop);
+    $("camMsg").textContent=T(SC.mode==="reps"?"Kamera langsam über die Aufkleber führen. Jeder erkannte Code piept einmal.":"Kamera auf den Aufkleber halten.");CAM.run=true;
+    nativeDet().then(function(d){CAM.det=d;camLoop()})
+  }).catch(function(e){$("camMsg").textContent=T("Kamera nicht verfügbar ({e}). Kamera im Browser erlauben oder „Foto stattdessen“ nutzen.",{e:(e&&e.name)||"?"})})}
+$("camDone").onclick=function(){var l=CAM.list.slice();closeCam();scanDone(l)};
+$("camPhoto").onclick=function(){closeCam();scanPhoto()};
+$("camCancel").onclick=function(){closeCam()};
+$("camDlg").addEventListener("close",stopCam);
+
+/* Standort: nur beim Vorgang selbst (Abholen, Abgeben, Ankommen). In der Google-Version ist GPS gesperrt – dann gilt der logische Ort. */
+var GPS={t:0,v:""};
+function gpsWarm(){if(inGas()||!navigator.geolocation)return;try{navigator.geolocation.getCurrentPosition(function(p){GPS={t:Date.now(),v:p.coords.latitude.toFixed(5)+","+p.coords.longitude.toFixed(5)}},noop,{enableHighAccuracy:true,timeout:10000,maximumAge:60000})}catch(e){}}
+function gps(){return Date.now()-GPS.t<240000?GPS.v:""}
+
+/* ================= Boxen ================= */
+var WHY={unknown:"unbekannter QR-Code",closed:"ist schon abgeschlossen",inbox:"liegt schon in {s}",inhub:"ist schon in {s}",stayhub:"bleibt in {s} (Abholung dort)",tr:"ist für die Türkei eingeteilt",work:"wird in {s} repariert – erst „Fertig“ drücken",undecided:"ist noch nicht eingeteilt (Geschäftsführung)",status:"kann gerade nicht eingepackt werden ({s})",other:"gehört nicht in diese Box – sie geht nach {s}",notin:"gehört NICHT in diese Box"};
+function tripOf(boxId){return (D.bags||[]).find(function(b){return b.bagNo===boxId&&OPENB.indexOf(b.status)>=0})||null}
+function bagById(id){return (D.bags||[]).find(function(b){return b.id===id})||null}
+function destName(b){return b.dest==="aalen"?storeName(D.hub):b.dest==="abdullah"?"Abdullah":b.dest==="tuerkei"?T("Türkei"):storeName(b.destStore)}
+function originName(b){return b.origin==="aalen"?storeName(D.hub):b.origin==="abdullah"?"Abdullah":storeName(String(b.origin).slice(6))}
+function boxState(b){
+  if(!b)return {t:T("Leer"),g:"done"};
+  if(b.status==="packen")return {t:T("Wird gepackt"),g:"here"};
+  if(b.status==="verschlossen")return {t:T("Fertig gepackt – wartet auf den Fahrer"),g:"wait"};
+  if(b.status==="unterwegs")return {t:T("Unterwegs nach {s}",{s:destName(b)}),g:"away"};
+  return {t:T("Wird ausgepackt"),g:"call"};
+}
+/* Braucht diese Box jetzt mich? (rote Zahl am Reiter „Boxen“) */
+function myTurn(b){
+  if(!b)return false;
+  if(b.status==="angekommen")return b.dest==="aalen"?D.gf:(D.gf||b.destStore===D.store);
+  if(b.status==="unterwegs")return b.dest==="aalen"?D.gf:(b.dest==="filiale"&&!D.gf&&b.destStore===D.store);
+  return false}
+function scanResHtml(r){if(!r)return "";var ok=r.ok||[],bad=r.bad||[];if(!ok.length&&!bad.length)return '<div class="scanres"><span class="bad">'+T("Kein QR-Code erkannt. Bitte näher herangehen und noch einmal scannen.")+"</span></div>";
+  return '<div class="scanres">'+(ok.length?'<span class="big">'+T(ok.length===1?"1 Reparatur gescannt":"{n} Reparaturen gescannt",{n:ok.length})+"</span>":"")+
+    ok.map(function(x){return '<span class="okl">✓ '+esc(x.nr)+" · "+esc(x.name)+(x.again?" ("+T("war schon gescannt")+")":"")+"</span>"}).join("")+
+    bad.map(function(x){return '<span class="bad">✗ '+esc(x.nr||codeOf(x.code))+(x.name?" · "+esc(x.name):"")+" – "+esc(T(WHY[x.k]||x.why||"",{s:x.s}))+"</span>"}).join("")+"</div>"}
+function repLine(o){return '<span class="main"><span class="t1"><span class="nr">'+esc(o.nr)+"</span> · "+esc(o.name)+'</span><span class="t3">'+esc(storeName(o.storeId))+(o.pickupStore&&o.pickupStore!==o.storeId?" → "+esc(storeName(o.pickupStore)):"")+(o.result==="nicht"?" · "+T("nicht repariert"):"")+"</span></span>"}
+function renderBoxes(){
+  if(!(D.fl||D.gf)){go("home");return}
+  var l=(D.boxes||[]).map(function(x){var b=tripOf(x.id);return {x:x,b:b,r:myTurn(b)?0:(x.storeId&&x.storeId===D.store)?1:b?2:3}}).sort(function(a,b){return a.r-b.r});
+  $("boxList").innerHTML=l.map(function(e){var b=e.b,st=boxState(b),n=b?(b.repIds||[]).length:0;
+    return '<button class="item" data-box="'+esc(e.x.id)+'">'+ic("box")+'<span class="main"><span class="t1">'+esc(e.x.name)+'</span><span class="t2"><span class="loc g-'+st.g+'">'+esc(st.t)+"</span></span>"+
+      (b?'<span class="t3">'+esc(originName(b)+" → "+destName(b))+" · "+T(n===1?"1 Reparatur":"{n} Reparaturen",{n:n})+"</span>":"")+"</span>"+
+      (e.r===0?'<span class="chip g-prob">'+T("du bist dran")+"</span>":"")+ic("chev","chev")+"</button>"}).join("")||'<div class="empty">'+T("Noch keine Boxen.")+"</div>";
+  $("boxList").querySelectorAll("[data-box]").forEach(function(b){b.onclick=function(){openBox(b.dataset.box)}});
+}
+function openBox(id){id=String(id||"").toUpperCase();if(!(D.boxes||[]).some(function(x){return x.id===id})){toast(T("Diese Box kenne ich nicht. Bitte den Aufkleber der Box scannen."),true);return}
+  V.box=id;lastScan=null;V.boxHist=false;gpsWarm();go("boxone")}
+$("boxScan").onclick=function(){scanQr("box",function(raw){openBox(boxIdOf(raw))})};
+$("bxBack").onclick=function(){V.box=null;lastScan=null;go("box")};
+/* Was gehört noch in diese Box? */
+function waitingFor(b){
+  var R=D.reps.filter(function(o){if(closed(o)||(b.repIds||[]).indexOf(o.id)>=0)return false;if(o.bagId&&o.bagId!==b.id){var ob=bagById(o.bagId);if(ob&&OPENB.indexOf(ob.status)>=0)return false}return true});
+  if(String(b.origin).indexOf("store:")===0){var st=b.origin.slice(6);return R.filter(function(o){return o.storeId===st&&o.status==="neu"})}
+  if(b.origin==="aalen"&&b.dest==="abdullah")return R.filter(function(o){return o.status==="aalen"&&o.route==="abdullah"&&o.result!=="nicht"});
+  if(b.origin==="aalen"&&b.dest==="filiale")return R.filter(function(o){return (o.status==="aalen_fertig"||(o.status==="aalen"&&o.result==="nicht"))&&homeOf(o)===b.destStore});
+  if(b.origin==="abdullah")return R.filter(function(o){return o.status==="abdullah"&&homeOf(o)===b.destStore});
+  return []}
+/* Leere Box: was wartet gerade auf eine Box? */
+function suggestions(){
+  var free=D.reps.filter(function(o){if(closed(o))return false;if(o.bagId){var ob=bagById(o.bagId);if(ob&&OPENB.indexOf(ob.status)>=0)return false}return true}),out=[],by=function(l){var m={};l.forEach(function(o){var k=homeOf(o);m[k]=(m[k]||0)+1});return m};
+  D.stores.forEach(function(s){if(s.id===D.hub)return;var n=free.filter(function(o){return o.storeId===s.id&&o.status==="neu"}).length;if(n&&(D.gf||D.store===s.id||!D.store))out.push([T("Im Laden {s} → {h}",{s:s.name,h:storeName(D.hub)}),n])});
+  var a=free.filter(function(o){return o.status==="aalen"&&o.route==="abdullah"&&o.result!=="nicht"}).length;if(a)out.push([T("In {h} → Abdullah",{h:storeName(D.hub)}),a]);
+  var m=by(free.filter(function(o){return (o.status==="aalen_fertig"||(o.status==="aalen"&&o.result==="nicht"))&&homeOf(o)!==D.hub}));Object.keys(m).sort().forEach(function(k){out.push([T("In {h} → zurück nach {s}",{h:storeName(D.hub),s:storeName(k)}),m[k]])});
+  m=by(free.filter(function(o){return o.status==="abdullah"}));Object.keys(m).sort().forEach(function(k){out.push([T("Bei Abdullah → {s}",{s:storeName(k)}),m[k]])});
+  return out}
+function evHtml(b){return (b.events||[]).slice().reverse().map(function(e){var m=/^(.*?) · GPS (-?\d+\.\d+,-?\d+\.\d+)$/.exec(e.place||"");
+  return "<div><span>"+esc(e.what)+"</span><time>"+esc(de(e.t))+" · "+esc(e.by)+(e.place?" · "+esc(m?m[1]:e.place):"")+(m?' · <a href="https://maps.google.com/?q='+m[2]+'" target="_blank" rel="noopener">'+T("Karte")+"</a>":"")+"</time></div>"}).join("")}
+function renderBox(){
+  var box=(D.boxes||[]).find(function(x){return x.id===V.box});if(!box){go("box");return}
+  var b=tripOf(box.id),reps=b?(b.repIds||[]).map(findRep).filter(Boolean):[],st=boxState(b),n=reps.length,hub=storeName(D.hub),h;
+  h='<div class="card hero"><h1 class="name">'+esc(box.name)+'</h1><div class="locbig g-'+st.g+'"><span class="dot"></span><div><div class="lt">'+esc(st.t)+"</div>"+
+    (b?'<div class="ls">'+esc(originName(b)+" → "+destName(b))+" · "+T(n===1?"1 Reparatur":"{n} Reparaturen",{n:n})+"</div>":"")+"</div></div>";
+  if(b&&b.dest==="filiale"&&box.storeId&&box.storeId!==b.destStore&&(b.status==="packen"||b.status==="verschlossen"))h+='<div class="note warn">'+T("Achtung: Das ist die {a}, der Inhalt geht aber nach {s}. Wenn das so gewollt ist, einfach weitermachen.",{a:box.name,s:destName(b)})+"</div>";
+  var list=function(rows){return rows?'<div class="group inset">'+rows+"</div>":""};
+  if(!b){
+    h+='<button class="btn primary big" id="xPack">'+ic("qr")+"<span>"+T("Reparaturen hineinscannen")+'</span></button><p class="hint">'+T("Jede Reparatur scannen, die in diese Box kommt. Wohin die Box geht, erkennt die App an den Reparaturen.")+"</p>"+scanResHtml(lastScan)+"</div>";
+    var sg=suggestions();
+    if(sg.length)h+='<h2 class="sec">'+T("Das wartet auf eine Box")+'</h2><div class="group">'+sg.map(function(x){return '<div class="item"><span class="main"><span class="t2">'+esc(x[0])+'</span></span><span class="chip">'+x[1]+"</span></div>"}).join("")+"</div>";
+  }else if(b.status==="packen"){
+    var wait=waitingFor(b);
+    h+='<button class="btn tinted big" id="xPack">'+ic("qr")+"<span>"+T("Weitere hineinscannen")+"</span></button>"+scanResHtml(lastScan)+
+      '<button class="btn primary big" id="xSeal"'+(n?"":" disabled")+">"+T("Box ist fertig gepackt")+"</button></div>";
+    h+='<h2 class="sec">'+T("In der Box")+" · "+n+"</h2>"+list(reps.map(function(o){return '<div class="item">'+repLine(o)+'<button class="btn small danger plain" data-rm="'+o.id+'">'+T("Herausnehmen")+"</button></div>"}).join(""));
+    if(wait.length)h+='<h2 class="sec">'+T("Fehlt noch")+" · "+wait.length+'</h2><p class="hint" style="margin:0 4px">'+T("Diese Reparaturen gehören auch in diese Box. Aufkleber unlesbar? Dann hier von Hand hinzufügen.")+"</p>"+
+      list(wait.map(function(o){return '<div class="item">'+repLine(o)+'<button class="btn small" data-add="'+o.id+'">'+T("Hinzufügen")+"</button></div>"}).join(""));
+  }else if(b.status==="verschlossen"||b.status==="unterwegs"){
+    var canOpen=b.status==="verschlossen"||b.origin==="abdullah";
+    if(b.status==="verschlossen"){h+='<button class="btn primary big" id="xTake">'+T(String(b.origin).indexOf("store:")===0?"Ich hole die Box ab":"Ich nehme die Box mit")+"</button>";
+      if(b.dest==="abdullah")h+='<button class="btn" id="xDeliver">'+T("Schon bei Abdullah abgegeben")+"</button>";
+      else if(b.dest!=="aalen"||D.gf)h+='<button class="btn" id="xArrive">'+T("Box ist schon in {s} – auspacken",{s:destName(b)})+"</button>";
+      h+='<p class="hint">'+T("Den oberen Knopf tippt der Fahrer, wenn er die Box mitnimmt.")+"</p>"}
+    else if(b.dest==="abdullah")h+='<button class="btn primary big" id="xDeliver">'+T("Bei Abdullah abgegeben")+"</button>";
+    else if(b.dest==="aalen"){if(D.gf)h+='<button class="btn primary big" id="xArrive">'+T("In {s} angekommen – auspacken",{s:hub})+"</button>";else h+='<div class="note info">'+T("In {s} packt die Geschäftsführung die Box aus.",{s:hub})+"</div>"}
+    else h+='<button class="btn primary big" id="xArrive">'+T("In {s} angekommen – auspacken",{s:destName(b)})+"</button>";
+    if(canOpen)h+='<button class="btn plain" id="xReopen">'+T("Etwas vergessen? Box wieder öffnen")+"</button>";
+    h+="</div>";
+    h+='<h2 class="sec">'+T("In der Box")+" · "+n+"</h2>"+list(reps.map(function(o){return '<div class="item">'+repLine(o)+"</div>"}).join(""));
+  }else{
+    var sc=b.scanned||[],done=reps.filter(function(o){return sc.indexOf(o.id)>=0}).length,miss=n-done;
+    h+='<button class="btn '+(miss?"primary":"tinted")+' big" id="xUnpack">'+ic("qr")+"<span>"+T("Reparaturen scannen")+"</span></button>"+scanResHtml(lastScan)+
+      '<button class="btn '+(miss?"":"primary ")+'big" id="xFinish">'+T(!miss?"Auspacken fertig":miss===1?"Auspacken beenden (1 fehlt)":"Auspacken beenden ({n} fehlen)",{n:miss})+"</button></div>";
+    h+='<h2 class="sec">'+T("{a} von {b} gescannt",{a:done,b:n})+"</h2>"+list(reps.map(function(o){var ok=sc.indexOf(o.id)>=0;return '<div class="item"><span class="mark'+(ok?" ok":"")+'">'+ic("check")+"</span>"+repLine(o)+(ok?"":'<button class="btn small" data-man="'+o.id+'">'+T("Ohne Scan")+"</button>")+"</div>"}).join(""));
+  }
+  if(b&&(b.events||[]).length)h+='<details class="card" id="bxHist"'+(V.boxHist?" open":"")+"><summary>"+T("Verlauf der Box")+'</summary><div class="hist" style="margin-top:14px">'+evHtml(b)+"</div></details>";
+  $("bxBody").innerHTML=h;
+  if($("bxHist"))$("bxHist").ontoggle=function(){V.boxHist=this.open};
+  var pack=function(codes){call("boxPack",box.id,codes,gps()).then(function(d){lastScan=d.res;if(V.view==="boxone")renderBox()}).catch(noop)};
+  var load=function(el){if(el)el.classList.add("loading")};
+  if($("xPack"))$("xPack").onclick=function(){scanQr("reps",function(l){if(!l.length){lastScan={ok:[],bad:[]};renderBox();return}pack(l)})};
+  $("bxBody").querySelectorAll("[data-add]").forEach(function(x){x.onclick=function(){var o=findRep(x.dataset.add);if(!o)return;if(!arm(x,T("Ohne Scan?")))return;load(x);pack([o.code])}});
+  $("bxBody").querySelectorAll("[data-rm]").forEach(function(x){x.onclick=function(){load(x);lastScan=null;call("bagRemove",b.id,x.dataset.rm).catch(noop)}});
+  if($("xSeal"))$("xSeal").onclick=function(){var x=this;if(!arm(x,T(n===1?"Ist es wirklich 1 Stück? Dann bestätigen.":"Sind es wirklich {n} Stück? Dann bestätigen.",{n:n})))return;load(x);lastScan=null;call("bagSeal",b.id,gps()).then(function(){toast(T("Fertig gepackt."))}).catch(noop)};
+  if($("xReopen"))$("xReopen").onclick=function(){load(this);call("bagReopen",b.id).catch(noop)};
+  if($("xTake"))$("xTake").onclick=function(){load(this);call("bagTake",b.id,gps()).then(function(){toast(T("Gespeichert: Box ist unterwegs nach {s}.",{s:destName(b)}))}).catch(noop)};
+  if($("xDeliver"))$("xDeliver").onclick=function(){var x=this;if(!arm(x,T("Wirklich bei Abdullah abgegeben?")))return;load(x);call("bagDeliver",b.id,gps()).then(function(){toast(T("Abgegeben. Die Box ist wieder frei."))}).catch(noop)};
+  if($("xArrive"))$("xArrive").onclick=function(){load(this);lastScan=null;call("bagArrive",b.id,gps()).catch(noop)};
+  if($("xUnpack"))$("xUnpack").onclick=function(){scanQr("reps",function(l){if(!l.length){lastScan={ok:[],bad:[]};renderBox();return}
+    call("bagUnpackScan",b.id,l).then(function(d){lastScan=d.res;if(V.view==="boxone")renderBox()}).catch(noop)})};
+  $("bxBody").querySelectorAll("[data-man]").forEach(function(x){x.onclick=function(){if(!arm(x,T("Liegt es wirklich da?")))return;load(x);lastScan=null;call("bagUnpackManual",b.id,x.dataset.man).catch(noop)}});
+  if($("xFinish"))$("xFinish").onclick=function(){var x=this,sc2=b.scanned||[],miss2=reps.filter(function(o){return sc2.indexOf(o.id)<0}).length;
+    if(miss2&&!arm(x,T(miss2===1?"1 fehlt – als vermisst melden?":"{n} fehlen – als vermisst melden?",{n:miss2})))return;load(x);
+    call("bagFinish",b.id).then(function(d){lastScan=null;V.box=null;go("box");toast(d.missing?T("Ausgepackt – {n} als vermisst gemeldet!",{n:d.missing}):T("Alles ausgepackt. Die Box ist wieder frei."),!!d.missing)}).catch(noop)};
+}
+
+/* ================= Einteilen (Geschäftsführung in Aalen) ================= */
+function sortRow(o,btns,chip){
+  return '<div class="sortrow"><button class="linklike" data-open="'+o.id+'"><span class="nr">'+esc(o.nr)+"</span> · "+esc(o.name)+"</button>"+(chip||"")+
+    '<div class="t3">'+esc(storeName(o.storeId))+(o.pickupStore&&o.pickupStore!==o.storeId?" → "+esc(storeName(o.pickupStore)):"")+" · "+esc((o.items||[]).map(function(i){return i.desc}).join(", "))+"</div>"+
+    (btns.length?'<div class="dec">'+btns.map(function(b){return '<button class="btn '+(b[2]||"")+'" data-dec="'+b[0]+'" data-id="'+o.id+'">'+esc(T(b[1]))+"</button>"}).join("")+"</div>":"")+"</div>"}
+function renderSort(){
+  if(!D.gf){go("home");return}
+  var hub=storeName(D.hub),R=D.reps.filter(function(o){return !closed(o)}),inA=R.filter(function(o){return o.status==="aalen"||o.status==="aalen_fertig"}),h="";
+  var sec=function(title,list,btns,hint,chip){if(!list.length)return "";return '<h2 class="sec">'+esc(title)+" · "+list.length+"</h2>"+(hint?'<p class="hint" style="margin:0 4px">'+esc(hint)+"</p>":"")+'<div class="group">'+list.map(function(o){return sortRow(o,btns,chip?chip(o):"")}).join("")+"</div>"};
+  var fresh=inA.filter(function(o){return o.status==="aalen"&&!o.route&&!o.result});
+  h+=fresh.length?sec(T("Neu in {s} – wohin?",{s:hub}),fresh,[["bleibt","Hier reparieren","tinted"],["abdullah","Abdullah","tinted"],["tuerkei","Türkei","tinted"],["nicht","Zurück (nicht reparierbar)","danger"]]):
+    '<div class="group"><div class="empty">'+T("Alles eingeteilt. Neue Reparaturen erscheinen hier, sobald du eine Box ausgepackt hast.")+"</div></div>";
+  var undo=["offen","Ändern","plain"];
+  h+=sec(T("Wird in {s} repariert",{s:hub}),inA.filter(function(o){return o.status==="aalen"&&o.route==="aalen"&&!o.result}),[["fertig","Fertig","green"],["nicht","Nicht reparierbar","danger"],undo]);
+  h+=sec(T("In der Türkei"),inA.filter(function(o){return o.status==="aalen"&&o.route==="tuerkei"&&!o.result}),[["fertig","Zurück und fertig","green"],["nicht","Nicht reparierbar","danger"],undo]);
+  h+=sec(T("Wartet auf die Box zu Abdullah"),inA.filter(function(o){return o.status==="aalen"&&o.route==="abdullah"&&!o.result&&!o.bagId}),[undo],T("Unter „Boxen“ eine Box scannen und diese Reparaturen hineinscannen."));
+  h+=sec(T("Wartet auf die Box zurück in den Laden"),inA.filter(function(o){return !o.bagId&&(o.status==="aalen_fertig"||o.result==="nicht")}),[undo],T("Pro Laden eine Box. Die App prüft, dass nichts in die falsche Box kommt."),
+    function(o){return ' <span class="chip g-'+(o.result==="nicht"?"prob":"call")+'">'+esc(storeName(homeOf(o)))+" · "+T(o.result==="nicht"?"nicht repariert":"fertig")+"</span>"});
+  h+=sec(T("Bei Abdullah"),R.filter(function(o){return o.status==="abdullah"||o.status==="zu_abdullah"}),[]);
+  $("sortBody").innerHTML=h;
+  $("sortBody").querySelectorAll("[data-dec]").forEach(function(b){b.onclick=function(){setRoute(b.dataset.id,b.dataset.dec)}});
+  $("sortBody").querySelectorAll("[data-open]").forEach(function(a){a.onclick=function(){openDetail(a.dataset.open,"sort")}});
+}
+/* Sofort anzeigen, dann speichern */
+function setRoute(id,dec){var o=findRep(id);if(!o)return;var here=homeOf(o)===D.hub;
+  if(dec==="bleibt"){o.route="aalen";o.result="";o.status="aalen"}
+  else if(dec==="abdullah"){o.route="abdullah";o.result="";o.status="aalen"}
+  else if(dec==="tuerkei"){o.route="tuerkei";o.result="";o.status="aalen";o.smithAt=nowStamp()}
+  else if(dec==="fertig"){o.result="fertig";o.route=here?"":"filiale";o.status=here?"fertig_filiale":"aalen_fertig"}
+  else if(dec==="nicht"){o.result="nicht";o.route=here?"":"filiale";o.status=here?"nicht_rep":"aalen"}
+  else{o.result="";o.route="";o.status="aalen"}
+  render();call("decide",id,dec).catch(noop)}
+$("looseBtn").onclick=function(){scanQr("reps",function(l){if(!l.length){$("looseRes").innerHTML=scanResHtml({ok:[],bad:[]});return}
+  call("receiveInAalen",l).then(function(d){$("looseRes").innerHTML=scanResHtml(d.res)}).catch(noop)})};
+
+/* ================= Werbe-E-Mails ================= */
+function renderMkt(){
+  if(!D.gf||!D.marketing){if(!D.gf)go("home");return}var m=D.marketing;
+  $("mktKpis").innerHTML="<div><b>"+m.confirmed.length+'</b><span class="hint">'+T("bestätigt")+"</span></div><div><b>"+m.pending+'</b><span class="hint">'+T("warten auf Bestätigung")+"</span></div>";
+  $("mktTbl").innerHTML="<tr><th>"+T("E-Mail")+"</th><th>"+T("Name")+"</th><th>"+T("Laden")+"</th><th>"+T("Bestätigt")+"</th><th></th></tr>"+m.confirmed.map(function(x){return "<tr><td>"+esc(x.email)+"</td><td>"+esc(x.name)+"</td><td>"+esc(storeName(x.storeId))+"</td><td>"+esc(de(x.confirmed))+'</td><td><button class="btn small danger plain" data-rm="'+x.id+'">'+T("Entfernen")+"</button></td></tr>"}).join("");
+  $("mktTbl").querySelectorAll("[data-rm]").forEach(function(b){b.onclick=function(){if(!arm(b,T("Wirklich?")))return;call("removeContact",b.dataset.rm).catch(noop)}});
+  $("quotaHint").textContent=D.quota>=0?T("Heute noch etwa {n} E-Mails möglich (Google-Tageslimit).",{n:D.quota}):"";
+  $("cTpl").innerHTML=CAMP_TPL.map(function(t){return '<option value="'+t.id+'">'+esc(T(t.n))+"</option>"}).join("");
+}
+$("mktCsv").onclick=function(){if(!D.marketing)return;var rows=[["E-Mail","Name","Laden","Bestätigt"]].concat(D.marketing.confirmed.map(function(x){return [x.email,x.name,storeName(x.storeId),x.confirmed]}));
+  var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"'}).join(";")}).join("\r\n");
+  var a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["﻿"+csv],{type:"text/csv"}));a.download="Werbeliste.csv";document.body.appendChild(a);a.click();a.remove()};
+/* Fertige Vorlagen – {name} wird beim Senden durch den Kundennamen ersetzt */
+var CAMP_TPL=[
+ {id:"",n:"– Vorlage wählen –"},
+ {id:"neu",n:"Neue Kollektion",subj:"Neu bei EDE Juwelier: unsere neue Kollektion",text:"Hallo {name},\n\nfrisch eingetroffen: Unsere neue Schmuckkollektion ist ab sofort in allen EDE-Filialen zu sehen – zeitlose Klassiker und moderne Stücke in Gold und Silber.\n\nKommen Sie vorbei, schauen Sie sich in Ruhe um und lassen Sie sich von unserem Team beraten. Wir freuen uns auf Ihren Besuch!",
+  subjTr:"EDE Juwelier'de yeni koleksiyonumuz",textTr:"Merhaba {name},\n\nYeni takı koleksiyonumuz tüm EDE şubelerinde sizi bekliyor – altın ve gümüşte zamansız klasikler ve modern parçalar.\n\nBizi ziyaret edin, rahatça bakın ve ekibimizden danışmanlık alın. Sizi görmekten mutluluk duyarız!"},
+ {id:"aktion",n:"Aktion / Rabatt",subj:"Nur für kurze Zeit: Aktion bei EDE Juwelier",text:"Hallo {name},\n\nnur für kurze Zeit erhalten Sie in allen EDE-Filialen ausgewählte Schmuckstücke zu besonderen Preisen.\n\nDie Aktion gilt solange der Vorrat reicht. Wir freuen uns auf Ihren Besuch!",
+  subjTr:"Kısa süreliğine: EDE Juwelier'de kampanya",textTr:"Merhaba {name},\n\nKısa bir süre için tüm EDE şubelerinde seçili takılar özel fiyatlarla sizi bekliyor.\n\nKampanya stoklarla sınırlıdır. Sizi görmekten mutluluk duyarız!"},
+ {id:"weihnachten",n:"Weihnachten",subj:"Schöne Geschenkideen für Weihnachten",text:"Hallo {name},\n\nWeihnachten steht vor der Tür – und Schmuck ist ein Geschenk, das bleibt. In unseren Filialen finden Sie viele Geschenkideen für Ihre Liebsten, auf Wunsch schön verpackt.\n\nWir beraten Sie gern und wünschen Ihnen eine schöne Adventszeit!",
+  subjTr:"Yılbaşı için güzel hediye fikirleri",textTr:"Merhaba {name},\n\nYılbaşı yaklaşıyor – ve takı kalıcı bir hediyedir. Şubelerimizde sevdikleriniz için birçok hediye fikri bulabilirsiniz, isterseniz güzelce paketliyoruz.\n\nSize memnuniyetle yardımcı oluruz!"},
+ {id:"valentin",n:"Valentinstag",subj:"Zum Valentinstag: Schmuck mit Herz",text:"Hallo {name},\n\nam 14. Februar ist Valentinstag. Überraschen Sie Ihren Lieblingsmenschen mit einem Schmuckstück, das von Herzen kommt – Ketten, Ringe, Armbänder und mehr.\n\nGern gravieren wir auch Namen oder ein Datum. Wir freuen uns auf Sie!",
+  subjTr:"Sevgililer Günü'ne özel: Kalpten takılar",textTr:"Merhaba {name},\n\n14 Şubat Sevgililer Günü. Sevdiğiniz kişiyi kalpten gelen bir takıyla şaşırtın – kolyeler, yüzükler, bileklikler ve daha fazlası.\n\nİsterseniz isim veya tarih de kazıyoruz. Sizi bekliyoruz!"},
+ {id:"mutter",n:"Muttertag",subj:"Zum Muttertag: Danke sagen mit Schmuck",text:"Hallo {name},\n\nder Muttertag ist die schönste Gelegenheit, Danke zu sagen. Bei uns finden Sie liebevolle Geschenke für jede Mama – von zart bis besonders.\n\nKommen Sie vorbei, wir beraten Sie gern!",
+  subjTr:"Anneler Günü'ne özel: Takıyla teşekkür edin",textTr:"Merhaba {name},\n\nAnneler Günü teşekkür etmenin en güzel fırsatı. Bizde her anne için özenli hediyeler bulabilirsiniz.\n\nBizi ziyaret edin, size memnuniyetle yardımcı oluruz!"},
+ {id:"altgold",n:"Altgold-Ankauf",subj:"Altgold zu Geld machen – bei EDE Juwelier",text:"Hallo {name},\n\nhaben Sie alten oder kaputten Goldschmuck zu Hause? Wir kaufen Ihr Altgold zum aktuellen Tageskurs an – schnell, fair und transparent, direkt in unseren Filialen.\n\nBitte bringen Sie zum Ankauf Ihren Ausweis mit.",
+  subjTr:"Eski altınınızı paraya çevirin – EDE Juwelier'de",textTr:"Merhaba {name},\n\nEvde eski veya kırık altın takılarınız mı var? Eski altınınızı güncel günlük kurdan satın alıyoruz – hızlı, adil ve şeffaf, doğrudan şubelerimizde.\n\nSatış için lütfen kimliğinizi getirin."},
+ {id:"service",n:"Reinigung & Service",subj:"Lassen Sie Ihren Schmuck wieder glänzen",text:"Hallo {name},\n\nmit der Zeit verliert jeder Schmuck etwas Glanz. In unseren Filialen reinigen und prüfen wir Ihren Schmuck gern – und kümmern uns um Reparaturen wie Verschlüsse, Ösen oder Ringgrößen.\n\nWir freuen uns auf Ihren Besuch!",
+  subjTr:"Takılarınız yeniden parlasın",textTr:"Merhaba {name},\n\nZamanla her takı parlaklığını biraz kaybeder. Şubelerimizde takılarınızı temizliyor ve kontrol ediyoruz – kilit, halka veya yüzük ölçüsü gibi tamirleri de yapıyoruz.\n\nSizi bekliyoruz!"}
+];
+var campImgs=[];
+$("cTpl").onchange=function(){var t=CAMP_TPL.find(function(x){return x.id===$("cTpl").value});if(!t||!t.id)return;
+  $("cSubj").value=t.subj;$("cText").value=t.text;$("cSubjTr").value=t.subjTr||"";$("cTextTr").value=t.textTr||"";$("cTrBox").open=true;saveCampDraft()};
+function campData(){return {subj:$("cSubj").value,text:$("cText").value,subjTr:$("cSubjTr").value,textTr:$("cTextTr").value,images:campImgs.slice()}}
+function saveCampDraft(){try{localStorage.setItem("r_camp",JSON.stringify(campData()))}catch(e){}}
+function loadCampDraft(){try{var d=JSON.parse(localStorage.getItem("r_camp")||"null");if(!d)return;$("cSubj").value=d.subj||"";$("cText").value=d.text||"";$("cSubjTr").value=d.subjTr||"";$("cTextTr").value=d.textTr||"";campImgs=d.images||[]}catch(e){}}
+["cSubj","cText","cSubjTr","cTextTr"].forEach(function(id){$(id).addEventListener("input",saveCampDraft)});
+function renderCampImgs(){$("cImgs").innerHTML=campImgs.map(function(u,i){return '<div class="photo"><img src="'+u+'" alt=""><button type="button" data-ci="'+i+'" aria-label="'+esc(T("Foto entfernen"))+'">✕</button></div>'}).join("");
+  $("cImgs").querySelectorAll("[data-ci]").forEach(function(b){b.onclick=function(){campImgs.splice(Number(b.dataset.ci),1);renderCampImgs();saveCampDraft()}})}
+$("cImgPick").onchange=function(){var el=this,files=[].slice.call(el.files||[]),room=3-campImgs.length;
+  if(files.length>room)toast(T("Höchstens 3 Bilder pro E-Mail."),true);files=files.slice(0,Math.max(0,room));
+  (function next(i){if(i>=files.length){el.value="";renderCampImgs();saveCampDraft();return}shrink(files[i],1000,function(u){if(u)campImgs.push(u);next(i+1)},.8)})(0)};
+function previewHtml(tr){var d=campData(),subj=tr?d.subjTr:d.subj,text=(tr?d.textTr:d.text).replace(/\{name\}/g,tr?"Ayşe":"Frau Muster");
+  return '<div style="font-family:Arial,sans-serif;font-size:12px;color:#888;margin:16px 16px 10px">'+esc(T("Betreff"))+": <b>"+esc(subj)+'</b></div><div style="font-family:Arial,Helvetica,sans-serif;color:#1d1a14;max-width:560px;line-height:1.5;margin:0 16px 16px">'+
+  '<div style="font-family:Georgia,serif;font-size:22px;font-weight:bold;letter-spacing:2px;color:#5e4610;border-bottom:1px solid #e9dfc6;padding-bottom:8px;margin-bottom:14px">EDE JUWELIER</div>'+
+  d.images.map(function(u){return '<img src="'+u+'" style="display:block;max-width:100%;border-radius:8px;margin:0 0 14px">'}).join("")+
+  text.split(/\n\s*\n/).map(function(p){return '<p style="margin:0 0 12px;white-space:pre-line">'+esc(p)+"</p>"}).join("")+
+  '<p style="font-size:11px;color:#999;border-top:1px solid #eee;padding-top:8px">'+esc(T("Impressum und Abmeldelink werden hier automatisch angehängt."))+"</p></div>"}
+$("cPreview").onclick=function(){if(!$("cSubj").value.trim()||!$("cText").value.trim()){toast(T("Bitte zuerst eine Vorlage wählen oder Betreff und Text eintragen."),true);return}
+  var tr=$("cSubjTr").value.trim()&&$("cTextTr").value.trim();$("prevFrame").srcdoc='<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#fff">'+previewHtml(false)+(tr?"<hr>"+previewHtml(true):"")+"</body></html>";$("prevDlg").showModal()};
+$("prevClose").onclick=function(){$("prevDlg").close()};
+$("cTest").onclick=function(){var to=$("cTestTo").value.trim(),b=this;if(!validEmail(to)){toast(T("Bitte eine gültige E-Mail-Adresse für den Test eingeben."),true);$("cTestTo").focus();return}
+  lsSet("r_testto",to);b.classList.add("loading");call("sendCampaignTest",campData(),to).then(function(){b.classList.remove("loading");toast(T("Test gesendet an {e}. Bitte im Postfach prüfen.",{e:to}))}).catch(function(){b.classList.remove("loading")})};
+$("campForm").onsubmit=function(e){e.preventDefault();var b=$("cSend");if(b.classList.contains("loading"))return;if(!arm(b,T("An {n} Adressen senden?",{n:(D.marketing||{confirmed:[]}).confirmed.length})))return;
+  b.dataset.armed="";b.textContent=T("An alle senden");b.classList.add("loading");
+  call("sendCampaign",campData()).then(function(d){b.classList.remove("loading");toast(T("{s} gesendet, {l} offen (morgen erneut senden).",{s:d.campaign.sent,l:d.campaign.left}))}).catch(function(){b.classList.remove("loading")})};
+$("mktBack").onclick=function(){go("home")};
+
+/* ================= Einstellungen (Geschäftsführung) ================= */
+function renderSettings(){
+  if(!D.gf){go("home");return}
+  var act=document.activeElement;if(act&&act.closest&&act.closest("#setStores"))return;   // beim Tippen nichts überschreiben
+  $("setStores").innerHTML=D.stores.map(function(s){
+    return '<div class="setrow" data-sid="'+s.id+'"><b>'+esc(s.id)+'</b><input class="sN" value="'+esc(s.name)+'" maxlength="40" aria-label="'+esc(T("Name"))+'"><input class="sC" value="'+esc(s.city||"")+'" maxlength="4" style="text-transform:uppercase" aria-label="'+esc(T("Kürzel"))+'" placeholder="'+esc(T("Kürzel"))+'"><input class="sP" inputmode="numeric" maxlength="8" placeholder="'+esc(T(s.hasPin?"Laden-PIN gesetzt – neu eingeben":"noch keine Laden-PIN"))+'" aria-label="'+esc(T("Laden-PIN"))+'"><button class="btn small">'+T("Speichern")+"</button></div>"}).join("");
+  $("setStores").querySelectorAll(".setrow button").forEach(function(b){b.onclick=function(){var r=b.closest(".setrow"),pin=r.querySelector(".sP").value.trim();
+    if(pin&&!/^\d{4,8}$/.test(pin)){toast(T("Laden-PIN: 4–8 Ziffern."),true);return}b.classList.add("loading");if(document.activeElement)document.activeElement.blur();
+    call("saveStore",r.dataset.sid,{name:r.querySelector(".sN").value.trim(),city:r.querySelector(".sC").value.trim(),pin:pin}).then(function(){toast(T("Gespeichert."))}).catch(function(){b.classList.remove("loading")})}});
+  $("setBoxes").innerHTML=(D.boxes||[]).map(function(x){return '<div class="item"><span class="main"><span class="t1">'+esc(x.name)+'</span></span><button class="btn small" data-pb="'+esc(x.id)+'">'+T("Aufkleber drucken")+"</button>"+(x.storeId?"":'<button class="btn small danger plain" data-rb="'+esc(x.id)+'">'+T("Entfernen")+"</button>")+"</div>"}).join("");
+  $("setBoxes").querySelectorAll("[data-pb]").forEach(function(b){b.onclick=function(){var x=D.boxes.find(function(y){return y.id===b.dataset.pb});if(x)printBoxLabel(x)}});
+  $("setBoxes").querySelectorAll("[data-rb]").forEach(function(b){b.onclick=function(){if(!arm(b,T("Wirklich?")))return;call("removeBox",b.dataset.rb).catch(noop)}});
+  $("flHint").textContent=D.flFixed?T("Die Filialleiter-PIN steht fest in Code.gs (LEITER_PIN)."):(D.flSet?T("Filialleiter-PIN ist gesetzt."):T("Noch keine Filialleiter-PIN – Filialleiter können sich erst danach anmelden."));
+  $("flPinForm").querySelector("button").disabled=!!D.flFixed;
+  $("mailState").textContent=(D.mailOn?T("Kunden-E-Mails sind eingeschaltet."):T("Kunden-E-Mails sind ausgeschaltet (MAIL_ON in Code.gs)."))+(D.quota>=0?" "+T("Heute noch etwa {n} E-Mails möglich (Google-Tageslimit).",{n:D.quota}):"");
+}
+$("addStoreForm").onsubmit=function(e){e.preventDefault();var id=$("nsId").value.trim();if(/^\d$/.test(id))id="0"+id;
+  if(!/^\d{2}$/.test(id)){toast(T("Ladennummer: zwei Ziffern, z. B. 06."),true);return}
+  if(!$("nsName").value.trim()){toast(T("Bitte einen Namen angeben."),true);return}
+  call("addStore",id,$("nsName").value.trim(),"").then(function(){$("nsId").value="";$("nsName").value="";toast(T("Laden angelegt. Er hat automatisch eine Box."))}).catch(noop)};
+$("addBoxForm").onsubmit=function(e){e.preventDefault();var n=$("nbName").value.trim();if(!n){toast(T("Bitte einen Namen für die Box eingeben."),true);return}
+  call("addBox",n).then(function(){$("nbName").value="";toast(T("Box angelegt. Jetzt den Aufkleber drucken."))}).catch(noop)};
+$("flPinForm").onsubmit=function(e){e.preventDefault();call("changeLeiterPin",$("newFlPin").value).then(function(){$("newFlPin").value="";toast(T("Filialleiter-PIN gespeichert."))}).catch(noop)};
+$("gfPinForm").onsubmit=function(e){e.preventDefault();var a=$("newGfPin").value,b=$("newGfPin2").value;
+  if(a!==b){toast(T("Die beiden PINs stimmen nicht überein."),true);return}
+  if(a.length<6){toast(T("Die neue PIN braucht mindestens 6 Zeichen."),true);return}
+  busy(1);rawApi("changeAdminPin",[a,auth]).then(function(d){busy(-1);auth.pin=a;$("newGfPin").value="";$("newGfPin2").value="";setData(d);toast(T("PIN geändert."))}).catch(function(e){busy(-1);toast(T(e.message),true)})};
+$("setBack").onclick=function(){go("home")};
+
+/* ================= Konto / Gerät ================= */
+$("acctBtn").onclick=function(){
+  $("acctWho").textContent=D.gf?T("Geschäftsführung")+" · "+(auth.name||""):storeName(D.store)+" · "+(D.fl?T("Filialleiter"):T("Mitarbeiter"))+" "+(auth.name||"");
+  $("acctGf").hidden=!D.gf;$("lblW").value=lblSize().w;$("lblH").value=lblSize().h;$("acctDlg").showModal()};
+$("acctClose").onclick=function(){$("acctDlg").close()};
+/* Darstellung: automatisch / hell / dunkel (nur dieses Gerät) */
+function themeNow(){var t=lsGet("r_theme");return t==="light"||t==="dark"?t:"auto"}
+function applyTheme(t){t=t==="light"||t==="dark"?t:"auto";var r=document.documentElement;if(t==="auto")r.removeAttribute("data-theme");else r.setAttribute("data-theme",t);
+  var dark=t==="dark"||(t==="auto"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches),m=$("themeColor");if(m)m.setAttribute("content",dark?"#161618":"#F9F9FB");
+  document.querySelectorAll("#themeSeg [data-th]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.th===t))})}
+document.querySelectorAll("#themeSeg [data-th]").forEach(function(b){b.onclick=function(){lsSet("r_theme",b.dataset.th);applyTheme(b.dataset.th)}});
+try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){applyTheme(themeNow())})}catch(e){}
+applyTheme(themeNow());
+$("goSet").onclick=function(){$("acctDlg").close();go("settings")};
+$("goMkt").onclick=function(){$("acctDlg").close();go("mkt")};
+$("lblW").onchange=function(){lsSet("r_lblw",this.value)};$("lblH").onchange=function(){lsSet("r_lblh",this.value)};
+$("lblTest").onclick=function(){printHtml("AA · 1042","EDE:TEST234","Nr. 12345 · TEST234")};
+$("logoutBtn").onclick=function(){logout("")};
+
+/* ================= Start ================= */
+/* Filialleiter und Geschäftsführung nach 20 Minuten ohne Bedienung abmelden (geteilte Geräte) */
+var lastAct=Date.now();["click","keydown","touchstart"].forEach(function(ev){document.addEventListener(ev,function(){lastAct=Date.now()},true)});
+setInterval(function(){if((D.fl||D.gf)&&Date.now()-lastAct>20*60000)logout(T("Aus Sicherheitsgründen abgemeldet (20 Minuten keine Bedienung)."))},30000);
+function quiet(){return !document.hidden&&!document.querySelector("dialog[open]")&&!!D.role&&["form","settings","mkt","login","load"].indexOf(V.view)<0}
+setInterval(function(){if(quiet())refresh()},60000);
+document.addEventListener("visibilitychange",function(){if(quiet())refresh()});
+function start(){
+  $("loadMsg").textContent=T("Lädt …");$("loadRetry").hidden=true;
+  rawApi("getData",[auth]).then(setData).catch(function(e){$("loadMsg").textContent=T(e.message);$("loadRetry").hidden=false});
+}
+$("loadRetry").onclick=start;
+collectStatic();applyStatic();loadCampDraft();renderCampImgs();$("cTestTo").value=lsGet("r_testto")||"";
+start();
+</script>
+</body>
+</html>
